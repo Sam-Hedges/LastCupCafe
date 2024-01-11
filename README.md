@@ -3,7 +3,6 @@
 
 Welcome to the RTSProject, a real-time strategy (RTS) game that explores the concept of the "Tragedy of the Commons." This project aims to challenge players to make strategic decisions to maximize their profits while responsibly managing shared resources to avoid depletion.
 
-### Proposed Concept: Tragedy of the Commons
 The Tragedy of the Commons is a well-known concept in sustainability that examines how shared resources can be depleted when individuals act solely in their own self-interest. This project takes inspiration from this concept and aims to create an engaging and thought-provoking game that simulates the challenges of resource management within a competitive environment.
 
 ## Relevant Links
@@ -45,7 +44,7 @@ The development of RTSProject is a collaborative effort by a dedicated team of i
 - [Team Member] - Artist 1
 - [Team Member] - Artist 2
 
-### Idea
+## Idea
 In RTSProject, players will immerse themselves in a fast-paced, high-pressure strategy game that confronts them with the dilemma of achieving the highest profit without completely depleting the shared resources. Key features of the game include: 
 - **Game Modes:** TBD
 - **Resource Scenarios:** TBD
@@ -53,7 +52,7 @@ In RTSProject, players will immerse themselves in a fast-paced, high-pressure st
 - **Multiple Levels:** TBD
 - **Difficulty:** TBD
 
-### Target Audience
+## Target Audience
 RTSProject is designed to cater to a broad audience, primarily targeting ages 13 and above. It is particularly suitable for older teenagers and young adults, offering an entertaining and educational experience. This game can also serve as a valuable tool for educators at the degree level to engage students in discussions about resource management and sustainability.
 
 ## Get Involved
