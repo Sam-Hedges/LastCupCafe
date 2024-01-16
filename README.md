@@ -38,11 +38,11 @@ The primary goals of the RTSProject are as follows:
 The development of RTSProject is a collaborative effort by a dedicated team of individuals committed to creating an exceptional gaming experience. We would like to acknowledge and credit the following team members for their contributions:
 - [Sam Hedges](https://sam-hedges.github.io/) - Project Maintainer & Lead Programmer
 - [Luca Pace](https://github.com/Misdur) - Gameplay Programmer
-- [Team Member] - Programmer 3
-- [Team Member] - Designer 1
-- [Team Member] - Designer 2
-- [Team Member] - Artist 1
-- [Team Member] - Artist 2
+- [Charlie Bycroft](https://github.com/soutpark02) - Programmer 3
+- [Adam Pointer]() - Designer 1
+- [Charlie Williams]() - Designer 2
+- [Callum Hillyard]() - Artist 1
+- [Milly Godfroy]() - Artist 2
 
 ## Idea
 In RTSProject, players will immerse themselves in a fast-paced, high-pressure strategy game that confronts them with the dilemma of achieving the highest profit without completely depleting the shared resources. Key features of the game include: 
