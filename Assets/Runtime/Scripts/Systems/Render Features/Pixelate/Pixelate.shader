@@ -1,4 +1,4 @@
-Shader "Hidden/Pixelize"
+Shader "Hidden/Pixelate"
 {
     Properties
     {
