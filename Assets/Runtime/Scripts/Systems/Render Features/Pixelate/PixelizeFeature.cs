@@ -1,26 +1,30 @@
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 
-public class PixelizeFeature : ScriptableRendererFeature
-{
-    [System.Serializable]
-    public class CustomPassSettings
-    {
-        public RenderPassEvent renderPassEvent = RenderPassEvent.BeforeRenderingPostProcessing;
-        public int screenHeight = 144;
-    }
-
-    [SerializeField] internal CustomPassSettings settings;
-    private PixelizePass customPass;
+public class PixelizeFeature : ScriptableRendererFeature {
+    
+    [SerializeField] internal PixelizeSettings settings;
+    [SerializeField] internal Shader shader;
+    private Material material;
+    private PixelizePass pixelizeRenderPass;
 
     public override void Create() {
-        customPass = new PixelizePass(settings);
+        if (shader == null) 
+            shader = Shader.Find("Hidden/Pixelate");    
+        
+        material = new Material(shader);
+        pixelizeRenderPass = new PixelizePass(settings);
     }
 
     public override void AddRenderPasses(ScriptableRenderer renderer, ref RenderingData renderingData) {
-#if UNITY_EDITOR
-        if (renderingData.cameraData.isSceneViewCamera) return;
-#endif
-        renderer.EnqueuePass(customPass);
+        
+        if (renderingData.cameraData.cameraType == CameraType.Game)
+            renderer.EnqueuePass(pixelizeRenderPass);
     }
+}
+
+[System.Serializable]
+public class PixelizeSettings {
+    public RenderPassEvent renderPassEvent = RenderPassEvent.BeforeRenderingPostProcessing;
+    public int screenHeight = 144;
 }

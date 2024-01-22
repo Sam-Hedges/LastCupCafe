@@ -1,68 +1,64 @@
-using System;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 
 public class PixelizePass : ScriptableRenderPass
 {
-    private PixelizeFeature.CustomPassSettings settings;
-    private static readonly int HalfBlockSize = Shader.PropertyToID("_HalfBlockSize");
-    private static readonly int BlockSize = Shader.PropertyToID("_BlockSize");
-    private static readonly int BlockCount = Shader.PropertyToID("_BlockCount");
+    private PixelizeSettings settings;
 
-    private RenderTargetIdentifier colourBuffer, pixelBuffer;
-    private RTHandle colourBufferHandle, pixelBufferHandle;
-    
+    private RenderTargetIdentifier colorBuffer, pixelBuffer;
     private int pixelBufferID = Shader.PropertyToID("_PixelBuffer");
 
     private Material material;
     private int pixelScreenHeight, pixelScreenWidth;
 
-    public PixelizePass(PixelizeFeature.CustomPassSettings settings) {
+    public PixelizePass(PixelizeSettings settings)
+    {
         this.settings = settings;
-        renderPassEvent = settings.renderPassEvent;
-        if (material == null) material = CoreUtils.CreateEngineMaterial("Hidden/Pixelate");
+        this.renderPassEvent = settings.renderPassEvent;
+        if (material == null) material = CoreUtils.CreateEngineMaterial("Hidden/Pixelize");
     }
-    
-    public override void OnCameraSetup(CommandBuffer cmd, ref RenderingData renderingData) {
-        colourBuffer = renderingData.cameraData.renderer.cameraColorTargetHandle;
+
+    public override void OnCameraSetup(CommandBuffer cmd, ref RenderingData renderingData)
+    {
+        colorBuffer = renderingData.cameraData.renderer.cameraColorTarget;
         RenderTextureDescriptor descriptor = renderingData.cameraData.cameraTargetDescriptor;
-        
+
+        //cmd.GetTemporaryRT(pointBufferID, descriptor.width, descriptor.height, 0, FilterMode.Point);
+        //pointBuffer = new RenderTargetIdentifier(pointBufferID);
+
         pixelScreenHeight = settings.screenHeight;
         pixelScreenWidth = (int)(pixelScreenHeight * renderingData.cameraData.camera.aspect + 0.5f);
-        
-        colourBufferHandle = RTHandles.Alloc(colourBuffer); 
-        pixelBufferHandle = RTHandles.Alloc(pixelScreenWidth, pixelScreenHeight, filterMode: FilterMode.Point);
 
-        material.SetVector(BlockCount, new Vector2(pixelScreenWidth, pixelScreenHeight));
-        material.SetVector(BlockSize, new Vector2(1.0f / pixelScreenWidth, 1.0f / pixelScreenHeight));
-        material.SetVector(HalfBlockSize, new Vector2(0.5f / pixelScreenWidth, 0.5f / pixelScreenHeight));
-        
+        material.SetVector("_BlockCount", new Vector2(pixelScreenWidth, pixelScreenHeight));
+        material.SetVector("_BlockSize", new Vector2(1.0f / pixelScreenWidth, 1.0f / pixelScreenHeight));
+        material.SetVector("_HalfBlockSize", new Vector2(0.5f / pixelScreenWidth, 0.5f / pixelScreenHeight));
+
         descriptor.height = pixelScreenHeight;
         descriptor.width = pixelScreenWidth;
-        
+
         cmd.GetTemporaryRT(pixelBufferID, descriptor, FilterMode.Point);
         pixelBuffer = new RenderTargetIdentifier(pixelBufferID);
     }
-    
-    public override void Execute(ScriptableRenderContext context, ref RenderingData renderingData) {
-        CommandBuffer cmd = CommandBufferPool.Get("Pixelize Pass");
 
-        // Set up and draw full-screen mesh
-        cmd.SetRenderTarget(pixelBufferHandle);
-        cmd.SetViewProjectionMatrices(Matrix4x4.identity, Matrix4x4.identity);
-        cmd.DrawMesh(RenderingUtils.fullscreenMesh, Matrix4x4.identity, material, 0, -1);
-        cmd.SetViewProjectionMatrices(renderingData.cameraData.camera.worldToCameraMatrix, renderingData.cameraData.camera.projectionMatrix);
+    public override void Execute(ScriptableRenderContext context, ref RenderingData renderingData)
+    {
+        CommandBuffer cmd = CommandBufferPool.Get();
+        using (new ProfilingScope(cmd, new ProfilingSampler("Pixelize Pass")))
+        {
+            Blit(cmd, colorBuffer, pixelBuffer, material);
+            Blit(cmd, pixelBuffer, colorBuffer);
+        }
 
         context.ExecuteCommandBuffer(cmd);
         CommandBufferPool.Release(cmd);
     }
-    
-    public override void OnCameraCleanup(CommandBuffer cmd) {
-        if (cmd == null) throw new ArgumentNullException(nameof(cmd));
 
-        // Release RTHandles
-        colourBufferHandle.Release();
-        pixelBufferHandle.Release();
+    public override void OnCameraCleanup(CommandBuffer cmd)
+    {
+        if (cmd == null) throw new System.ArgumentNullException("cmd");
+        cmd.ReleaseTemporaryRT(pixelBufferID);
+        //cmd.ReleaseTemporaryRT(pointBufferID);
     }
+
 }
