@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: LogicScriptableObjects
+  m_EditorClassIdentifier: 
+  m_GroupName: LogicScriptableObjects
+  m_Data:
+    m_SerializedData: []
+  m_GUID: 3a9247b5a66b8814f866c03e8ee49273
+  m_SerializeEntries:
+  - m_GUID: 3f4ac7d8c9ce7fc458ef19de6d17ad9a
+    m_Address: Assets/Runtime/Scriptable Objects/EventChannels
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6fc0cc43adbe7724ab99b163e4d75f03
+    m_Address: Assets/Runtime/Scriptable Objects/RuntimeAnchors
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 09545bae0a2074240b5dfc97574ad964
+    m_Address: Assets/Runtime/Scriptable Objects/UI
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 17b005a3bf1a9d645a2080a3c17abf29
+    m_Address: Assets/Runtime/Scriptable Objects/Input
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 54c7e0748d018c343a2006e40061e606, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: b96ee7864d21e2e42ae927951fb1189b, type: 2}
+    - {fileID: 11400000, guid: 91bddc83ce698f7408dda318e52253ca, type: 2}

@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af86db7cf0fbd3a40abe780522354b20, type: 3}
+  m_Name: SaveSystem
+  m_EditorClassIdentifier: 
+  _saveSettingsEvent: {fileID: 11400000, guid: 96f6f1d6832dffb459d56508d8290062, type: 2}
+  _loadLevel: {fileID: 11400000, guid: 173f9db63e651a94bbee65b61f1a612e, type: 2}
+  _currentSettings: {fileID: 11400000, guid: 538cd5019f04067458d3338099371779, type: 2}
+  saveFilename: save.eclipse
+  backupSaveFilename: save.eclipse.bak
+  saveData:
+    _levelId: 
+    _masterVolume: 1
+    _musicVolume: 1
+    _sfxVolume: 1
+    _resolutionsIndex: 12
+    _antiAliasingIndex: 3
+    _shadowDistance: 100
+    _isFullscreen: 1

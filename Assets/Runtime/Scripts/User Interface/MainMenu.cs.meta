@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+<<<<<<<< HEAD:ArcadeGame/Assets/Runtime/Scripts/Gameplay/Player/EPlayerState.cs.meta
+guid: ecd325b80def86340a84ed770258267e
+========
+guid: 5c3e09e0615b47e4ba51310f2dde9c34
+>>>>>>>> master:ArcadeGame/Assets/Runtime/Scripts/User Interface/MainMenu.cs.meta
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
