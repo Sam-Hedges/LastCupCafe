@@ -179,8 +179,8 @@ public class SceneLoader : MonoBehaviour
 		//Save loaded scenes (to be unloaded at next load request)
 		_currentlyLoadedScene = _sceneToLoad;
 
-		Scene s = obj.Result.Scene;
-		SceneManager.SetActiveScene(s);
+		Scene scene = obj.Result.Scene;
+		SceneManager.SetActiveScene(scene);
 		LightProbes.TetrahedralizeAsync();
 
 		_isLoading = false;

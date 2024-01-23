@@ -21,22 +21,18 @@ MonoBehaviour:
     m_Address: Assets/Runtime/Scriptable Objects/EventChannels
     m_ReadOnly: 0
     m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 6fc0cc43adbe7724ab99b163e4d75f03
     m_Address: Assets/Runtime/Scriptable Objects/RuntimeAnchors
     m_ReadOnly: 0
     m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 09545bae0a2074240b5dfc97574ad964
     m_Address: Assets/Runtime/Scriptable Objects/UI
     m_ReadOnly: 0
     m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 17b005a3bf1a9d645a2080a3c17abf29
+  - m_GUID: d971ed835a000dc4a979ed77f064ae84
     m_Address: Assets/Runtime/Scriptable Objects/Input
     m_ReadOnly: 0
     m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 54c7e0748d018c343a2006e40061e606, type: 2}
   m_SchemaSet:

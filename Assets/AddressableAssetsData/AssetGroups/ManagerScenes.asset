@@ -21,17 +21,14 @@ MonoBehaviour:
     m_Address: Assets/Runtime/Scenes/Managers/PersistentManagers.unity
     m_ReadOnly: 0
     m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: f44a3e3e496584d489c7199ea249d8cb
     m_Address: Assets/Runtime/Scenes/Managers/GameplayManagers.unity
     m_ReadOnly: 0
     m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 3b8703c6a5ead1b49a83049e0eda447b
+  - m_GUID: 4ab1497fd86501443a5d7c3a1083ec0e
     m_Address: Assets/Runtime/Scenes/Managers
     m_ReadOnly: 0
     m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 54c7e0748d018c343a2006e40061e606, type: 2}
   m_SchemaSet:

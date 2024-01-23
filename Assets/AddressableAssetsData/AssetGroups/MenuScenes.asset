@@ -17,7 +17,11 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: 7d5fd1c2de890794cb9c7ae622ebd5d1
   m_SerializeEntries:
-  - m_GUID: 01839676f2611014b8def05afd032269
+  - m_GUID: 3ac9b485f08bd2c478f45a56325e5081
+    m_Address: Assets/Runtime/Scenes/Menus/MainMenu.unity
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 50e6844e2c97c514db4cc7e1c02e2c55
     m_Address: Assets/Runtime/Scenes/Menus
     m_ReadOnly: 0
     m_SerializedLabels: []
