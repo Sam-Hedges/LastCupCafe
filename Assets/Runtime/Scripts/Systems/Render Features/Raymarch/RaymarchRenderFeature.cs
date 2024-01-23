@@ -21,6 +21,7 @@ public class RaymarchRenderFeature : ScriptableRendererFeature
     public override void AddRenderPasses(ScriptableRenderer renderer,
         ref RenderingData renderingData) { 
         
+        raymarchRenderPass.Setup(renderer);
         renderer.EnqueuePass(raymarchRenderPass);
     }
 }
