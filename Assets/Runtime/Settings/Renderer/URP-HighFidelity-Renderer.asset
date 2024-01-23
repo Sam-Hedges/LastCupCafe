@@ -1,22 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-2329894826316184728
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8f151b95cfec2d04a8b6cacdf8dc1df6, type: 3}
-  m_Name: PixelateFeature
-  m_EditorClassIdentifier: 
-  m_Active: 0
-  settings:
-    renderPassEvent: 550
-    screenHeight: 144
-  shader: {fileID: 4800000, guid: 7f1ef2d936e85b3469553b77a5541637, type: 3}
 --- !u!114 &-1878332245247344467
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -52,6 +35,22 @@ MonoBehaviour:
   - {fileID: 2800000, guid: 3302065f671a8450b82c9ddf07426f3a, type: 3}
   - {fileID: 2800000, guid: 56a77a3e8d64f47b6afe9e3c95cb57d5, type: 3}
   m_Shader: {fileID: 4800000, guid: 0849e84e3d62649e8882e9d6f056a017, type: 3}
+--- !u!114 &-1695119547588577465
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49bb4db22ab094d6fa65fe05d1163af9, type: 3}
+  m_Name: ComputeFeature
+  m_EditorClassIdentifier: 
+  m_Active: 1
+  settings:
+    passEvent: 550
+    computeAsset: {fileID: 11400000, guid: a07b15f9c2f154b5da54761ffc6f5f20, type: 2}
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -70,8 +69,8 @@ MonoBehaviour:
     hdrDebugViewPS: {fileID: 4800000, guid: 573620ae32aec764abd4d728906d2587, type: 3}
   m_RendererFeatures:
   - {fileID: -1878332245247344467}
-  - {fileID: -2329894826316184728}
-  m_RendererFeatureMap: adc0de57c6d2eee5684367f1ff8caadf
+  - {fileID: 8318176279175703742}
+  m_RendererFeatureMap: adc0de57c6d2eee5be2c591b41197073
   m_UseNativeRenderPass: 1
   postProcessData: {fileID: 11400000, guid: 41439944d30ece34e96484bdb6645b55, type: 2}
   xrSystemData: {fileID: 11400000, guid: 60e1133243b97e347b653163a8c01b64, type: 2}
@@ -114,3 +113,32 @@ MonoBehaviour:
   m_CopyDepthMode: 0
   m_AccurateGbufferNormals: 0
   m_IntermediateTextureMode: 1
+--- !u!114 &8318176279175703742
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cec66ec253ba6254b9fca4731bc001ab, type: 3}
+  m_Name: RaymarchRenderFeature
+  m_EditorClassIdentifier: 
+  m_Active: 1
+  settings:
+    raymarchingShader: {fileID: 0}
+    shapes: []
+    renderPassEvent: 300
+    sunLight: {fileID: 0}
+    maxDistance: 500
+    maxIterations: 512
+    useSoftShadows: 1
+    shadowPenumbra: 0
+    shadowIntensity: 0
+    shadowDistance: {x: 0.1, y: 20}
+    aoEnabled: 1
+    aoStepSize: 0
+    aoIterations: 0
+    aoIntensity: 0
+  shader: {fileID: 0}

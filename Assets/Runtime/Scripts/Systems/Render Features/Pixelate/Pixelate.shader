@@ -46,7 +46,6 @@ Shader "Hidden/Pixelate"
             uniform float2 _BlockSize;
             uniform float2 _HalfBlockSize;
 
-
             Varyings vert(Attributes IN)
             {
                 Varyings OUT;
