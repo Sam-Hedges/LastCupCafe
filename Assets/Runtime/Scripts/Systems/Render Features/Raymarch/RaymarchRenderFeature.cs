@@ -2,27 +2,26 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
+using UnityEngine.Serialization;
 
 public class RaymarchRenderFeature : ScriptableRendererFeature
 {
     [SerializeField] private RaymarchSettings settings;
-    [SerializeField] private ComputeShader shader;
     private RaymarchRenderPass raymarchRenderPass;
 
     public override void Create() {
-        if (shader == null) {
+        if (settings.shader == null) {
             return;
         }
         settings.shapes = new List<BaseShape>(FindObjectsOfType<BaseShape>());
-        raymarchRenderPass = new RaymarchRenderPass(shader, settings);
+        settings.sunLight = RenderSettings.sun;
+        raymarchRenderPass = new RaymarchRenderPass(settings);
     }
 
     public override void AddRenderPasses(ScriptableRenderer renderer,
-        ref RenderingData renderingData) {
+        ref RenderingData renderingData) { 
         
-        if (renderingData.cameraData.cameraType == CameraType.Game) {
-            renderer.EnqueuePass(raymarchRenderPass);
-        }
+        renderer.EnqueuePass(raymarchRenderPass);
     }
 }
 
@@ -30,7 +29,7 @@ public class RaymarchRenderFeature : ScriptableRendererFeature
 public class RaymarchSettings
 {
     [Header("General")]
-    public ComputeShader raymarchingShader;
+    public ComputeShader shader;
     public List<BaseShape> shapes;
     public RenderPassEvent renderPassEvent = RenderPassEvent.AfterRenderingOpaques;
     public Light sunLight;

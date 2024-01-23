@@ -12,13 +12,14 @@ public class RaymarchRenderPass : ScriptableRenderPass
 
     private RenderTextureDescriptor raymarchTextureDescriptor;
     private RTHandle raymarchTextureHandle;
+    private RTHandle cameraDepthTextureHandle;
 
     private RenderTexture renderTextureTarget;
     private List<ComputeBuffer> computeBuffers; // List of buffers to be disposed
 
-    public RaymarchRenderPass(ComputeShader shader, RaymarchSettings defaultSettings)
+    public RaymarchRenderPass(RaymarchSettings defaultSettings)
     {
-        this.shader = shader;
+        this.shader = defaultSettings.shader;
         this.defaultSettings = defaultSettings;
         this.renderPassEvent = defaultSettings.renderPassEvent;
 
@@ -38,13 +39,12 @@ public class RaymarchRenderPass : ScriptableRenderPass
 
         // Check if the descriptor has changed, and reallocate the RTHandle if necessary
         RenderingUtils.ReAllocateIfNeeded(ref raymarchTextureHandle, raymarchTextureDescriptor);
-        
-        
     }
     
     public override void OnCameraSetup(CommandBuffer cmd, ref RenderingData renderingData)
     {
         camera = renderingData.cameraData.camera;
+        cameraDepthTextureHandle = renderingData.cameraData.renderer.cameraDepthTargetHandle;
     }
 
     private void UpdateRaymarchSettings()
@@ -148,11 +148,11 @@ public class RaymarchRenderPass : ScriptableRenderPass
         LoadLight();
 
         // set the camera depth texture to the global shader variable
-        shader.SetTexture(0, "_CameraDepthTexture", Shader.GetGlobalTexture("_CameraDepthTexture"));
+        shader.SetTexture(0, "_CameraDepthTexture", cameraDepthTextureHandle);
         
         // set the source and destination textures for the raymarching shader
         shader.SetTexture(0, "Source", cameraTargetHandle);
-        shader.SetTexture(0, "Destination", renderTextureTarget);
+        shader.SetTexture(0, "Destination", raymarchTextureHandle);
 
         // set the size of the thread groups
         int numThreadsX = Mathf.CeilToInt(camera.pixelWidth / 8f);
@@ -162,7 +162,7 @@ public class RaymarchRenderPass : ScriptableRenderPass
         shader.Dispatch(0, numThreadsX, numThreadsY, 1);
 
         // copy the render texture to the destination
-        Blit(cmd, renderTextureTarget, cameraTargetHandle);
+        Blit(cmd, raymarchTextureHandle, cameraTargetHandle, null, 1);
 
         // dispose of the buffers
         foreach (var buffer in computeBuffers)
