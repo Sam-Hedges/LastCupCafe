@@ -44,7 +44,14 @@ public class RaymarchRenderPass : ScriptableRenderPass
     public override void OnCameraSetup(CommandBuffer cmd, ref RenderingData renderingData)
     {
         camera = renderingData.cameraData.camera;
-        cameraDepthTextureHandle = renderingData.cameraData.renderer.cameraDepthTargetHandle;
+        
+        // create a render texture to store the raymarched scene
+        RenderTexture rt = new RenderTexture(renderingData.cameraData.renderer.cameraDepthTargetHandle)
+        {
+            enableRandomWrite = true
+        };
+        rt.Create();
+        cameraDepthTextureHandle = RTHandles.Alloc(rt);
     }
 
     private void UpdateRaymarchSettings()

@@ -69,8 +69,8 @@ MonoBehaviour:
     hdrDebugViewPS: {fileID: 4800000, guid: 573620ae32aec764abd4d728906d2587, type: 3}
   m_RendererFeatures:
   - {fileID: -1878332245247344467}
-  - {fileID: 8318176279175703742}
-  m_RendererFeatureMap: adc0de57c6d2eee5be2c591b41197073
+  - {fileID: 8871772685056390764}
+  m_RendererFeatureMap: adc0de57c6d2eee56cb6cc9c40de1e7b
   m_UseNativeRenderPass: 1
   postProcessData: {fileID: 11400000, guid: 41439944d30ece34e96484bdb6645b55, type: 2}
   xrSystemData: {fileID: 11400000, guid: 60e1133243b97e347b653163a8c01b64, type: 2}
@@ -109,11 +109,11 @@ MonoBehaviour:
     zFailOperation: 0
   m_ShadowTransparentReceive: 1
   m_RenderingMode: 0
-  m_DepthPrimingMode: 1
+  m_DepthPrimingMode: 2
   m_CopyDepthMode: 0
   m_AccurateGbufferNormals: 0
   m_IntermediateTextureMode: 1
---- !u!114 &8318176279175703742
+--- !u!114 &8871772685056390764
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -127,18 +127,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Active: 1
   settings:
-    raymarchingShader: {fileID: 0}
-    shapes: []
+    shader: {fileID: 7200000, guid: a84ba435801d67f488ed8f7504b9454d, type: 3}
+    shapes:
+    - {fileID: 0}
     renderPassEvent: 300
     sunLight: {fileID: 0}
     maxDistance: 500
     maxIterations: 512
     useSoftShadows: 1
-    shadowPenumbra: 0
+    shadowPenumbra: 1
     shadowIntensity: 0
     shadowDistance: {x: 0.1, y: 20}
     aoEnabled: 1
-    aoStepSize: 0
-    aoIterations: 0
-    aoIntensity: 0
-  shader: {fileID: 0}
+    aoStepSize: 0.01
+    aoIterations: 4
+    aoIntensity: 0.326
