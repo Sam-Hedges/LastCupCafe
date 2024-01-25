@@ -6,9 +6,9 @@ Welcome to the RTSProject, a real-time strategy (RTS) game that explores the con
 The Tragedy of the Commons is a well-known concept in sustainability that examines how shared resources can be depleted when individuals act solely in their own self-interest. This project takes inspiration from this concept and aims to create an engaging and thought-provoking game that simulates the challenges of resource management within a competitive environment.
 
 ## Relevant Links
-- [Game Design Document]()
+- [Game Design Document](https://myaru-my.sharepoint.com/:w:/g/personal/ap1546_student_aru_ac_uk/EUdAqcx9_-dJjIKpyN7D0QkB8zrqu3Hxe1gixK5HoQ4fnQ?e=NDMBq3)
 - [Trello Board](https://trello.com/b/lCUDzgYS/rtsproject)
-- [Game Pitch Powerpoint]()
+- [Game Pitch Powerpoint](https://myaru-my.sharepoint.com/:p:/g/personal/ap1546_student_aru_ac_uk/EZwT5r4kdhJKvT6xblZi0xsBfTvyUS4c_V-Lq7tc-xPnHQ?e=NZVlxT)
 
 ## Project Goals
 The primary goals of the RTSProject are as follows: 
@@ -38,11 +38,12 @@ The primary goals of the RTSProject are as follows:
 The development of RTSProject is a collaborative effort by a dedicated team of individuals committed to creating an exceptional gaming experience. We would like to acknowledge and credit the following team members for their contributions:
 - [Sam Hedges](https://sam-hedges.github.io/) - Project Maintainer & Lead Programmer
 - [Luca Pace](https://github.com/Misdur) - Gameplay Programmer
-- [Charlie Bycroft](https://github.com/soutpark02) - Programmer 3
-- [Adam Pointer]() - Designer 1
-- [Charlie Williams]() - Designer 2
-- [Callum Hillyard]() - Artist 1
-- [Milly Godfroy]() - Artist 2
+- [Charlie Bycroft](https://github.com/soutpark02) - Gameplay Programmer
+- [Erik Dean](https://github.com/PTVoltz) - Gameplay Programmer
+- [Adam Pointer](https://github.com/AdamP0inter) - Mechanical Designer
+- [Charlie Williams](https://github.com/Chadanater) - Narrative Designer
+- [Callum Hillyard](https://github.com/akyo50) - Environment Artist
+- [Milly Godfroy](https://github.com/MillyGodfroy) - Prop & Character Artist
 
 ## Idea
 In RTSProject, players will immerse themselves in a fast-paced, high-pressure strategy game that confronts them with the dilemma of achieving the highest profit without completely depleting the shared resources. Key features of the game include: 
