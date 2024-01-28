@@ -9,7 +9,7 @@ using UnityEngine.UI;
 [AddComponentMenu("UI/MultiInputButton")]
 public class MultiInputButton : Button
 {
-	[ReadOnly] public bool IsSelected;
+	[ReadOnly] public bool isSelected;
 
 	private MenuSelectionHandler _menuSelectionHandler;
 
@@ -30,7 +30,7 @@ public class MultiInputButton : Button
 
 	public override void OnSelect(BaseEventData eventData)
 	{
-		IsSelected = true;
+		isSelected = true;
 		_menuSelectionHandler.UpdateSelection(gameObject);
 		base.OnSelect(eventData);
 	}

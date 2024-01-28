@@ -1,96 +1,90 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.Events;
+﻿using UnityEngine;
 
 public class UIManager : MonoBehaviour
 {
 	[Header("Scene UI")]
-	[SerializeField] private MenuSelectionHandler _selectionHandler = default;
-	[SerializeField] private GameObject _switchTabDisplay = default;
-	[SerializeField] private UIPause _pauseScreen = default;
-	[SerializeField] private UISettingsController _settingScreen = default;
+	[SerializeField] private MenuSelectionHandler selectionHandler = default;
+	[SerializeField] private GameObject switchTabDisplay = default;
+	[SerializeField] private UIPause pauseScreen = default;
+	[SerializeField] private UISettingsController settingScreen = default;
 
 	[Header("Gameplay")]
-	[SerializeField] private GameStateSO _gameStateManager = default;
-	[SerializeField] private MenuSO _mainMenu = default;
-	[SerializeField] private InputHandler _inputReader = default;
+	[SerializeField] private GameStateSO gameStateManager = default;
+	[SerializeField] private MenuSO mainMenu = default;
+	[SerializeField] private InputHandler inputReader = default;
 
 	[Header("Listening on")]
-	[SerializeField] private VoidEventChannelSO _onSceneReady = default;
+	[SerializeField] private VoidEventChannelSO onSceneReady = default;
 
 	[Header("Broadcasting on ")]
-	[SerializeField] private LoadEventChannelSO _loadMenuEvent = default;
-	[SerializeField] private VoidEventChannelSO _onInteractionEndedEvent = default;
-
-	bool isForCooking = false;
+	[SerializeField] private LoadEventChannelSO loadMenuEvent = default;
 
 	private void OnEnable()
 	{
-		_onSceneReady.OnEventRaised += ResetUI;
-		_inputReader.MenuPauseEvent += OpenUIPause; // subscription to open Pause UI event happens in OnEnabled, but the close Event is only subscribed to when the popup is open
+		onSceneReady.OnEventRaised += ResetUI;
+		inputReader.MenuPauseEvent += OpenUIPause; // subscription to open Pause UI event happens in OnEnabled, but the close Event is only subscribed to when the popup is open
 	}
 
 	private void OnDisable()
 	{
-		_onSceneReady.OnEventRaised -= ResetUI;
-		_inputReader.MenuPauseEvent -= OpenUIPause;
+		onSceneReady.OnEventRaised -= ResetUI;
+		inputReader.MenuPauseEvent -= OpenUIPause;
 	}
 
 	void ResetUI()
 	{
-		_pauseScreen.gameObject.SetActive(false);
-		_switchTabDisplay.SetActive(false);
+		pauseScreen.gameObject.SetActive(false);
+		switchTabDisplay.SetActive(false);
 
 		Time.timeScale = 1;
 	}
 
 	void OpenUIPause()
 	{
-		_inputReader.MenuPauseEvent -= OpenUIPause; // you can open UI pause menu again, if it's closed
+		inputReader.MenuPauseEvent -= OpenUIPause; // you can open UI pause menu again, if it's closed
 
 		Time.timeScale = 0; // Pause time
 
-		_pauseScreen.SettingsScreenOpened += OpenSettingScreen;//once the UI Pause popup is open, listen to open Settings 
-		_pauseScreen.BackToMainRequested += ShowBackToMenuConfirmationPopup;//once the UI Pause popup is open, listen to back to menu button
-		_pauseScreen.Resumed += CloseUIPause;//once the UI Pause popup is open, listen to unpause event
+		pauseScreen.SettingsScreenOpened += OpenSettingScreen;//once the UI Pause popup is open, listen to open Settings 
+		pauseScreen.BackToMainRequested += ShowBackToMenuConfirmationPopup;//once the UI Pause popup is open, listen to back to menu button
+		pauseScreen.Resumed += CloseUIPause;//once the UI Pause popup is open, listen to unpause event
 
-		_pauseScreen.gameObject.SetActive(true);
+		pauseScreen.gameObject.SetActive(true);
 
-		_inputReader.EnableMenuInput();
-		_gameStateManager.UpdateGameState(GameState.Pause);
+		inputReader.EnableMenuInput();
+		gameStateManager.UpdateGameState(GameState.Pause);
 	}
 
 	void CloseUIPause()
 	{
 		Time.timeScale = 1; // unpause time
 
-		_inputReader.MenuPauseEvent += OpenUIPause; // you can open UI pause menu again, if it's closed
+		inputReader.MenuPauseEvent += OpenUIPause; // you can open UI pause menu again, if it's closed
 
 		// once the popup is closed, you can't listen to the following events 
-		_pauseScreen.SettingsScreenOpened -= OpenSettingScreen;//once the UI Pause popup is open, listen to open Settings 
-		_pauseScreen.BackToMainRequested -= ShowBackToMenuConfirmationPopup;//once the UI Pause popup is open, listen to back to menu button
-		_pauseScreen.Resumed -= CloseUIPause;//once the UI Pause popup is open, listen to unpause event
+		pauseScreen.SettingsScreenOpened -= OpenSettingScreen;//once the UI Pause popup is open, listen to open Settings 
+		pauseScreen.BackToMainRequested -= ShowBackToMenuConfirmationPopup;//once the UI Pause popup is open, listen to back to menu button
+		pauseScreen.Resumed -= CloseUIPause;//once the UI Pause popup is open, listen to unpause event
 
-		_pauseScreen.gameObject.SetActive(false);
+		pauseScreen.gameObject.SetActive(false);
 
-		_gameStateManager.ResetToPreviousGameState();
+		gameStateManager.ResetToPreviousGameState();
 		
-		if (_gameStateManager.CurrentGameState == GameState.Gameplay)
+		if (gameStateManager.CurrentGameState == GameState.Gameplay)
 		{
-			_inputReader.EnableGameplayInput();
+			inputReader.EnableGameplayInput();
 		}
 
-		_selectionHandler.Unselect();
+		selectionHandler.Unselect();
 	}
 
 	void OpenSettingScreen()
 	{
-		_settingScreen.Closed += CloseSettingScreen; // sub to close setting event with event 
+		settingScreen.Closed += CloseSettingScreen; // sub to close setting event with event 
 
-		_pauseScreen.gameObject.SetActive(false); // Set pause screen to inactive
+		pauseScreen.gameObject.SetActive(false); // Set pause screen to inactive
 
-		_settingScreen.gameObject.SetActive(true);// set Setting screen to active 
+		settingScreen.gameObject.SetActive(true);// set Setting screen to active 
 
 		// time is still set to 0 and Input is still set to menuInput 
 	}
@@ -98,12 +92,12 @@ public class UIManager : MonoBehaviour
 	void CloseSettingScreen()
 	{
 		//unsub from close setting events 
-		_settingScreen.Closed -= CloseSettingScreen;
+		settingScreen.Closed -= CloseSettingScreen;
 
-		_selectionHandler.Unselect();
-		_pauseScreen.gameObject.SetActive(true); // Set pause screen to inactive
+		selectionHandler.Unselect();
+		pauseScreen.gameObject.SetActive(true); // Set pause screen to inactive
 
-		_settingScreen.gameObject.SetActive(false);
+		settingScreen.gameObject.SetActive(false);
 
 		// time is still set to 0 and Input is still set to menuInput 
 		//going out from setting screen gets us back to the pause screen
@@ -111,9 +105,9 @@ public class UIManager : MonoBehaviour
 
 	void ShowBackToMenuConfirmationPopup()
 	{
-		_pauseScreen.gameObject.SetActive(false); // Set pause screen to inactive
+		pauseScreen.gameObject.SetActive(false); // Set pause screen to inactive
 
-		_inputReader.EnableMenuInput();
+		inputReader.EnableMenuInput();
 	}
 
 	void BackToMainMenu(bool confirm)
@@ -123,14 +117,14 @@ public class UIManager : MonoBehaviour
 		if (confirm)
 		{
 			CloseUIPause();//close ui pause to unsub from all events 
-			_loadMenuEvent.RaiseEvent(_mainMenu); //load main menu
+			loadMenuEvent.RaiseEvent(mainMenu); //load main menu
 		}
 	}
 	
 	void HideBackToMenuConfirmationPopup()
 	{
-		_selectionHandler.Unselect();
-		_pauseScreen.gameObject.SetActive(true); // Set pause screen to inactive
+		selectionHandler.Unselect();
+		pauseScreen.gameObject.SetActive(true); // Set pause screen to inactive
 
 		// time is still set to 0 and Input is still set to menuInput 
 		//going out from confirmaiton popup screen gets us back to the pause screen

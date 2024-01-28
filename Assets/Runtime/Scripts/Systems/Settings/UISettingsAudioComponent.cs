@@ -5,24 +5,22 @@ using UnityEngine.UI;
 public class UISettingsAudioComponent : MonoBehaviour
 {
 	[Header("Sliders")]
-	[SerializeField] private Slider _musicVolumeSlider = default;
-	[SerializeField] private Slider _sfxVolumeSlider = default;
-	[SerializeField] private Slider _masterVolumeSlider = default;
+	[SerializeField] private Slider musicVolumeSlider = default;
+	[SerializeField] private Slider sfxVolumeSlider = default;
+	[SerializeField] private Slider masterVolumeSlider = default;
 	
 	[Header("Broadcasting")]
-	[SerializeField] private FloatEventChannelSO _masterVolumeEventChannel = default;
-	[SerializeField] private FloatEventChannelSO _sFXVolumeEventChannel = default;
-	[SerializeField] private FloatEventChannelSO _musicVolumeEventChannel = default;
-	private float _musicVolume { get; set; }
-	private float _sfxVolume { get; set; }
-	private float _masterVolume { get; set; }
-	private float _savedMusicVolume { get; set; }
-	private float _savedSfxVolume { get; set; }
-	private float _savedMasterVolume { get; set; }
+	[SerializeField] private FloatEventChannelSO masterVolumeEventChannel = default;
+	[SerializeField] private FloatEventChannelSO sFXVolumeEventChannel = default;
+	[SerializeField] private FloatEventChannelSO musicVolumeEventChannel = default;
+	private float MusicVolume { get; set; }
+	private float SfxVolume { get; set; }
+	private float MasterVolume { get; set; }
+	private float SavedMusicVolume { get; set; }
+	private float SavedSfxVolume { get; set; }
+	private float SavedMasterVolume { get; set; }
 
-	int _maxVolume = 10;
-
-	public event UnityAction<float, float, float> _save = delegate { };
+	public event UnityAction<float, float, float> Save = delegate { };
 	
 	private void OnDisable()
 	{
@@ -30,17 +28,17 @@ public class UISettingsAudioComponent : MonoBehaviour
 	}
 	public void Setup(float musicVolume, float sfxVolume, float masterVolume)
 	{
-		_masterVolume = masterVolume;
-		_musicVolume = musicVolume;
-		_sfxVolume = sfxVolume;
+		MasterVolume = masterVolume;
+		MusicVolume = musicVolume;
+		SfxVolume = sfxVolume;
 		
-		_masterVolumeSlider.value = _masterVolume * 10;
-		_musicVolumeSlider.value = _masterVolume * 10;
-		_sfxVolumeSlider.value = _sfxVolume * 10;
+		masterVolumeSlider.value = MasterVolume * 10;
+		musicVolumeSlider.value = MasterVolume * 10;
+		sfxVolumeSlider.value = SfxVolume * 10;
 		
-		_savedMasterVolume = _masterVolume;
-		_savedMusicVolume = _musicVolume;
-		_savedSfxVolume = _sfxVolume;
+		SavedMasterVolume = MasterVolume;
+		SavedMusicVolume = MusicVolume;
+		SavedSfxVolume = SfxVolume;
 
 		SetMusicVolume();
 		SetSfxVolume();
@@ -62,37 +60,37 @@ public class UISettingsAudioComponent : MonoBehaviour
 	
 	public void SetMusicVolumeField(Slider slider)
 	{
-		_musicVolume = ReturnSliderValue(slider) / 10;
+		MusicVolume = ReturnSliderValue(slider) / 10;
 		
 		SetMusicVolume();
 	}
 
 	public void SetSfxVolumeField(Slider slider)
 	{
-		_sfxVolume = ReturnSliderValue(slider) / 10;
+		SfxVolume = ReturnSliderValue(slider) / 10;
 		
 		SetSfxVolume();
 	}
 
 	public void SetMasterVolumeField(Slider slider)
 	{
-		_masterVolume = ReturnSliderValue(slider) / 10;
+		MasterVolume = ReturnSliderValue(slider) / 10;
 		
 		SetMasterVolume();
 	}
 	private void SetMusicVolume()
 	{
-		_musicVolumeEventChannel.RaiseEvent(_musicVolume);//raise event for volume change
+		musicVolumeEventChannel.RaiseEvent(MusicVolume);//raise event for volume change
 		SaveVolumes();
 	}
 	private void SetSfxVolume()
 	{
-		_sFXVolumeEventChannel.RaiseEvent(_sfxVolume); //raise event for volume change
+		sFXVolumeEventChannel.RaiseEvent(SfxVolume); //raise event for volume change
 		SaveVolumes();
 	}
 	private void SetMasterVolume()
 	{
-		_masterVolumeEventChannel.RaiseEvent(_masterVolume); //raise event for volume change
+		masterVolumeEventChannel.RaiseEvent(MasterVolume); //raise event for volume change
 		SaveVolumes();
 	}
 
@@ -102,11 +100,11 @@ public class UISettingsAudioComponent : MonoBehaviour
 	}
 	private void SaveVolumes()
 	{
-		_savedMasterVolume = _masterVolume;
-		_savedMusicVolume = _musicVolume;
-		_savedSfxVolume = _sfxVolume;
+		SavedMasterVolume = MasterVolume;
+		SavedMusicVolume = MusicVolume;
+		SavedSfxVolume = SfxVolume;
 		//save Audio
-		_save.Invoke(_musicVolume, _sfxVolume, _masterVolume);
+		Save.Invoke(MusicVolume, SfxVolume, MasterVolume);
 	}
 
 

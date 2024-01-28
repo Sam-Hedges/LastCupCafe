@@ -4,8 +4,8 @@ using UnityEngine.UI;
 
 public class UIMainMenu : MonoBehaviour
 {
-	[SerializeField] private Button _continueButton = default;
-	[SerializeField] private Button _NewGameButton = default;
+	[SerializeField] private Button continueButton = default;
+	[SerializeField] private Button newGameButton = default;
 
 	public UnityAction NewGameButtonAction;
 	public UnityAction ContinueButtonAction;
@@ -15,14 +15,14 @@ public class UIMainMenu : MonoBehaviour
 
 	public void SetMenuScreen(bool hasSaveData)
 	{
-		_continueButton.interactable = hasSaveData;
+		continueButton.interactable = hasSaveData;
 		if (hasSaveData)
 		{
-			_continueButton.Select();
+			continueButton.Select();
 		}
 		else
 		{
-			_NewGameButton.Select();
+			newGameButton.Select();
 		}
 	}
 

@@ -7,14 +7,14 @@ using UnityEngine.UI;
 [System.Serializable]
 public enum SettingFieldType
 {
-	Volume_SFx,
-	Volume_Music,
+	VolumeSFx,
+	VolumeMusic,
 	Resolution,
 	FullScreen,
 	ShadowDistance,
 	AntiAliasing,
 	ShadowQuality,
-	Volume_Master,
+	VolumeMaster,
 
 }
 [System.Serializable]
@@ -39,18 +39,17 @@ public enum SettingsType
 }
 public class UISettingsController : MonoBehaviour
 {
-	[SerializeField] private UISettingsGraphicsComponent _graphicsComponent;
-	[SerializeField] private UISettingsAudioComponent _audioComponent;
-	[SerializeField] private SettingsSO _currentSettings = default;
-	[SerializeField] private List<SettingsType> _settingTabsList = new List<SettingsType>();
+	[SerializeField] private UISettingsGraphicsComponent graphicsComponent;
+	[SerializeField] private UISettingsAudioComponent audioComponent;
+	[SerializeField] private SettingsSO currentSettings = default;
+	[SerializeField] private List<SettingsType> settingTabsList = new List<SettingsType>();
 	private SettingsType _selectedTab = SettingsType.Audio;
-	[SerializeField] private InputHandler _inputReader = default;
-	[SerializeField] private VoidEventChannelSO SaveSettingsEvent = default;
+	[SerializeField] private VoidEventChannelSO saveSettingsEvent = default;
 	public UnityAction Closed;
 	private void OnEnable()
 	{
-		_audioComponent._save += SaveAudioSettings;
-		_graphicsComponent._save += SaveGraphicsSettings;
+		audioComponent.Save += SaveAudioSettings;
+		graphicsComponent._save += SaveGraphicsSettings;
 
 		//_inputReader.MenuCloseEvent += CloseScreen;
 		//_inputReader.TabSwitched += SwitchTab;
@@ -63,8 +62,8 @@ public class UISettingsController : MonoBehaviour
 		//_inputReader.MenuCloseEvent -= CloseScreen;
 		//_inputReader.TabSwitched -= SwitchTab;
 
-		_audioComponent._save -= SaveAudioSettings;
-		_graphicsComponent._save -= SaveGraphicsSettings;
+		audioComponent.Save -= SaveAudioSettings;
+		graphicsComponent._save -= SaveGraphicsSettings;
 	}
 	public void CloseScreen()
 	{
@@ -79,17 +78,17 @@ public class UISettingsController : MonoBehaviour
 		switch (settingType)
 		{
 			case SettingsType.Graphics:
-				_graphicsComponent.Setup();
+				graphicsComponent.Setup();
 				break;
 			case SettingsType.Audio:
-				_audioComponent.Setup(_currentSettings.MusicVolume, _currentSettings.SfxVolume, _currentSettings.MasterVolume);
+				audioComponent.Setup(currentSettings.MusicVolume, currentSettings.SfxVolume, currentSettings.MasterVolume);
 				break;
 			default:
 				break;
 		}
 
-		_graphicsComponent.gameObject.SetActive((settingType == SettingsType.Graphics));
-		_audioComponent.gameObject.SetActive(settingType == SettingsType.Audio);
+		graphicsComponent.gameObject.SetActive((settingType == SettingsType.Graphics));
+		audioComponent.gameObject.SetActive(settingType == SettingsType.Audio);
 
 	}
 	void SwitchTab(float orientation)
@@ -98,7 +97,7 @@ public class UISettingsController : MonoBehaviour
 		if (orientation != 0)
 		{
 			bool isLeft = orientation < 0;
-			int initialIndex = _settingTabsList.FindIndex(o => o == _selectedTab);
+			int initialIndex = settingTabsList.FindIndex(o => o == _selectedTab);
 			if (initialIndex != -1)
 			{
 				if (isLeft)
@@ -110,22 +109,22 @@ public class UISettingsController : MonoBehaviour
 					initialIndex++;
 				}
 
-				initialIndex = Mathf.Clamp(initialIndex, 0, _settingTabsList.Count - 1);
+				initialIndex = Mathf.Clamp(initialIndex, 0, settingTabsList.Count - 1);
 			}
 
-			OpenSetting(_settingTabsList[initialIndex]);
+			OpenSetting(settingTabsList[initialIndex]);
 		}
 	}
 	public void SaveGraphicsSettings(int newResolutionsIndex, int newAntiAliasingIndex, float newShadowDistance, bool fullscreenState)
 	{
-		_currentSettings.SaveGraphicsSettings(newResolutionsIndex, newAntiAliasingIndex, newShadowDistance, fullscreenState);
-		SaveSettingsEvent.RaiseEvent();
+		currentSettings.SaveGraphicsSettings(newResolutionsIndex, newAntiAliasingIndex, newShadowDistance, fullscreenState);
+		saveSettingsEvent.RaiseEvent();
 	}
 	void SaveAudioSettings(float musicVolume, float sfxVolume, float masterVolume)
 	{
-		_currentSettings.SaveAudioSettings(musicVolume, sfxVolume, masterVolume);
+		currentSettings.SaveAudioSettings(musicVolume, sfxVolume, masterVolume);
 
-		SaveSettingsEvent.RaiseEvent();
+		saveSettingsEvent.RaiseEvent();
 	}
 
 }

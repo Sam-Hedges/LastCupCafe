@@ -1,52 +1,50 @@
-using UnityEngine;
-using UnityEngine.UI;
 using TMPro;
+using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
 public class UISettingItemFiller : MonoBehaviour
 {
-	[SerializeField] private SettingFieldType _fieldType = default;
-	[SerializeField] private UIPaginationFiller _pagination = default;
-	[SerializeField] private string _title = default;
-	[SerializeField] private TextMeshProUGUI _currentSelectedOption_Text = default;
-	[SerializeField] private Image _bg = default;
-	[SerializeField] private Color _colorSelected = default;
-	[SerializeField] private Color _colorUnselected = default;
-	[SerializeField] private Sprite _bgSelected = default;
-	[SerializeField] private Sprite _bgUnselected = default;
-	[SerializeField] private MultiInputButton _buttonNext = default;
-	[SerializeField] private MultiInputButton _buttonPrevious = default;
+	[SerializeField] private UIPaginationFiller pagination;
+	[SerializeField] private TextMeshProUGUI currentSelectedOptionText;
+	[SerializeField] private Image bg;
+	[SerializeField] private Color colorSelected;
+	[SerializeField] private Color colorUnselected;
+	[SerializeField] private Sprite bgSelected;
+	[SerializeField] private Sprite bgUnselected;
+	[SerializeField] private MultiInputButton buttonNext;
+	[SerializeField] private MultiInputButton buttonPrevious;
 
 	public event UnityAction OnNextOption = delegate { };
 	public event UnityAction OnPreviousOption = delegate { };
 
 	public void FillSettingField_Localized(int paginationCount, int selectedPaginationIndex, string selectedOption)
 	{
-		_pagination.SetPagination(paginationCount, selectedPaginationIndex);
+		pagination.SetPagination(paginationCount, selectedPaginationIndex);
 
-		_buttonNext.interactable = (selectedPaginationIndex < paginationCount - 1);
-		_buttonPrevious.interactable = (selectedPaginationIndex > 0);
+		buttonNext.interactable = (selectedPaginationIndex < paginationCount - 1);
+		buttonPrevious.interactable = (selectedPaginationIndex > 0);
 	}
 	
-	public void FillSettingField(int paginationCount, int selectedPaginationIndex, string selectedOption_int)
+	public void FillSettingField(int paginationCount, int selectedPaginationIndex, string selectedOptionINT)
 	{
-		_pagination.SetPagination(paginationCount, selectedPaginationIndex);
-		_currentSelectedOption_Text.text = selectedOption_int.ToString();
+		pagination.SetPagination(paginationCount, selectedPaginationIndex);
+		currentSelectedOptionText.text = selectedOptionINT;
 
-		_buttonNext.interactable = (selectedPaginationIndex < paginationCount - 1);
-		_buttonPrevious.interactable = (selectedPaginationIndex > 0);
+		buttonNext.interactable = (selectedPaginationIndex < paginationCount - 1);
+		buttonPrevious.interactable = (selectedPaginationIndex > 0);
 	}
 
 	public void SelectItem()
 	{
-		_bg.sprite = _bgSelected;
-		_currentSelectedOption_Text.color = _colorSelected;
+		bg.sprite = bgSelected;
+		currentSelectedOptionText.color = colorSelected;
 	}
 
 	public void UnselectItem()
 	{
-		_bg.sprite = _bgUnselected;
-		_currentSelectedOption_Text.color = _colorUnselected;
+		bg.sprite = bgUnselected;
+		currentSelectedOptionText.color = colorUnselected;
 	}
 
 	public void NextOption()

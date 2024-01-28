@@ -50,7 +50,7 @@ namespace ArcadeGame
         {
             QualitySettings.SetQualityLevel(qualityIndex);
 
-            Debug.Log("" + QualitySettings.currentLevel);
+            Debug.Log("" + QualitySettings.GetQualityLevel());
         }
     }
 }

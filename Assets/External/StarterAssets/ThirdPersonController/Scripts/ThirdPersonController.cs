@@ -2,7 +2,6 @@
 #if ENABLE_INPUT_SYSTEM
 using UnityEngine.InputSystem;
 #endif
-using Unity.Netcode;
 
 /* Note: animations are called via the controller for both the character and
  * capsule using animator null checks
@@ -14,7 +13,7 @@ namespace StarterAssets
 #if ENABLE_INPUT_SYSTEM
     [RequireComponent(typeof(PlayerInput))]
 #endif
-    public class ThirdPersonController : NetworkBehaviour
+    public class ThirdPersonController : MonoBehaviour
     {
         [Header("Player")]
         [Tooltip("Move speed of the character in m/s")]
@@ -132,11 +131,8 @@ namespace StarterAssets
             }
         }
 
-        private bool IsLocalOwner() { return IsOwner; }
-
         private void Awake()
         {
-            if(!IsOwner) return;
             // get a reference to our main camera
             if (_mainCamera == null)
             {
@@ -146,7 +142,6 @@ namespace StarterAssets
 
         private void Start()
         {
-            if(!IsOwner) return;
             _cinemachineTargetYaw =
                 CinemachineCameraTarget.transform.rotation.eulerAngles.y;
 
@@ -169,7 +164,6 @@ namespace StarterAssets
 
         private void Update()
         {
-            if(!IsOwner) return;
             _hasAnimator = TryGetComponent(out _animator);
 
             JumpAndGravity();
@@ -178,7 +172,6 @@ namespace StarterAssets
         }
 
         private void LateUpdate() {
-            if(!IsOwner) return;
             CameraRotation();
         }
 

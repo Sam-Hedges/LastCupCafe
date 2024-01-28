@@ -1,13 +1,12 @@
 using System.Collections;
 using Cinemachine;
 using UnityEngine;
-using Unity.Netcode;
 
-public class PlayerController : NetworkBehaviour {
+public class PlayerController : MonoBehaviour {
     [SerializeField] private InputHandler input;
 
     [Header("Camera")] [SerializeField] private Camera mainCamera;
-    [SerializeField] private CinemachineVirtualCamera _playerCamera;
+    [SerializeField] private CinemachineVirtualCamera playerCamera;
     private CinemachineVirtualCamera _currentCamera;
     private Vector3 CameraTransformForward => ScaleCameraTransform(_currentCamera.transform.forward);
     private Vector3 CameraTransformRight => ScaleCameraTransform(_currentCamera.transform.right);
@@ -18,29 +17,29 @@ public class PlayerController : NetworkBehaviour {
         return cameraTransform;
     }
 
-    private float xRot;
-    private float yRot;
+    private float _xRot;
+    private float _yRot;
 
     // Input
     private Vector3 MovementOutputVector =>
-        ScaleCameraTransform(_currentCamera.transform.forward) * MovementInputVector.y +
-        CameraTransformRight * MovementInputVector.x;
+        ScaleCameraTransform(_currentCamera.transform.forward) * _movementInputVector.y +
+        CameraTransformRight * _movementInputVector.x;
 
-    private bool IsMovementPressed => MovementInputVector != Vector2.zero;
-    private Vector2 MovementInputVector;
-    private Vector2 LookInputVector;
-    private Vector3 LookOutputVector;
-    private bool IsLookPressed => LookInputVector != Vector2.zero;
+    private bool IsMovementPressed => _movementInputVector != Vector2.zero;
+    private Vector2 _movementInputVector;
+    private Vector2 _lookInputVector;
+    private Vector3 _lookOutputVector;
+    private bool IsLookPressed => _lookInputVector != Vector2.zero;
 
     [HideInInspector]
     public struct LocalTransform {
-        public Vector3 up;
-        public Vector3 forward;
-        public Vector3 right;
+        public Vector3 Up;
+        public Vector3 Forward;
+        public Vector3 Right;
     }
 
     [HideInInspector] public LocalTransform localTransform;
-    private Rigidbody rb;
+    private Rigidbody _rb;
     [SerializeField] private float rideHeight = 1.2f;
     [SerializeField] private float rideSpringStrength = 2000f;
     [SerializeField] private float rideSpringDamper = 100f;
@@ -57,84 +56,62 @@ public class PlayerController : NetworkBehaviour {
     [SerializeField] private LayerMask groundMask;
     [SerializeField] private float groundCheckRad = 0.5f;
     [SerializeField] private Transform groundCheckOrigin;
-    [SerializeField] private float playerJumpHeight = 1.0f;
-    [SerializeField] private float gravityStrength = -9.81f;
 
+    
     private void InitializeCameras() {
-        _currentCamera = _playerCamera;
+        _currentCamera = playerCamera;
     }
 
     private void InitializeLocalTransform() {
         Transform t = transform;
-        localTransform.up = t.up;
-        localTransform.forward = t.forward;
-        localTransform.right = t.right;
+        localTransform.Up = t.up;
+        localTransform.Forward = t.forward;
+        localTransform.Right = t.right;
     }
 
     #region Unity Event Methods
 
     private void Initialise() {
-        if (!IsOwner) return;
 
         if (mainCamera == null) {
             mainCamera = Camera.main;
         }
 
-        rb = GetComponent<Rigidbody>();
+        _rb = GetComponent<Rigidbody>();
         InitializeLocalTransform();
         InitializeCameras();
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
 
-    public override void OnNetworkSpawn() {
-        Initialise();
-        base.OnNetworkSpawn();
-    }
 
     private void Start() {
         Initialise();
     }
-
-    private void OnEnable() {
-        Coroutine routine = StartCoroutine(EnablePlayerInput());
-        StartCoroutine(TimeoutCoroutine(routine, 60));
-    }
-
-    IEnumerator TimeoutCoroutine(Coroutine routine, int timeoutInSeconds) {
-       yield return new WaitForSeconds(timeoutInSeconds);
-       StopCoroutine(routine);
-    }
     
-    IEnumerator EnablePlayerInput() {
-        yield return new WaitUntil(() => IsOwner);
+    private void OnEnable() {
         input.EnableGameplayInput();
         input.MoveEvent += OnMovementInput;
         input.LookEvent += OnLookInput;
     }
 
     private void OnDisable() {
-        if (!IsOwner) return;
         input.DisableAllInput();
         input.MoveEvent -= OnMovementInput;
         input.LookEvent -= OnLookInput;
     }
 
     internal void OnMovementInput(Vector2 input) {
-        if (!IsOwner) return;
         Vector2 inputValue = new Vector2(input.x, input.y);
-        MovementInputVector = inputValue;
+        _movementInputVector = inputValue;
     }
 
     internal void OnLookInput(Vector2 input) {
-        if (!IsOwner) return;
         Vector2 inputValue = new Vector2(input.x, input.y);
-        LookInputVector = inputValue;
+        _lookInputVector = inputValue;
     }
 
     private void FixedUpdate() {
-        if (!IsOwner) return;
-        if (!IsSpawned) return;
         RigidbodyRide();
         RotateToUpright();
         RotateCamera();
@@ -143,7 +120,6 @@ public class PlayerController : NetworkBehaviour {
 
 
     private void Update() {
-        if (!IsOwner) return;
         //Jump();
     }
 
@@ -153,7 +129,7 @@ public class PlayerController : NetworkBehaviour {
 
     private void RigidbodyRide() {
         if (Physics.Raycast(transform.position, -transform.up, out RaycastHit hit, rideHeight + 1)) {
-            Vector3 velocity = rb.velocity;
+            Vector3 velocity = _rb.velocity;
             Vector3 rayDirection = -transform.up;
 
             Vector3 otherVelocity = Vector3.zero;
@@ -173,7 +149,7 @@ public class PlayerController : NetworkBehaviour {
 
             Debug.DrawLine(transform.position, transform.position + (-transform.up * (rideHeight + 1)), Color.red);
 
-            rb.AddForce(rayDirection * springForce);
+            _rb.AddForce(rayDirection * springForce);
         }
     }
 
@@ -190,17 +166,17 @@ public class PlayerController : NetworkBehaviour {
 
         float rotationRadians = rotationDegrees * Mathf.Deg2Rad;
 
-        rb.AddTorque((rotationAxis * (rotationRadians * 500)) - (rb.angularVelocity * 100));
+        _rb.AddTorque((rotationAxis * (rotationRadians * 500)) - (_rb.angularVelocity * 100));
     }
 
     private void RotateCamera() {
-        xRot -= LookInputVector.y * 100f * Time.fixedDeltaTime;
-        xRot = Mathf.Clamp(xRot, -90f, 90f);
-        yRot += LookInputVector.x * 100f * Time.fixedDeltaTime;
+        _xRot -= _lookInputVector.y * 100f * Time.fixedDeltaTime;
+        _xRot = Mathf.Clamp(_xRot, -90f, 90f);
+        _yRot += _lookInputVector.x * 100f * Time.fixedDeltaTime;
 
-        _playerCamera.transform.localRotation = Quaternion.Euler(xRot, 0, 0);
+        playerCamera.transform.localRotation = Quaternion.Euler(_xRot, 0, 0);
 
-        transform.rotation = Quaternion.Euler(0, yRot, 0);
+        transform.rotation = Quaternion.Euler(0, _yRot, 0);
     }
 
     // Applies movement to the player character based on the players input
@@ -216,10 +192,10 @@ public class PlayerController : NetworkBehaviour {
         Vector3 goalVel = _unitGoal * maxSpeed;
         _goalVel = Vector3.MoveTowards(_goalVel, goalVel, accel * Time.fixedDeltaTime);
 
-        Vector3 targetAccel = (_goalVel - rb.velocity) / Time.fixedDeltaTime;
+        Vector3 targetAccel = (_goalVel - _rb.velocity) / Time.fixedDeltaTime;
         float maxAccel = maxAcceleration * maxAccelerationFactor.Evaluate(velDot);
         targetAccel = Vector3.ClampMagnitude(targetAccel, maxAccel);
-        rb.AddForce(Vector3.Scale(targetAccel * rb.mass, forceScale));
+        _rb.AddForce(Vector3.Scale(targetAccel * _rb.mass, forceScale));
     }
 
 

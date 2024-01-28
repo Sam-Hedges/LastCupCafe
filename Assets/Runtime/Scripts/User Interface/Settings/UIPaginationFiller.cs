@@ -4,13 +4,13 @@ using UnityEngine;
 using UnityEngine.UI;
 public class UIPaginationFiller : MonoBehaviour
 {
-	[SerializeField] private Image _imagePaginationPrefab = default;
-	[SerializeField] private Transform _parentPagination = default;
+	[SerializeField] private Image imagePaginationPrefab = default;
+	[SerializeField] private Transform parentPagination = default;
 
-	[SerializeField] private Sprite _emptyPagination = default;
-	[SerializeField] private Sprite _filledPagination = default;
+	[SerializeField] private Sprite emptyPagination = default;
+	[SerializeField] private Sprite filledPagination = default;
 
-	HorizontalLayoutGroup horizontalLayout = default;
+	HorizontalLayoutGroup _horizontalLayout = default;
 
 	private List<Image> _instantiatedImages = default;
 	[SerializeField]
@@ -34,7 +34,7 @@ public class UIPaginationFiller : MonoBehaviour
 			{
 				if (i >= _instantiatedImages.Count)
 				{
-					Image instantiatedImage = Instantiate(_imagePaginationPrefab, _parentPagination);
+					Image instantiatedImage = Instantiate(imagePaginationPrefab, parentPagination);
 					_instantiatedImages.Add(instantiatedImage);
 				}
 
@@ -52,16 +52,16 @@ public class UIPaginationFiller : MonoBehaviour
 			SetCurrentPagination(selectedPaginationIndex);
 		}
 
-		horizontalLayout = GetComponent<HorizontalLayoutGroup>();
+		_horizontalLayout = GetComponent<HorizontalLayoutGroup>();
 		if (paginationCount < 10)
-		{ horizontalLayout.spacing = maxSpacing; }
+		{ _horizontalLayout.spacing = maxSpacing; }
 		else if (paginationCount >= 10 && paginationCount < 20)
 		{
-			horizontalLayout.spacing = (maxSpacing - minSpacing) / 2;
+			_horizontalLayout.spacing = (maxSpacing - minSpacing) / 2;
 		}
 		else
 		{
-			horizontalLayout.spacing = minSpacing;
+			_horizontalLayout.spacing = minSpacing;
 		}
 
 	}
@@ -73,12 +73,12 @@ public class UIPaginationFiller : MonoBehaviour
 			{
 				if (i == selectedPaginationIndex)
 				{
-					_instantiatedImages[i].sprite = _filledPagination;
+					_instantiatedImages[i].sprite = filledPagination;
 
 				}
 				else
 				{
-					_instantiatedImages[i].sprite = _emptyPagination;
+					_instantiatedImages[i].sprite = emptyPagination;
 				}
 			}
 		else

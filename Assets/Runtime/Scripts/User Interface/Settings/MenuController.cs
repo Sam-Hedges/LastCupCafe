@@ -2,22 +2,22 @@
 
 public class MenuController : MonoBehaviour
 {
-	[SerializeField] private InputHandler _inputReader;
-	[SerializeField] private GameObject _menuPrefab;
+	[SerializeField] private InputHandler inputReader;
+	[SerializeField] private GameObject menuPrefab;
 	private GameObject _menuInstance;
 
 	private void OpenMenu()
 	{
 		if (_menuInstance == null)
-			_menuInstance = Instantiate(_menuPrefab);
+			_menuInstance = Instantiate(menuPrefab);
 
 		_menuInstance.SetActive(true);
-		_inputReader.EnableMenuInput();
+		inputReader.EnableMenuInput();
 	}
 
 	private void UnpauseMenu()
 	{
 		_menuInstance.SetActive(false);
-		_inputReader.EnableGameplayInput();
+		inputReader.EnableGameplayInput();
 	}
 }

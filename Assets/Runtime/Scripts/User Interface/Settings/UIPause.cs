@@ -4,13 +4,13 @@ using UnityEngine.UI;
 
 public class UIPause : MonoBehaviour
 {
-	[SerializeField] private InputHandler _inputReader = default;
-	[SerializeField] private Button _resumeButton = default;
-	[SerializeField] private Button _settingsButton = default;
-	[SerializeField] private Button _backToMenuButton = default;
+	[SerializeField] private InputHandler inputReader = default;
+	[SerializeField] private Button resumeButton = default;
+	[SerializeField] private Button settingsButton = default;
+	[SerializeField] private Button backToMenuButton = default;
 
 	[Header("Listening to")]
-	[SerializeField] private BoolEventChannelSO _onPauseOpened = default;
+	[SerializeField] private BoolEventChannelSO onPauseOpened = default;
 
 	public event UnityAction Resumed = default;
 	public event UnityAction SettingsScreenOpened = default;
@@ -18,23 +18,23 @@ public class UIPause : MonoBehaviour
 
 	private void OnEnable()
 	{
-		_onPauseOpened.RaiseEvent(true);
+		onPauseOpened.RaiseEvent(true);
 
-		_resumeButton.Select();
-		_inputReader.MenuCloseEvent += Resume;
-		_resumeButton.onClick.AddListener(Resume);
-		_settingsButton.onClick.AddListener(OpenSettingsScreen);
-		_backToMenuButton.onClick.AddListener(BackToMainMenuConfirmation);
+		resumeButton.Select();
+		inputReader.MenuCloseEvent += Resume;
+		resumeButton.onClick.AddListener(Resume);
+		settingsButton.onClick.AddListener(OpenSettingsScreen);
+		backToMenuButton.onClick.AddListener(BackToMainMenuConfirmation);
 	}
 
 	private void OnDisable()
 	{
-		_onPauseOpened.RaiseEvent(false);
+		onPauseOpened.RaiseEvent(false);
 		
-		_inputReader.MenuCloseEvent -= Resume;
-		_resumeButton.onClick.AddListener(Resume);
-		_settingsButton.onClick.AddListener(OpenSettingsScreen);
-		_backToMenuButton.onClick.AddListener(BackToMainMenuConfirmation);
+		inputReader.MenuCloseEvent -= Resume;
+		resumeButton.onClick.AddListener(Resume);
+		settingsButton.onClick.AddListener(OpenSettingsScreen);
+		backToMenuButton.onClick.AddListener(BackToMainMenuConfirmation);
 	}
 
 	void Resume()

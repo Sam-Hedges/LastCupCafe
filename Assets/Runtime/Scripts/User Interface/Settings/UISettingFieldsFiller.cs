@@ -4,20 +4,20 @@ using UnityEngine;
 
 public class UISettingFieldsFiller : MonoBehaviour
 {
-	[SerializeField] private UISettingItemFiller[] _settingfieldsList = default;
+	[SerializeField] private UISettingItemFiller[] settingfieldsList = default;
 
 	public void FillFields(List<SettingField> settingItems)
 	{
-		for (int i = 0; i < _settingfieldsList.Length; i++)
+		for (int i = 0; i < settingfieldsList.Length; i++)
 		{
 			if (i < settingItems.Count)
 			{
-				SetField(settingItems[i], _settingfieldsList[i]);
-				_settingfieldsList[i].gameObject.SetActive(true);
+				SetField(settingItems[i], settingfieldsList[i]);
+				settingfieldsList[i].gameObject.SetActive(true);
 			}
 			else
 			{
-				_settingfieldsList[i].gameObject.SetActive(false);
+				settingfieldsList[i].gameObject.SetActive(false);
 			}
 		}
 
@@ -53,8 +53,8 @@ public class UISettingFieldsFiller : MonoBehaviour
 			case SettingFieldType.ShadowQuality:
 
 				break;
-			case SettingFieldType.Volume_Music:
-			case SettingFieldType.Volume_SFx:
+			case SettingFieldType.VolumeMusic:
+			case SettingFieldType.VolumeSFx:
 				paginationCount = 10;
 				selectedPaginationIndex = 5;
 				selectedOption = "5";
