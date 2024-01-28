@@ -1,28 +1,36 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
-using UnityEngine.Serialization;
 
 public class RaymarchRenderFeature : ScriptableRendererFeature
 {
-    [SerializeField] private RaymarchSettings settings;
-    private RaymarchRenderPass raymarchRenderPass;
-
+    public RenderPassEvent renderPassEvent = RenderPassEvent.AfterRenderingOpaques;
+    public ComputeAsset computeAsset;
+    private RaymarchRenderPass _raymarchRenderPass;
+    
     public override void Create() {
-        if (settings.shader == null) {
-            return;
-        }
-        settings.shapes = new List<BaseShape>(FindObjectsOfType<BaseShape>());
-        settings.sunLight = RenderSettings.sun;
-        raymarchRenderPass = new RaymarchRenderPass(settings);
+        if (computeAsset == null) return;
+        _raymarchRenderPass = new RaymarchRenderPass(computeAsset, renderPassEvent);
     }
-
-    public override void AddRenderPasses(ScriptableRenderer renderer,
-        ref RenderingData renderingData) { 
+    
+    // Here you can inject one or multiple render passes in the renderer.
+    // This method is called when setting up the renderer once per-camera (every frame!) 
+    public override void AddRenderPasses(ScriptableRenderer renderer, ref RenderingData renderingData) {
+        if (computeAsset == null) return;
         
-        raymarchRenderPass.Setup(renderer);
-        renderer.EnqueuePass(raymarchRenderPass);
+        // Skip rendering for inspector preview cameras
+        if (renderingData.cameraData.isPreviewCamera) return;
+        
+        _raymarchRenderPass.ConfigureInput(ScriptableRenderPassInput.Depth);
+        _raymarchRenderPass.ConfigureInput(ScriptableRenderPassInput.Color);
+        
+        renderer.EnqueuePass(_raymarchRenderPass);
+    }
+    
+    protected override void Dispose(bool disposing) {
+        _raymarchRenderPass?.ReleaseTargets();
     }
 }
 
@@ -33,7 +41,7 @@ public class RaymarchSettings
     public ComputeShader shader;
     public List<BaseShape> shapes;
     public RenderPassEvent renderPassEvent = RenderPassEvent.AfterRenderingOpaques;
-    public Light sunLight;
+    public Light light;
     public float maxDistance = 500;
     public int maxIterations = 512;
 
@@ -48,4 +56,8 @@ public class RaymarchSettings
     [Range(0.01f, 10f)] public float aoStepSize;
     [Range(1, 5)] public int aoIterations;
     [Range(0, 1)] public float aoIntensity;
+
+    [Header("Debug")] 
+    public string colourDestinationID = "";
+    public string depthDestinationID = "";
 }

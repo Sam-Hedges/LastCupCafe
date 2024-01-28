@@ -1,238 +1,123 @@
 using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 
-public class RaymarchRenderPass : ScriptableRenderPass
-{
-    private RaymarchSettings defaultSettings;
-    private ComputeShader shader;
-    private Camera camera; 
-    private ScriptableRenderer renderer = null;
-
-    private RenderTextureDescriptor raymarchTextureDescriptor;
-    private RTHandle raymarchTextureHandle;
-
-    private RenderTexture renderTextureTarget;
-    private List<ComputeBuffer> computeBuffers; // List of buffers to be disposed
-
-    public RaymarchRenderPass(RaymarchSettings defaultSettings)
-    {
-        this.shader = defaultSettings.shader;
-        this.defaultSettings = defaultSettings;
-        this.renderPassEvent = defaultSettings.renderPassEvent;
-        
-        raymarchTextureDescriptor = new RenderTextureDescriptor(Screen.width,
-            Screen.height, RenderTextureFormat.Default, 0);
-    }
+public class RaymarchRenderPass : ScriptableRenderPass {
     
-    public void Setup(ScriptableRenderer renderer)
-    {
-        this.renderer = renderer;
-    }
+    private readonly ComputeAsset _computeAsset;
+    private readonly ProfilingSampler _profilingSampler;
 
-    /// <summary>
-    /// Housekeeping to configure the render pass
-    /// </summary>
-    public override void Configure(CommandBuffer cmd,
-        RenderTextureDescriptor cameraTextureDescriptor)
-    {
-        
-        // Set the texture size to be the same as the camera target size.
-        raymarchTextureDescriptor.width = cameraTextureDescriptor.width;
-        raymarchTextureDescriptor.height = cameraTextureDescriptor.height;
-
-        // Check if the descriptor has changed, and reallocate the RTHandle if necessary
-        RenderingUtils.ReAllocateIfNeeded(ref raymarchTextureHandle, raymarchTextureDescriptor);
-    }
+    private RTHandle _colorBufferTarget;
+    private RTHandle _depthBufferTarget;
+    private RTHandle _raymarchBufferTarget;
     
-    public override void OnCameraSetup(CommandBuffer cmd, ref RenderingData renderingData)
-    {
-        camera = renderingData.cameraData.camera;
-        camera.depthTextureMode = DepthTextureMode.Depth;
-        
-        // create a render texture to store the raymarched scene
-        // cameraDepthTextureHandle = RTHandles.Alloc(renderingData.cameraData.cameraTargetDescriptor);
-        // RenderTexture rt = new RenderTexture(renderingData.cameraData.renderer.cameraDepthTargetHandle)
-        // {
-        //     enableRandomWrite = true
-        // };
-        // rt.Create();
-        // cameraDepthTextureHandle = RTHandles.Alloc(rt);
+    private Camera _camera;
+    private List<ComputeBuffer> _computeBuffers;
+    
+    private string _colourDestinationID;
+    private string _depthDestinationID;
+    private Material _addMaterial;
+
+    public RaymarchRenderPass(ComputeAsset computeAsset, RenderPassEvent renderPassEvent) {
+        _computeAsset = computeAsset;
+        _profilingSampler = new ProfilingSampler(nameof(RaymarchRenderPass));
+        this.renderPassEvent = renderPassEvent;
     }
 
-    private void UpdateRaymarchSettings()
-    {
-        shader.SetMatrix("cameraToWorld", camera.cameraToWorldMatrix);
-        shader.SetMatrix("cameraInverseProjection", camera.projectionMatrix.inverse);
+    // Called before executing the render pass.
+    // Used to configure render targets and their clear state. Also to create temporary render target textures.
+    // When empty this render pass will render to the active camera render target.
+    // You should never call CommandBuffer.SetRenderTarget. Instead call <c>ConfigureTarget</c> and <c>ConfigureClear</c>.
+    public override void OnCameraSetup(CommandBuffer cmd, ref RenderingData renderingData) {
+        base.OnCameraSetup(cmd, ref renderingData);
+        if (_computeAsset == null) return;
+        
+        _computeAsset.Setup(renderingData);
+        
+        _camera = renderingData.cameraData.camera;
+        
+        // Setup _raymarchBufferTarget as a temporary render target
+        RenderingUtils.ReAllocateIfNeeded(ref _raymarchBufferTarget, renderingData.cameraData.cameraTargetDescriptor,
+            name: "_raymarchBufferTarget");
+        
+        var desc = renderingData.cameraData.cameraTargetDescriptor;
+        
+        desc.depthBufferBits = 0;
+        RenderingUtils.ReAllocateIfNeeded(ref _colorBufferTarget, desc,
+                name: "_colorBufferTarget");
+        _colorBufferTarget = renderingData.cameraData.renderer.cameraColorTargetHandle;
 
-        shader.SetFloat("maxDistance", defaultSettings.maxDistance);
-        shader.SetInt("maxIterations",  defaultSettings.maxIterations);
+        // 32 is the magic number 
+        desc.depthBufferBits = 32; 
+        RenderingUtils.ReAllocateIfNeeded(ref _depthBufferTarget, desc,
+                name: "_depthBufferTarget");
+        _depthBufferTarget = renderingData.cameraData.renderer.cameraDepthTargetHandle;
 
-        shader.SetFloat("shadowIntensity",  defaultSettings.shadowIntensity);
-        shader.SetFloat("shadowPenumbra",  defaultSettings.shadowPenumbra);
-        shader.SetBool("softShadows",  defaultSettings.useSoftShadows);
-        shader.SetVector("shadowDistance",  defaultSettings.shadowDistance);
+        ConfigureTarget(_colorBufferTarget, _depthBufferTarget);
 
-        shader.SetFloat("aoStepSize",  defaultSettings.aoStepSize);
-        shader.SetFloat("aoIntensity",  defaultSettings.aoIntensity);
-        shader.SetInt("aoIterations",  defaultSettings.aoIterations);
-        shader.SetBool("aoEnabled",  defaultSettings.aoEnabled);
+        ConfigureClear(ClearFlag.All, Color.black);
     }
 
-    private void LoadShapes()
-    {
-        // get all shapes in the scene
-        List<BaseShape> shapes = defaultSettings.shapes;
-
-        if (shapes.Count == 0) return; // if there are no shapes, return
-        
-        // pass the number of shapes in the scene to the shader
-        shader.SetInt("shapesCount", shapes.Count);
-
-        // sort the shapes by operation type
-        shapes.Sort((a, b) => a.operationType.CompareTo(b.operationType));
-
-        // create a buffer to store the shape data
-        ShapeData[] shapeData = new ShapeData[shapes.Count];
-        
-        // iterate through the shapes and add their data to the buffer
-        for (int i = 0; i < shapes.Count; i++)
-        {
-            var shape = shapes[i];
-            shapeData[i] = new ShapeData()
-            {
-                position = shape.transform.position,
-                scale = shape.Scale,
-                rotation = shape.transform.eulerAngles,
-                blendStrength = shape.blendStrength,
-                color = shape.Color,
-                data = shape.CreateExtraData(),
-                operationType = (int)shape.operationType,
-                shapeType = (int)shape.ShapeType
-            };
+    // Here you can implement the rendering logic.
+    // Use <c>ScriptableRenderContext</c> to issue drawing commands or execute command buffers
+    public override void Execute(ScriptableRenderContext context, ref RenderingData renderingData) {
+        if (_computeAsset == null || _computeAsset.shader == null) { return; }
+        if (_addMaterial == null) {
+            _addMaterial = new Material(Shader.Find("Hidden/AddShader"));
         }
-
-        // create a compute buffer to store the shape data
-        ComputeBuffer buffer = new ComputeBuffer(shapes.Count, ShapeData.GetStride());
-        buffer.SetData(shapeData);
         
-        // pass the buffer to the shader
-        shader.SetBuffer(0, "shapes", buffer);
-
-        // add the buffer to the list of buffers to dispose of after rendering
-        computeBuffers.Add(buffer);
-    }
-    
-    /// <summary>
-    /// Set the light parameters for the raymarching shader to the values of the sun light in the scene
-    /// </summary>
-    private void LoadLight()
-    {
-        Vector3 direction = Vector3.down;
-        Color color = Color.white;
-        float intensity = 1;
-
-        if (defaultSettings.sunLight)
-        {
-            direction = defaultSettings.sunLight.transform.forward;
-            color = defaultSettings.sunLight.color;
-            intensity = defaultSettings.sunLight.intensity;
-        }
-
-        shader.SetVector("lightDirection", direction);
-        shader.SetVector("lightColor", new Vector3(color.r, color.g, color.b));
-        shader.SetFloat("lightIntensity", intensity);
-    } 
-    
-    public override void Execute(ScriptableRenderContext context,
-        ref RenderingData renderingData)
-    {
-        // Get a CommandBuffer from pool.
         CommandBuffer cmd = CommandBufferPool.Get();
+        ScriptableRenderer renderer = renderingData.cameraData.renderer;
+        int kernelHandle = _computeAsset.shader.FindKernel("CSMain");
 
-        // Get the camera target to render into
-        RTHandle cameraTargetHandle =
-            renderingData.cameraData.renderer.cameraColorTargetHandle;
+        using (new ProfilingScope(cmd, _profilingSampler)) {
+            context.ExecuteCommandBuffer(cmd);
+            cmd.Clear();
+            // Note : ExecuteCommandBuffer at least once, makes sure the frame
+            // debugger displays everything under the correct title.
+            
+            _computeAsset.Render(cmd, kernelHandle);
+            
+            // Set the camera depth texture to the global shader variable
+            cmd.SetComputeTextureParam(_computeAsset.shader, kernelHandle, "_CameraDepthTexture", _depthBufferTarget);
 
-        // Get the camera depth texture
-        RTHandle cameraDepthTargetHandle = renderer.cameraDepthTargetHandle;
+            // Set the source and destination textures for the raymarching shader
+            cmd.SetComputeTextureParam(_computeAsset.shader, kernelHandle, "Source", _colorBufferTarget);
+            cmd.SetComputeTextureParam(_computeAsset.shader, kernelHandle, "Destination", _raymarchBufferTarget);
 
-        // List of vulkan buffers to dispose of after rendering
-        computeBuffers = new List<ComputeBuffer>();
-        
-        UpdateRaymarchSettings();
-        LoadShapes();
-        LoadLight();
+            // Set the size of the thread groups
+            var numThreadsX = Mathf.CeilToInt(_camera.pixelWidth / 8f);
+            var numThreadsY = Mathf.CeilToInt(_camera.pixelHeight / 8f);
 
-        // Set the camera depth texture to the global shader variable
-        shader.SetTexture(0, "_CameraDepthTexture", cameraDepthTargetHandle);
-        
-        // Set the source and destination textures for the raymarching shader
-        shader.SetTexture(0, "Source", cameraTargetHandle);
-        shader.SetTexture(0, "Destination", raymarchTextureHandle);
+            // Dispatch the compute shader
+            cmd.DispatchCompute(_computeAsset.shader, kernelHandle, numThreadsX, numThreadsY, 1);
 
-        // Set the size of the thread groups
-        int numThreadsX = Mathf.CeilToInt(camera.pixelWidth / 8f);
-        int numThreadsY = Mathf.CeilToInt(camera.pixelHeight / 8f);
+            _addMaterial.SetFloat("_Sample", 0);
+            
+            // Copy the render texture to the destination
+            Blitter.BlitCameraTexture(cmd, _raymarchBufferTarget, renderer.cameraColorTargetHandle, _addMaterial, 0);
 
-        // Dispatch the compute shader
-        shader.Dispatch(0, numThreadsX, numThreadsY, 1);
-
-        // Copy the render texture to the destination
-        Blit(cmd, raymarchTextureHandle, cameraTargetHandle, null, 1);
-
-        // Dispose of the buffers
-        foreach (var buffer in computeBuffers)
-        {
-            buffer.Dispose();
+            //Execute the command buffer and release it back to the pool.
+            context.ExecuteCommandBuffer(cmd);
+            CommandBufferPool.Release(cmd);
         }
-        
-        // Blit from the camera target to the temporary render texture,
-        // using the first shader pass.
-        
-        // Blit(cmd, cameraTargetHandle, raymarchTextureHandle, null, 0);
-        
-        // Blit from the temporary render texture to the camera target,
-        // using the second shader pass.
-        
-        // Blit(cmd, raymarchTextureHandle, cameraTargetHandle, null, 1);
 
-        //Execute the command buffer and release it back to the pool.
         context.ExecuteCommandBuffer(cmd);
+        cmd.Clear();
         CommandBufferPool.Release(cmd);
     }
 
-    public void Dispose()
-    {
-        if (raymarchTextureHandle != null) raymarchTextureHandle.Release();
-    }
-    
-    /// <summary>
-    /// Contains data for a shape
-    /// </summary>
-    private struct ShapeData
-    {
-        public Vector3 position;
-        public Vector3 scale;
-        public Vector3 rotation;
-        public Vector3 color;
-        public Vector4 data;
-        public int shapeType;
-        public int operationType;
-        public float blendStrength;
 
-        /// <summary>
-        /// Return the size of the struct in bytes
-        /// </summary>
-        /// <returns>
-        /// Stride is the size of one element in the buffer, in bytes. Must be a multiple of 4 and less than 2048,
-        /// and match the size of the buffer type in the shader. 
-        /// </returns>
-        public static int GetStride()
-        {
-            return sizeof(float) * 17 + sizeof(int) * 2;
-        }
+    // Cleanup any allocated resources that were created during the execution of this render pass.
+    public override void OnCameraCleanup(CommandBuffer cmd)
+    {
+        ReleaseTargets();
     } 
+
+    public void ReleaseTargets() {
+        _colorBufferTarget?.Release();
+        _depthBufferTarget?.Release();
+        _raymarchBufferTarget?.Release(); 
+    }
 }

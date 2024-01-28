@@ -270,21 +270,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 7113612}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4eacd6564cfe2ab49a53597012ad85cb, type: 3}
+  m_Script: {fileID: 11500000, guid: a7733e6844d95b94ea8ce4e1a4146e02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  raymarchingShader: {fileID: 7200000, guid: a84ba435801d67f488ed8f7504b9454d, type: 3}
-  sunLight: {fileID: 1339384681}
-  maxDistance: 500
-  maxIterations: 512
-  useSoftShadows: 1
-  shadowPenumbra: 0
-  shadowIntensity: 0
-  shadowDistance: {x: 0.1, y: 20}
-  aoEnabled: 1
-  aoStepSize: 0
-  aoIterations: 0
-  aoIntensity: 0
+  settings: {fileID: 11400000, guid: 686340ca28e7a0c4489fcf14f2e558f0, type: 2}
 --- !u!1 &335704093
 GameObject:
   m_ObjectHideFlags: 0
