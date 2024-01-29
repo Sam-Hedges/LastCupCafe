@@ -5,11 +5,11 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour {
     
     private PlayerInputHandler _playerInputHandler;
+    private PlayerInputAnchor _playerInputAnchor;
 
     [Header("Camera")]
     [SerializeField] private Camera mainCamera;
-    [SerializeField] private CinemachineVirtualCamera playerCamera;
-    private CinemachineVirtualCamera _currentCamera;
+    private Camera _currentCamera;
     private Vector3 CameraTransformForward => ScaleCameraTransform(_currentCamera.transform.forward);
     private Vector3 CameraTransformRight => ScaleCameraTransform(_currentCamera.transform.right);
 
@@ -49,44 +49,43 @@ public class PlayerController : MonoBehaviour {
     [SerializeField] private float groundCheckRad = 0.5f;
     [SerializeField] private Transform groundCheckOrigin;
 
-    public void SetPlayerInput(PlayerInputHandler playerInputHandler) {
-        _playerInputHandler = playerInputHandler;
+    public void SetPlayerInput(PlayerInputHandler newPlayerInputHandler) {
+        _playerInputAnchor.Provide(newPlayerInputHandler);
     }
     
     public PlayerInputHandler GetPlayerInput() {
         return _playerInputHandler;
     }
-    
-    private void InitializeCameras() {
-        _currentCamera = playerCamera;
-    }
 
     #region Unity Event Methods
 
-    private void Initialise() {
-
+    private void Awake() {
         if (mainCamera == null) {
             mainCamera = Camera.main;
         }
 
         _rb = GetComponent<Rigidbody>();
-        InitializeCameras();
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+        _currentCamera = mainCamera;
+        
+        // Cursor.lockState = CursorLockMode.Locked;
+        // Cursor.visible = false;
+        
+        // Create new instance on input anchor used to delay the enabling of the player input handler
+        _playerInputAnchor = ScriptableObject.CreateInstance<PlayerInputAnchor>();
+        _playerInputAnchor.OnAnchorProvided += OnEnable;
     }
 
-
-    private void Start() {
-        Initialise();
-    }
-    
     private void OnEnable() {
+        if (!_playerInputAnchor.isSet) return;
+        _playerInputHandler = _playerInputAnchor.Value;
+        if (_playerInputHandler == null) return;
         _playerInputHandler.EnableGameplayInput();
         _playerInputHandler.MoveEvent += OnMovementPlayerInputHandler;
         _playerInputHandler.LookEvent += OnLookPlayerInputHandler;
     }
-
+    
     private void OnDisable() {
+        if (_playerInputHandler == null) return;
         _playerInputHandler.DisableAllInput();
         _playerInputHandler.MoveEvent -= OnMovementPlayerInputHandler;
         _playerInputHandler.LookEvent -= OnLookPlayerInputHandler;
@@ -103,9 +102,8 @@ public class PlayerController : MonoBehaviour {
     }
 
     private void FixedUpdate() {
-        RigidbodyRide();
+        RigidBodyRide();
         RotateToUpright();
-        RotateCamera();
         Movement();
     }
 
@@ -118,7 +116,7 @@ public class PlayerController : MonoBehaviour {
 
     #region Movement Methods
 
-    private void RigidbodyRide() {
+    private void RigidBodyRide() {
         if (Physics.Raycast(transform.position, -transform.up, out RaycastHit hit, rideHeight + 1)) {
             Vector3 velocity = _rb.velocity;
             Vector3 rayDirection = -transform.up;
@@ -145,32 +143,23 @@ public class PlayerController : MonoBehaviour {
     }
 
     private void RotateToUpright() {
+        // The rotationTarget is the rotation that the player should be facing
         Quaternion currentRotation = transform.rotation;
         Quaternion rotationTarget =
             ShortestRotation(Quaternion.LookRotation(transform.forward, transform.up), currentRotation);
-
-        Vector3 rotationAxis;
-        float rotationDegrees;
-
-        rotationTarget.ToAngleAxis(out rotationDegrees, out rotationAxis);
+        
+        // ToAngleAxis returns the angle and axis of the rotation
+        // The out variables are declared inline within the method call
+        rotationTarget.ToAngleAxis(out var rotationDegrees, out var rotationAxis); 
         rotationAxis.Normalize();
 
+        // Convert the rotation to radians
         float rotationRadians = rotationDegrees * Mathf.Deg2Rad;
 
+        // Apply torque to the RigidBody to rotate the player
         _rb.AddTorque((rotationAxis * (rotationRadians * 500)) - (_rb.angularVelocity * 100));
     }
 
-    private void RotateCamera() {
-        _xRot -= _lookInputVector.y * 100f * Time.fixedDeltaTime;
-        _xRot = Mathf.Clamp(_xRot, -90f, 90f);
-        _yRot += _lookInputVector.x * 100f * Time.fixedDeltaTime;
-
-        playerCamera.transform.localRotation = Quaternion.Euler(_xRot, 0, 0);
-
-        transform.rotation = Quaternion.Euler(0, _yRot, 0);
-    }
-
-    // Applies movement to the player character based on the players _playerInputHandler
     private void Movement() {
         // Calculate final movement Vector
         Vector3 moveDirection = Vector3.ClampMagnitude(MovementOutputVector, 1f);

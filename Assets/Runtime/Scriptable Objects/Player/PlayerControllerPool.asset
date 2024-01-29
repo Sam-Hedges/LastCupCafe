@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3784a1990a704c0a9764becbc2cf2e93, type: 3}
   m_Name: PlayerControllerPool
   m_EditorClassIdentifier: 
-  factory: {fileID: 0}
+  factory: {fileID: 11400000, guid: 400debdff778c904599917b830d43200, type: 2}

@@ -5,7 +5,7 @@ public class PlayerManager : MonoBehaviour {
     
 	[Header("PlayerInput Pool")]
 	[SerializeField] private PlayerControllerPoolSO pool;
-	[SerializeField] private int initialSize = 1;
+	[SerializeField] private int initialSize = 0;
 	
 	
 	[Header("Listening on Channels")]

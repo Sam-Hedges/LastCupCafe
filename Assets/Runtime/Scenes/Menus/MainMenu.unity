@@ -13938,12 +13938,12 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 2083352531}
-        m_TargetAssemblyTypeName: LoadEventInvoker, Assembly-CSharp
-        m_MethodName: InvokeLoadEvent
+      - m_Target: {fileID: 11400000, guid: 173f9db63e651a94bbee65b61f1a612e, type: 2}
+        m_TargetAssemblyTypeName: LoadEventChannelSO, Assembly-CSharp
+        m_MethodName: RaiseEvent
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 11400000, guid: 80dbb020a7a14db439246fbc788d3b81,
+          m_ObjectArgument: {fileID: 11400000, guid: e392da137a4586d43b943a39640c9d3d,
             type: 2}
           m_ObjectArgumentAssemblyTypeName: GameSceneSO, Assembly-CSharp
           m_IntArgument: 0
@@ -20778,15 +20778,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4ddec376a8a84d5791648f98ca38df6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _musicVolumeSlider: {fileID: 1179019208}
-  _sfxVolumeSlider: {fileID: 183109327}
-  _masterVolumeSlider: {fileID: 2027772040}
-  _masterVolumeEventChannel: {fileID: 11400000, guid: 592a502e9cd3ce74ab5cd221afde48c8,
-    type: 2}
-  _sFXVolumeEventChannel: {fileID: 11400000, guid: b499c44a626333e49a797582b3ecc463,
-    type: 2}
-  _musicVolumeEventChannel: {fileID: 11400000, guid: 992fdda27b584de40b6e9b1ec82ac50a,
-    type: 2}
+  musicVolumeSlider: {fileID: 0}
+  sfxVolumeSlider: {fileID: 0}
+  masterVolumeSlider: {fileID: 0}
+  masterVolumeEventChannel: {fileID: 0}
+  sFXVolumeEventChannel: {fileID: 0}
+  musicVolumeEventChannel: {fileID: 0}
 --- !u!1 &1537196915
 GameObject:
   m_ObjectHideFlags: 0
@@ -25848,12 +25845,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eaa1d1bcaa3ee4cf0af311e19f20e9ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _graphicsComponent: {fileID: 22711223}
-  _audioComponent: {fileID: 1529161846}
-  _currentSettings: {fileID: 11400000, guid: 538cd5019f04067458d3338099371779, type: 2}
-  _settingTabsList: 
-  _inputReader: {fileID: 11400000, guid: e533313ae0257664baf6abfd92a57764, type: 2}
-  SaveSettingsEvent: {fileID: 11400000, guid: 96f6f1d6832dffb459d56508d8290062, type: 2}
+  graphicsComponent: {fileID: 0}
+  audioComponent: {fileID: 0}
+  currentSettings: {fileID: 0}
+  settingTabsList: 
+  saveSettingsEvent: {fileID: 0}
 --- !u!1 &1844589822
 GameObject:
   m_ObjectHideFlags: 0
@@ -29436,7 +29432,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6b928d1d6f59854499ed82bdeef2305, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gameplayScene: {fileID: 11400000, guid: 80dbb020a7a14db439246fbc788d3b81, type: 2}
+  _gameplayScene: {fileID: 11400000, guid: e392da137a4586d43b943a39640c9d3d, type: 2}
   _inputHandler: {fileID: 11400000, guid: 9f3c8d07001a67245bcf1a54c12e7ce6, type: 2}
   _loadLevel: {fileID: 11400000, guid: 173f9db63e651a94bbee65b61f1a612e, type: 2}
   _loadMenu: {fileID: 11400000, guid: 74868d4b28993a2428c1ee2122713a5f, type: 2}
@@ -29771,12 +29767,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4ddec376a8a84d5791648f98ca38df6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _musicVolumeSlider: {fileID: 0}
-  _sfxVolumeSlider: {fileID: 0}
-  _masterVolumeSlider: {fileID: 0}
-  _masterVolumeEventChannel: {fileID: 0}
-  _sFXVolumeEventChannel: {fileID: 0}
-  _musicVolumeEventChannel: {fileID: 0}
+  musicVolumeSlider: {fileID: 0}
+  sfxVolumeSlider: {fileID: 0}
+  masterVolumeSlider: {fileID: 0}
+  masterVolumeEventChannel: {fileID: 0}
+  sFXVolumeEventChannel: {fileID: 0}
+  musicVolumeEventChannel: {fileID: 0}
 --- !u!1 &2129962278
 GameObject:
   m_ObjectHideFlags: 0

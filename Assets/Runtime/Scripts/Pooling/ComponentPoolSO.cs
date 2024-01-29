@@ -42,7 +42,7 @@ namespace Game.Pool
 			member.gameObject.SetActive(true);
 			return member;
 		}
-
+		
 		public override void Return(T member)
 		{
 			member.transform.SetParent(PoolRoot.transform);
