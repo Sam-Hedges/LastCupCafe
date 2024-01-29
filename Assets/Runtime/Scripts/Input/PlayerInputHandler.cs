@@ -6,8 +6,7 @@ using UnityEngine.Events;
 /// Input is handled by the InputHandler, which is a ScriptableObject that can be referenced by other classes.
 /// This allows for the input to be easily referenced by classes across scenes
 /// </summary>
-[CreateAssetMenu(fileName = "InputHandler", menuName = "Input Handler")]
-public class InputHandler : SerializableScriptableObject, UserActions.IGameplayActions, UserActions.IUIActions {
+public class PlayerInputHandler : MonoBehaviour, UserActions.IGameplayActions, UserActions.IUIActions {
     // The Input Actions asset
     private UserActions _userActions;
 

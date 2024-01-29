@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
     [SerializeField] private InputHandler input;
+    private PlayerInputHandler _playerInputHandler;
 
     [Header("Camera")] [SerializeField] private Camera mainCamera;
     [SerializeField] private CinemachineVirtualCamera playerCamera;
@@ -57,6 +58,13 @@ public class PlayerController : MonoBehaviour {
     [SerializeField] private float groundCheckRad = 0.5f;
     [SerializeField] private Transform groundCheckOrigin;
 
+    public void SetPlayerInput(PlayerInputHandler playerInputHandler) {
+        _playerInputHandler = playerInputHandler;
+    }
+    
+    public PlayerInputHandler GetPlayerInput() {
+        return _playerInputHandler;
+    }
     
     private void InitializeCameras() {
         _currentCamera = playerCamera;

@@ -32,9 +32,7 @@ public class AudioManager : MonoBehaviour
 	private SoundEmitterVault _soundEmitterVault;
 	private SoundEmitter _musicSoundEmitter;
 
-	private void Awake()
-	{
-		//TODO: Get the initial volume levels from the settings
+	private void Awake() {
 		_soundEmitterVault = new SoundEmitterVault();
 
 		_pool.Prewarm(_initialSize);
@@ -53,7 +51,6 @@ public class AudioManager : MonoBehaviour
 		_masterVolumeEventChannel.OnEventRaised += ChangeMasterVolume;
 		_musicVolumeEventChannel.OnEventRaised += ChangeMusicVolume;
 		_SFXVolumeEventChannel.OnEventRaised += ChangeSFXVolume;
-
 	}
 
 	private void OnDestroy()
