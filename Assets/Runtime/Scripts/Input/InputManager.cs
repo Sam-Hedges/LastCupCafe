@@ -4,18 +4,18 @@ using UnityEngine.Rendering;
 
 public class InputManager : MonoBehaviour {
 	
-	[Header("SoundEmitters pool")]
+	[Header("PlayerInput Pool")]
 	[SerializeField] private PlayerInputPoolSO pool;
-	[SerializeField] private int initialSize = 2;
+	[SerializeField] private int initialSize = 1;
 	
 	
-	[Header("Listening on channels")]
+	[Header("Listening on Channels")]
 	[Tooltip("Adds a PlayerInputHandler to the list of active players")]
 	[SerializeField] private GameObjectEventChannelSO _AddPlayerInputChannel = default;
 	[Tooltip("Removes a PlayerInputHandler from the list of active players")]
 	[SerializeField] private GameObjectEventChannelSO _RemovePlayerInputChannel = default;
 	
-	private List<PlayerInputHandler> _playerInputs; 
+	private List<PlayerInputHandler> _playerInputs;
 	
 	private void Awake() {
 		_playerInputs = new List<PlayerInputHandler>();
@@ -61,13 +61,13 @@ public class InputManager : MonoBehaviour {
 	/// <returns></returns>
 	private bool ValidatePlayerGameObject(GameObject gameObject, ref PlayerController playerControllerRef, string channelName) {
 		if (gameObject == null) { 
-			Debug.LogError(channelName + " received a null GameObject on the AddPlayerInputChannel");
+			Debug.LogError(channelName + " received a null GameObject");
 			return false;
 		}
 		
 		var playerController = gameObject.GetComponent<PlayerController>();
 		if (playerController == null) {
-			Debug.LogError(channelName + " received a GameObject without a PlayerController on the AddPlayerInputChannel");
+			Debug.LogError(channelName + " received a GameObject without a PlayerController");
 			return false;
 		}
 		

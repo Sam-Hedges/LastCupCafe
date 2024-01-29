@@ -3,10 +3,11 @@ using Cinemachine;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
-    [SerializeField] private InputHandler input;
+    
     private PlayerInputHandler _playerInputHandler;
 
-    [Header("Camera")] [SerializeField] private Camera mainCamera;
+    [Header("Camera")]
+    [SerializeField] private Camera mainCamera;
     [SerializeField] private CinemachineVirtualCamera playerCamera;
     private CinemachineVirtualCamera _currentCamera;
     private Vector3 CameraTransformForward => ScaleCameraTransform(_currentCamera.transform.forward);
@@ -26,20 +27,10 @@ public class PlayerController : MonoBehaviour {
         ScaleCameraTransform(_currentCamera.transform.forward) * _movementInputVector.y +
         CameraTransformRight * _movementInputVector.x;
 
-    private bool IsMovementPressed => _movementInputVector != Vector2.zero;
     private Vector2 _movementInputVector;
     private Vector2 _lookInputVector;
     private Vector3 _lookOutputVector;
-    private bool IsLookPressed => _lookInputVector != Vector2.zero;
 
-    [HideInInspector]
-    public struct LocalTransform {
-        public Vector3 Up;
-        public Vector3 Forward;
-        public Vector3 Right;
-    }
-
-    [HideInInspector] public LocalTransform localTransform;
     private Rigidbody _rb;
     [SerializeField] private float rideHeight = 1.2f;
     [SerializeField] private float rideSpringStrength = 2000f;
@@ -70,13 +61,6 @@ public class PlayerController : MonoBehaviour {
         _currentCamera = playerCamera;
     }
 
-    private void InitializeLocalTransform() {
-        Transform t = transform;
-        localTransform.Up = t.up;
-        localTransform.Forward = t.forward;
-        localTransform.Right = t.right;
-    }
-
     #region Unity Event Methods
 
     private void Initialise() {
@@ -86,7 +70,6 @@ public class PlayerController : MonoBehaviour {
         }
 
         _rb = GetComponent<Rigidbody>();
-        InitializeLocalTransform();
         InitializeCameras();
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
@@ -98,23 +81,23 @@ public class PlayerController : MonoBehaviour {
     }
     
     private void OnEnable() {
-        input.EnableGameplayInput();
-        input.MoveEvent += OnMovementInput;
-        input.LookEvent += OnLookInput;
+        _playerInputHandler.EnableGameplayInput();
+        _playerInputHandler.MoveEvent += OnMovementPlayerInputHandler;
+        _playerInputHandler.LookEvent += OnLookPlayerInputHandler;
     }
 
     private void OnDisable() {
-        input.DisableAllInput();
-        input.MoveEvent -= OnMovementInput;
-        input.LookEvent -= OnLookInput;
+        _playerInputHandler.DisableAllInput();
+        _playerInputHandler.MoveEvent -= OnMovementPlayerInputHandler;
+        _playerInputHandler.LookEvent -= OnLookPlayerInputHandler;
     }
 
-    internal void OnMovementInput(Vector2 input) {
+    internal void OnMovementPlayerInputHandler(Vector2 input) {
         Vector2 inputValue = new Vector2(input.x, input.y);
         _movementInputVector = inputValue;
     }
 
-    internal void OnLookInput(Vector2 input) {
+    internal void OnLookPlayerInputHandler(Vector2 input) {
         Vector2 inputValue = new Vector2(input.x, input.y);
         _lookInputVector = inputValue;
     }
@@ -187,7 +170,7 @@ public class PlayerController : MonoBehaviour {
         transform.rotation = Quaternion.Euler(0, _yRot, 0);
     }
 
-    // Applies movement to the player character based on the players input
+    // Applies movement to the player character based on the players _playerInputHandler
     private void Movement() {
         // Calculate final movement Vector
         Vector3 moveDirection = Vector3.ClampMagnitude(MovementOutputVector, 1f);
