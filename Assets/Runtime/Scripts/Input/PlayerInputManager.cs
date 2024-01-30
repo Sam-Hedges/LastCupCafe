@@ -11,9 +11,9 @@ public class PlayerInputManager : MonoBehaviour {
 	
 	[Header("Listening on Channels")]
 	[Tooltip("Adds a PlayerInputHandler to the list of active players")]
-	[SerializeField] private GameObjectEventChannelSO _AddPlayerInputChannel = default;
+	[SerializeField] private PlayerControllerEventChannelSO _AddPlayerInputChannel = default;
 	[Tooltip("Removes a PlayerInputHandler from the list of active players")]
-	[SerializeField] private GameObjectEventChannelSO _RemovePlayerInputChannel = default;
+	[SerializeField] private PlayerControllerEventChannelSO _RemovePlayerInputChannel = default;
 	
 	private List<PlayerInputHandler> _playerInputs;
 	private InputUser _inputUser;
@@ -38,18 +38,16 @@ public class PlayerInputManager : MonoBehaviour {
 		_RemovePlayerInputChannel.OnEventRaised -= RemovePlayerInput;
 	}
 
-	private void AddPlayerInput(GameObject go) {
-		PlayerController playerController = null;
-		if (!ValidatePlayerGameObject(go, ref playerController, "AddPlayerInputChannel")) { return; }
+	private void AddPlayerInput(PlayerController playerController) {
+		if (!ValidatePlayerGameObject(playerController, "AddPlayerInputChannel")) { return; }
 		
 		PlayerInputHandler playerInputHandler = pool.Request();
 		playerController.SetPlayerInput(playerInputHandler);
 		_playerInputs.Add(playerInputHandler);
 	}
 
-	private void RemovePlayerInput(GameObject go) {
-		PlayerController playerController = null;
-		if (!ValidatePlayerGameObject(go, ref playerController, "RemovePlayerInputChannel")) { return; }
+	private void RemovePlayerInput(PlayerController playerController) {
+		if (!ValidatePlayerGameObject(playerController, "RemovePlayerInputChannel")) { return; }
 		
 		PlayerInputHandler playerInputHandler = playerController.GetPlayerInput();
 		_playerInputs.Remove(playerInputHandler);
@@ -60,22 +58,14 @@ public class PlayerInputManager : MonoBehaviour {
 	/// Checks if the GameObject is valid and has a PlayerController component.
 	/// </summary>
 	/// <param name="gameObject"> The GameObject to check. </param>
-	/// <param name="playerControllerRef"> Pass in a reference to a PlayerController. If the GameObject is valid, this will be set to the PlayerController component on the GameObject. </param>
+	/// <param name="playerController"> Pass in a reference to a PlayerController. If the GameObject is valid, this will be set to the PlayerController component on the GameObject. </param>
 	/// <param name="channelName"> The name of the channel that is calling this method. Used for logging. </param>
 	/// <returns></returns>
-	private bool ValidatePlayerGameObject(GameObject gameObject, ref PlayerController playerControllerRef, string channelName) {
-		if (gameObject == null) { 
-			Debug.LogError(channelName + " received a null GameObject");
-			return false;
-		}
-		
-		var playerController = gameObject.GetComponent<PlayerController>();
+	private bool ValidatePlayerGameObject(PlayerController playerController, string channelName) {
 		if (playerController == null) {
 			Debug.LogError(channelName + " received a GameObject without a PlayerController");
 			return false;
 		}
-		
-		playerControllerRef = playerController;
 		return true;
 	}
 }

@@ -12,21 +12,24 @@ public class PlayerManager : MonoBehaviour {
 	[Tooltip("Spawns a Player at the spawn point")]
 	[SerializeField] private VoidEventChannelSO _SpawnPlayerChannel = default;
 	[Tooltip("Removes a Player from the scene")]
-	[SerializeField] private GameObjectEventChannelSO _DespawnPlayerChannel = default;
+	[SerializeField] private PlayerControllerEventChannelSO _DespawnPlayerChannel = default;
 	[Tooltip("Sets the Player's parent to the PlayerParent object")]
 	[SerializeField] private TransformEventChannelSO _PlayerParentChannel = default;
 	
-	
 	[Header("Broadcasting on Channels")]
 	[Tooltip("Adds a PlayerInputHandler to the list of active players")]
-	[SerializeField] private GameObjectEventChannelSO _AddPlayerInputChannel = default;
+	[SerializeField] private PlayerControllerEventChannelSO _AddPlayerInputChannel = default;
 	[Tooltip("Removes a PlayerInputHandler from the list of active players")]
-	[SerializeField] private GameObjectEventChannelSO _RemovePlayerInputChannel = default;
+	[SerializeField] private PlayerControllerEventChannelSO _RemovePlayerInputChannel = default;
+	[Tooltip("Broadcasts a message to the UI that a player has joined")]
+	[SerializeField] private VoidEventChannelSO _PlayerJoinedMessageChannel = default;
+	[Tooltip("Broadcasts a message to the UI that a player has left")]
+	[SerializeField] private VoidEventChannelSO _PlayerLeftMessageChannel = default;
 	
-	private List<GameObject> _players;
+	private List<PlayerController> _players;
 	
 	private void Awake() {
-		_players = new List<GameObject>();
+		_players = new List<PlayerController>();
 
 		pool.Prewarm(initialSize);
 	}
@@ -52,17 +55,16 @@ public class PlayerManager : MonoBehaviour {
 	}
 	
 	private void SpawnPlayer() {
-		GameObject player = pool.Request().gameObject;
+		var player = pool.Request();
 		_AddPlayerInputChannel.RaiseEvent(player);
 		_players.Add(player);
 	}
 	
-	private void DespawnPlayer(GameObject go) {
-		PlayerController playerController = null;
-		if (!ValidatePlayerGameObject(go, ref playerController, "DespawnPlayerChannel")) { return; }
+	private void DespawnPlayer(PlayerController playerController) {
+		if (!ValidatePlayerGameObject(playerController, "DespawnPlayerChannel")) { return; }
 		
-		_RemovePlayerInputChannel.RaiseEvent(go);
-		_players.Remove(go);
+		_RemovePlayerInputChannel.RaiseEvent(playerController);
+		_players.Remove(playerController);
 		pool.Return(playerController);
 	}
 
@@ -73,19 +75,11 @@ public class PlayerManager : MonoBehaviour {
 	/// <param name="playerControllerRef"> Pass in a reference to a PlayerController. If the GameObject is valid, this will be set to the PlayerController component on the GameObject. </param>
 	/// <param name="channelName"> The name of the channel that is calling this method. Used for logging. </param>
 	/// <returns></returns>
-	private bool ValidatePlayerGameObject(GameObject gameObject, ref PlayerController playerControllerRef, string channelName) {
-		if (gameObject == null) { 
-			Debug.LogError(channelName + " received a null GameObject");
-			return false;
-		}
-		
-		var playerController = gameObject.GetComponent<PlayerController>();
+	private bool ValidatePlayerGameObject(PlayerController playerController, string channelName) {
 		if (playerController == null) {
 			Debug.LogError(channelName + " received a GameObject without a PlayerController");
 			return false;
 		}
-		
-		playerControllerRef = playerController;
 		return true;
 	}
 }

@@ -1,12 +1,14 @@
 using System.Collections;
 using Cinemachine;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour {
     
     private PlayerInputHandler _playerInputHandler;
     private PlayerInputAnchor _playerInputAnchor;
-
+    private InputActionAsset _inputActionAsset;
+    
     [Header("Camera")]
     [SerializeField] private Camera mainCamera;
     private Camera _currentCamera;
@@ -63,7 +65,6 @@ public class PlayerController : MonoBehaviour {
         if (mainCamera == null) {
             mainCamera = Camera.main;
         }
-
         _rb = GetComponent<Rigidbody>();
         _currentCamera = mainCamera;
         
@@ -76,6 +77,7 @@ public class PlayerController : MonoBehaviour {
     }
 
     private void OnEnable() {
+        _inputActionAsset.;
         if (!_playerInputAnchor.isSet) return;
         _playerInputHandler = _playerInputAnchor.Value;
         if (_playerInputHandler == null) return;
