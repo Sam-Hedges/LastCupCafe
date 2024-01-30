@@ -1,13 +1,13 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem.Users;
 using UnityEngine.Rendering;
 
-public class InputManager : MonoBehaviour {
+public class PlayerInputManager : MonoBehaviour {
 	
 	[Header("PlayerInput Pool")]
 	[SerializeField] private PlayerInputPoolSO pool;
 	[SerializeField] private int initialSize = 1;
-	
 	
 	[Header("Listening on Channels")]
 	[Tooltip("Adds a PlayerInputHandler to the list of active players")]
@@ -16,12 +16,16 @@ public class InputManager : MonoBehaviour {
 	[SerializeField] private GameObjectEventChannelSO _RemovePlayerInputChannel = default;
 	
 	private List<PlayerInputHandler> _playerInputs;
+	private InputUser _inputUser;
 	
 	private void Awake() {
 		_playerInputs = new List<PlayerInputHandler>();
 
 		pool.Prewarm(initialSize);
 		pool.SetParent(this.transform);
+	}
+
+	private void Update() {
 	}
 	
 	private void OnEnable() {
