@@ -1411,7 +1411,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &155463038
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5951,7 +5951,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 1
+  m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!222 &549947995
@@ -7474,7 +7474,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &609795278
 Transform:
   m_ObjectHideFlags: 0
@@ -10875,7 +10875,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &891137337
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10888,7 +10888,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4dacbcebae84a0845abfa9caaba6c1fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inputHandler: {fileID: 11400000, guid: 9f3c8d07001a67245bcf1a54c12e7ce6, type: 2}
+  inputController: {fileID: 0}
   startGameEvent:
     m_PersistentCalls:
       m_Calls:
@@ -12700,7 +12700,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Level 1
+  m_text: Local Multi
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b70755d17942a224283dba3682e77a21, type: 2}
   m_sharedMaterial: {fileID: 777344093514916945, guid: b70755d17942a224283dba3682e77a21,
@@ -12768,7 +12768,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 1
+  m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!222 &985782550
@@ -13775,7 +13775,7 @@ GameObject:
   - component: {fileID: 1088374165}
   - component: {fileID: 1088374164}
   m_Layer: 5
-  m_Name: 1
+  m_Name: LocalMultiPlayground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14712,7 +14712,7 @@ PrefabInstance:
     - target: {fileID: 4639131639876922840, guid: a911d99f7e4716c49a45203ea9084990,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6202847356474842794, guid: a911d99f7e4716c49a45203ea9084990,
         type: 3}
@@ -17136,7 +17136,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 1
+  m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!222 &1254088718
@@ -17547,9 +17547,9 @@ RectTransform:
   - {fileID: 1797778478}
   m_Father: {fileID: 349938371}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 252.5, y: -165}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 182, y: 15}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1281652878
@@ -21930,7 +21930,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 1
+  m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!222 &1592577413
@@ -24498,9 +24498,9 @@ RectTransform:
   - {fileID: 549947993}
   m_Father: {fileID: 349938371}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 252.5, y: -250}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 182, y: 15}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1779023290
@@ -25124,7 +25124,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 1
+  m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!222 &1797778480
@@ -29412,14 +29412,13 @@ GameObject:
   m_Component:
   - component: {fileID: 2083352530}
   - component: {fileID: 2083352529}
-  - component: {fileID: 2083352531}
   m_Layer: 0
   m_Name: SceneLoader
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &2083352529
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -29441,8 +29440,7 @@ MonoBehaviour:
   _toggleLoadingScreen: {fileID: 11400000, guid: cf997f60b491fd942a370a513dd6f0fe,
     type: 2}
   _onSceneReady: {fileID: 11400000, guid: e0362bb60c575754d97d578dd4d244fe, type: 2}
-  _fadeRequestChannel: {fileID: 11400000, guid: b84744652581d4349b2abe14db216d4a,
-    type: 2}
+  _fadeRequestChannel: {fileID: 0}
 --- !u!4 &2083352530
 Transform:
   m_ObjectHideFlags: 0
@@ -29458,19 +29456,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2083352531
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2083352528}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f214dbbcd5e963546a0b3bd2b9b6e149, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  loadEventChannel: {fileID: 11400000, guid: 173f9db63e651a94bbee65b61f1a612e, type: 2}
 --- !u!1 &2100050871
 GameObject:
   m_ObjectHideFlags: 0

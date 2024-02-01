@@ -4,7 +4,7 @@ using UnityEngine.Events;
 
 public class MenuManager : MonoBehaviour
 {
-    [SerializeField] private InputHandler inputHandler;
+    [SerializeField] private InputController inputController;
     [Space]
     [SerializeField] private UnityEvent startGameEvent;
     
@@ -15,18 +15,18 @@ public class MenuManager : MonoBehaviour
     }
     
     private void OnEnable() {
-        inputHandler.EnableMenuInput();
-        inputHandler.StartGameEvent += LoadMenu;
+        inputController.EnableMenuInput();
+        inputController.StartGameEvent += LoadMenu;
     }
     
     private void OnDisable() {
-        inputHandler.DisableAllInput();
-        inputHandler.StartGameEvent -= LoadMenu;
+        inputController.DisableAllInput();
+        inputController.StartGameEvent -= LoadMenu;
     }
     
     internal void LoadMenu() {
         startGameEvent.Invoke();
-        inputHandler.StartGameEvent -= LoadMenu;
+        inputController.StartGameEvent -= LoadMenu;
     }
 
     public void ExitApplicatation() {

@@ -58,6 +58,7 @@ MonoBehaviour:
     type: 2}
   setPlayerControllerParentChannel: {fileID: 11400000, guid: c266e81039a58d54b98cfcaca1e1a424,
     type: 2}
+  onSceneReadyChannel: {fileID: 0}
 --- !u!114 &4944532856324461017
 MonoBehaviour:
   m_ObjectHideFlags: 0

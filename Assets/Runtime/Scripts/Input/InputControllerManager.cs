@@ -25,6 +25,9 @@ public class InputControllerManager : MonoBehaviour {
     [Tooltip("Sets the Player's parent to the PlayerParent object")] [SerializeField]
     private TransformEventChannelSO setPlayerControllerParentChannel;
 
+    [Tooltip("Event is raised when the gameplay scene has finished loading")] [SerializeField]
+    private VoidEventChannelSO onSceneReadyChannel;
+    
     private List<InputController> _inputs;
     private List<PlayerController> _players;
 
@@ -79,6 +82,20 @@ public class InputControllerManager : MonoBehaviour {
 		}
 	}
 	
+	private void SpawnPlayers() {
+        // Find the first InputController that is not in use
+        foreach (var inputController in _inputs) {
+            if (inputController.GetPlayerController() == null) {
+                
+                var playerController = playerControllerPool.Request();
+		        _players.Add(playerController);
+                
+                inputController.SetPlayerController(playerController);
+                playerController.SetPlayerInput(inputController);
+            }
+        } 
+	}
+    
 	private void SpawnPlayer() {
         // Find the first InputController that is not in use
         foreach (var inputController in _inputs) {
