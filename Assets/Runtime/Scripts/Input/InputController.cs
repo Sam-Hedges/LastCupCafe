@@ -1,27 +1,48 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.Events;
+using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.UI;
 
 /// <summary>
 /// Input is handled by the InputHandler, which is a ScriptableObject that can be referenced by other classes.
 /// This allows for the input to be easily referenced by classes across scenes
 /// </summary>
-[CreateAssetMenu(fileName = "InputHandler", menuName = "Input Handler")]
-public class InputHandler : SerializableScriptableObject, UserActions.IGameplayActions/*, UserActions.IUIActions*/ {
-    // The Input Actions asset
-    private UserActions _userActions;
+[RequireComponent(typeof(PlayerInput))]
+public class InputController : MonoBehaviour, UserActions.IGameplayActions {
+    
+    [Header("Broadcasting on Channels")]
+    [Tooltip("Sends a reference of itself to the Input Controller Manager when it is spawned")] [SerializeField]
+    private GameObjectEventChannelSO _InputControllerInstancedChannel = default;
+    [Tooltip("Sends a reference of itself to the Input Controller Manager when it is destroyed")] [SerializeField]
+    private GameObjectEventChannelSO _InputControllerDestroyedChannel = default;
+    
+    private PlayerController _parentPlayerController;
+    private UserActions _userActions; // Actions Asset
+    private PlayerInput _playerInput; // Player Input Component
 
     #region Control Flow Methods
 
-    private void OnEnable() {
-        if (_userActions == null) {
-            // Create the actions asset
-            _userActions = new UserActions();
+    private void Awake() {
+        _playerInput = GetComponent<PlayerInput>();
+        _userActions = new UserActions();
+        
+        _InputControllerInstancedChannel.RaiseEvent(this.gameObject);
+    }
 
-            // Assign the callbacks for the action maps
-            // _userActions.UI.SetCallbacks(this);
-            // _userActions.Gameplay.SetCallbacks(this);
-        }
+    private void Start() {
+        // _playerInput.uiInputModule = FindAnyObjectByType<InputSystemUIInputModule>();
+    }
+
+    private void OnDestroy() {
+        _InputControllerDestroyedChannel.RaiseEvent(this.gameObject);
+    }
+
+    private void OnEnable() {
+        // LEGACY: Before using the Player Input Component for callbacks
+        // we used SetCallbacks to assign the callbacks for the action maps
+        // Assign the callbacks for the action maps
+        // _userActions.UI.SetCallbacks(this);
+        // _userActions.Gameplay.SetCallbacks(this);
     }
 
     private void OnDisable() {
@@ -41,6 +62,14 @@ public class InputHandler : SerializableScriptableObject, UserActions.IGameplayA
     public void DisableAllInput() {
         _userActions.Gameplay.Disable();
         // _userActions.UI.Disable();
+    }
+
+    public PlayerController GetPlayerController() {
+        return _parentPlayerController;
+    }
+
+    public void SetPlayerController(PlayerController playerController) {
+        _parentPlayerController = playerController;
     }
 
     #endregion

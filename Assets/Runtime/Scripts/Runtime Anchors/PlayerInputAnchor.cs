@@ -2,4 +2,4 @@
 using UnityEngine.Events;
 
 [CreateAssetMenu(menuName = "Runtime Anchors/Player Input")]
-public class PlayerInputAnchor : RuntimeAnchorBase<PlayerInputHandler>{ }
+public class PlayerInputAnchor : RuntimeAnchorBase<InputController>{ }

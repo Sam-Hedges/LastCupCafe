@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 82b80455d7f149188703113042fe111a, type: 3}
-  m_Name: PlayerInputPool
+  m_Script: {fileID: 11500000, guid: 7fafac715ff920c4383fed91a38a351e, type: 3}
+  m_Name: SpawnPlayerController_Channel
   m_EditorClassIdentifier: 
-  factory: {fileID: 11400000, guid: 70f7c9abe7132c04eaa69184b6db5871, type: 2}
+  _guid: 

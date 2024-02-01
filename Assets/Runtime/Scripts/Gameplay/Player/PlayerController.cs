@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour {
     
-    private PlayerInputHandler _playerInputHandler;
+    private InputController _inputController;
     private PlayerInputAnchor _playerInputAnchor;
     private InputActionAsset _inputActionAsset;
     
@@ -51,12 +51,12 @@ public class PlayerController : MonoBehaviour {
     [SerializeField] private float groundCheckRad = 0.5f;
     [SerializeField] private Transform groundCheckOrigin;
 
-    public void SetPlayerInput(PlayerInputHandler newPlayerInputHandler) {
-        _playerInputAnchor.Provide(newPlayerInputHandler);
+    public void SetPlayerInput(InputController newInputController) {
+        _playerInputAnchor.Provide(newInputController);
     }
     
-    public PlayerInputHandler GetPlayerInput() {
-        return _playerInputHandler;
+    public InputController GetPlayerInput() {
+        return _inputController;
     }
 
     #region Unity Event Methods
@@ -77,28 +77,27 @@ public class PlayerController : MonoBehaviour {
     }
 
     private void OnEnable() {
-        _inputActionAsset.;
         if (!_playerInputAnchor.isSet) return;
-        _playerInputHandler = _playerInputAnchor.Value;
-        if (_playerInputHandler == null) return;
-        _playerInputHandler.EnableGameplayInput();
-        _playerInputHandler.MoveEvent += OnMovementPlayerInputHandler;
-        _playerInputHandler.LookEvent += OnLookPlayerInputHandler;
+        _inputController = _playerInputAnchor.Value;
+        if (_inputController == null) return;
+        _inputController.EnableGameplayInput();
+        _inputController.MoveEvent += OnMovementInputController;
+        _inputController.LookEvent += OnLookInputController;
     }
     
     private void OnDisable() {
-        if (_playerInputHandler == null) return;
-        _playerInputHandler.DisableAllInput();
-        _playerInputHandler.MoveEvent -= OnMovementPlayerInputHandler;
-        _playerInputHandler.LookEvent -= OnLookPlayerInputHandler;
+        if (_inputController == null) return;
+        _inputController.DisableAllInput();
+        _inputController.MoveEvent -= OnMovementInputController;
+        _inputController.LookEvent -= OnLookInputController;
     }
 
-    internal void OnMovementPlayerInputHandler(Vector2 input) {
+    internal void OnMovementInputController(Vector2 input) {
         Vector2 inputValue = new Vector2(input.x, input.y);
         _movementInputVector = inputValue;
     }
 
-    internal void OnLookPlayerInputHandler(Vector2 input) {
+    internal void OnLookInputController(Vector2 input) {
         Vector2 inputValue = new Vector2(input.x, input.y);
         _lookInputVector = inputValue;
     }
