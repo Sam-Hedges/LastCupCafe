@@ -1,21 +1,21 @@
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.UI;
 
 /// <summary>
 /// Input is handled by the InputHandler, which is a ScriptableObject that can be referenced by other classes.
 /// This allows for the input to be easily referenced by classes across scenes
 /// </summary>
 [RequireComponent(typeof(PlayerInput))]
-public class InputController : MonoBehaviour, UserActions.IGameplayActions {
-    
+public class InputController : MonoBehaviour, UserActions.IGameplayActions, UserActions.IUIActions {
     [Header("Broadcasting on Channels")]
-    [Tooltip("Sends a reference of itself to the Input Controller Manager when it is spawned")] [SerializeField]
+    [Tooltip("Sends a reference of itself to the Input Controller Manager when it is spawned")]
+    [SerializeField]
     private GameObjectEventChannelSO _InputControllerInstancedChannel = default;
+
     [Tooltip("Sends a reference of itself to the Input Controller Manager when it is destroyed")] [SerializeField]
     private GameObjectEventChannelSO _InputControllerDestroyedChannel = default;
-    
+
     private PlayerController _parentPlayerController;
     private UserActions _userActions; // Actions Asset
     private PlayerInput _playerInput; // Player Input Component
@@ -25,7 +25,7 @@ public class InputController : MonoBehaviour, UserActions.IGameplayActions {
     private void Awake() {
         _playerInput = GetComponent<PlayerInput>();
         _userActions = new UserActions();
-        
+
         _InputControllerInstancedChannel.RaiseEvent(this.gameObject);
     }
 
@@ -38,6 +38,19 @@ public class InputController : MonoBehaviour, UserActions.IGameplayActions {
     }
 
     private void OnEnable() {
+        
+        EnableGameplayInput();
+        // _userActions.Gameplay.Attack.performed += OnAttack;
+        // _userActions.Gameplay.Attack.canceled += OnAttack;
+        //
+        // _userActions.Gameplay.Movement.started += OnMovement;
+        // _userActions.Gameplay.Movement.performed += OnMovement;
+        // _userActions.Gameplay.Movement.canceled += OnMovement;
+        //
+        // _userActions.Gameplay.Dodge.performed += OnDodge;
+        // _userActions.Gameplay.Interact.performed += OnInteract;
+        // _userActions.Gameplay.Look.performed += OnLook;
+
         // LEGACY: Before using the Player Input Component for callbacks
         // we used SetCallbacks to assign the callbacks for the action maps
         // Assign the callbacks for the action maps
@@ -47,6 +60,17 @@ public class InputController : MonoBehaviour, UserActions.IGameplayActions {
 
     private void OnDisable() {
         DisableAllInput();
+        
+        // _userActions.Gameplay.Attack.performed -= OnAttack;
+        // _userActions.Gameplay.Attack.canceled -= OnAttack;
+        //
+        // _userActions.Gameplay.Movement.started -= OnMovement;
+        // _userActions.Gameplay.Movement.performed -= OnMovement;
+        // _userActions.Gameplay.Movement.canceled -= OnMovement;
+        //
+        // _userActions.Gameplay.Dodge.performed -= OnDodge;
+        // _userActions.Gameplay.Interact.performed -= OnInteract;
+        // _userActions.Gameplay.Look.performed -= OnLook;
     }
 
     public void EnableGameplayInput() {
@@ -56,12 +80,12 @@ public class InputController : MonoBehaviour, UserActions.IGameplayActions {
 
     public void EnableMenuInput() {
         DisableAllInput();
-        // _userActions.UI.Enable();
+        _userActions.UI.Enable();
     }
 
     public void DisableAllInput() {
         _userActions.Gameplay.Disable();
-        // _userActions.UI.Disable();
+        _userActions.UI.Disable();
     }
 
     public PlayerController GetPlayerController() {
@@ -82,7 +106,6 @@ public class InputController : MonoBehaviour, UserActions.IGameplayActions {
     public event UnityAction DodgeEvent = delegate { };
     public event UnityAction AttackEvent = delegate { };
     public event UnityAction AttackCanceledEvent = delegate { };
-    public event UnityAction SkillEvent_01 = delegate { };
 
     public event UnityAction
         InteractEvent = delegate { }; // Used to talk, pickup objects, interact with tools like the cooking cauldron
@@ -122,11 +145,6 @@ public class InputController : MonoBehaviour, UserActions.IGameplayActions {
             //&& (_gameStateManager.CurrentGameState == GameState.Gameplay)) // Interaction is only possible when in gameplay GameState
             InteractEvent.Invoke();
         }
-    }
-
-    public void OnSkill_01(InputAction.CallbackContext context) {
-        if (context.phase == InputActionPhase.Performed)
-            SkillEvent_01.Invoke();
     }
 
     #endregion

@@ -127,14 +127,6 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: ea16f3d4-af94-4478-b182-8c2bc7c6ba61
     m_ActionName: UI/RightClick[/Mouse/rightButton]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: fe30d87f-04df-4d62-a85d-cba8f3e4c416
-    m_ActionName: UI/TrackedDevicePosition
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 7a04e972-62a2-433b-b1dd-c09bc9a99af1
-    m_ActionName: UI/TrackedDeviceOrientation
   m_NeverAutoSwitchControlSchemes: 1
   m_DefaultControlScheme: Keyboard&Mouse
   m_DefaultActionMap: Gameplay
