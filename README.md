@@ -42,7 +42,7 @@ The primary goals of *Last Cup Cafe* are as follows:
 | 13   | Submission Deadline |
 
 ## Team Members
-The development of RTSProject is a collaborative effort by a dedicated team of individuals committed to creating an exceptional gaming experience. We would like to acknowledge and credit the following team members for their contributions:
+The development of Last Cup Cafe is a collaborative effort by a dedicated team of individuals committed to creating an exceptional gaming experience. We would like to acknowledge and credit the following team members for their contributions:
 - [Sam Hedges](https://sam-hedges.github.io/) - Project Maintainer & Lead Programmer
 - [Luca Pace](https://github.com/Misdur) - Gameplay Programmer
 - [Charlie Bycroft](https://github.com/soutpark02) - Gameplay Programmer
