@@ -1,5 +1,9 @@
-# RTSProject - Tragedy of the Commons Real-Time Strategy Game
+# Last Cup Cafe - The Ultimate Cafe Management Strategy Game
 ## Overview
+
+Welcome to Last Cup Cafe, a unique twist on cafe management strategy games set in a world where your cafe owns the last coffee bean plants on Earth. This game combines the thrill of running a cafe with the critical responsibility of managing the world's final coffee resources. Players must navigate the challenges of meeting investor quotas while taking care of precious coffee plants to ensure the cafe's survival and prosperity.
+
+In Last Cup Cafe, you're not just running a cafe; you're tasked with preserving a piece of what makes the cafe culture so special - the coffee itself. With banker investment hanging in the balance, each round becomes a critical test of your ability to balance profit with sustainability.
 
 Welcome to the RTSProject, a real-time strategy (RTS) game that explores the concept of the "Tragedy of the Commons." This project aims to challenge players to make strategic decisions to maximize their profits while responsibly managing shared resources to avoid depletion.
 
