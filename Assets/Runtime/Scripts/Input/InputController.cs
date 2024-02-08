@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
@@ -97,53 +98,45 @@ public class InputController : MonoBehaviour, UserActions.IGameplayActions, User
     }
 
     #endregion
-
+    
     #region Gameplay
 
     // Event handlers for the Gameplay action map
     // Assign delegate{} to events to initialise them with an empty delegate
     // so we can skip the null check when we use them
-    public event UnityAction DodgeEvent = delegate { };
-    public event UnityAction AttackEvent = delegate { };
-    public event UnityAction AttackCanceledEvent = delegate { };
+    public event UnityAction DashEvent = delegate { };
+    public event UnityAction StationInteractEvent = delegate { };
+    
+    // public event UnityAction AttackCanceledEvent = delegate { };
 
-    public event UnityAction
-        InteractEvent = delegate { }; // Used to talk, pickup objects, interact with tools like the cooking cauldron
-
-    public event UnityAction InventoryActionButtonEvent = delegate { };
-    public event UnityAction SaveActionButtonEvent = delegate { };
-    public event UnityAction ResetActionButtonEvent = delegate { };
+    public event UnityAction PauseEvent = delegate { };
+    public event UnityAction ItemInteractEvent = delegate { };
+    public event UnityAction EmoteEvent = delegate { };
     public event UnityAction<Vector2> MoveEvent = delegate { };
-    public event UnityAction<Vector2> LookEvent = delegate { };
 
     public void OnMovement(InputAction.CallbackContext context) {
-        MoveEvent.Invoke(context.ReadValue<Vector2>());
+        MoveEvent?.Invoke(context.ReadValue<Vector2>());
     }
 
-    public void OnLook(InputAction.CallbackContext context) {
-        LookEvent.Invoke(context.ReadValue<Vector2>());
+    public void OnStationInteract(InputAction.CallbackContext context) {
+        if (context.phase == InputActionPhase.Performed)
+            StationInteractEvent?.Invoke();
     }
 
-    public void OnAttack(InputAction.CallbackContext context) {
-        switch (context.phase) {
-            case InputActionPhase.Performed:
-                AttackEvent.Invoke();
-                break;
-            case InputActionPhase.Canceled:
-                AttackCanceledEvent.Invoke();
-                break;
+    public void OnDash(InputAction.CallbackContext context) {
+        if (context.phase == InputActionPhase.Performed)
+            DashEvent?.Invoke();
+    }
+
+    public void OnItemInteract(InputAction.CallbackContext context) {
+        if (context.phase == InputActionPhase.Performed) {
+            ItemInteractEvent?.Invoke();
         }
     }
 
-    public void OnDodge(InputAction.CallbackContext context) {
-        if (context.phase == InputActionPhase.Performed)
-            DodgeEvent.Invoke();
-    }
-
-    public void OnInteract(InputAction.CallbackContext context) {
-        if ((context.phase == InputActionPhase.Performed)) {
-            //&& (_gameStateManager.CurrentGameState == GameState.Gameplay)) // Interaction is only possible when in gameplay GameState
-            InteractEvent.Invoke();
+    public void OnEmote(InputAction.CallbackContext context) {
+        if (context.phase == InputActionPhase.Performed) {
+            EmoteEvent?.Invoke();
         }
     }
 
@@ -164,6 +157,8 @@ public class InputController : MonoBehaviour, UserActions.IGameplayActions, User
     public event UnityAction OpenInventoryEvent = delegate { }; // Used to bring up the inventory
     public event UnityAction CloseInventoryEvent = delegate { }; // Used to bring up the inventory
     public event UnityAction<float> TabSwitched = delegate { };
+    public event UnityAction InventoryActionButtonEvent = delegate { };
+    public event UnityAction SaveActionButtonEvent = delegate { };
 
     public void OnOpenInventory(InputAction.CallbackContext context) {
         if (context.phase == InputActionPhase.Performed)
@@ -187,7 +182,7 @@ public class InputController : MonoBehaviour, UserActions.IGameplayActions, User
 
     public void OnResetActionButton(InputAction.CallbackContext context) {
         if (context.phase == InputActionPhase.Performed)
-            ResetActionButtonEvent.Invoke();
+            PauseEvent.Invoke();
     }
 
     public void OnMoveSelection(InputAction.CallbackContext context) {
