@@ -4,8 +4,8 @@ using Unity.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class RuntimeAnchorBase<T> : SerializableScriptableObject where T : UnityEngine.Object
-{
+public class RuntimeAnchorBase<T> : SerializableScriptableObject {
+	
 	public UnityAction OnAnchorProvided;
 
 	[Header("Debug")]
@@ -34,7 +34,7 @@ public class RuntimeAnchorBase<T> : SerializableScriptableObject where T : Unity
 
 	public void Unset()
 	{
-		_value = null;
+		_value = default(T);
 		isSet = false;
 	}
 

@@ -68,6 +68,14 @@ public class InputHandler : SerializableScriptableObject, UserActions.IGameplayA
         MoveEvent.Invoke(context.ReadValue<Vector2>());
     }
 
+    public void OnStationInteract(InputAction.CallbackContext context) {
+        throw new System.NotImplementedException();
+    }
+
+    public void OnDash(InputAction.CallbackContext context) {
+        throw new System.NotImplementedException();
+    }
+
     public void OnLook(InputAction.CallbackContext context) {
         LookEvent.Invoke(context.ReadValue<Vector2>());
     }
@@ -162,6 +170,14 @@ public class InputHandler : SerializableScriptableObject, UserActions.IGameplayA
     public void OnPause(InputAction.CallbackContext context) {
         if (context.phase == InputActionPhase.Performed)
             MenuPauseEvent.Invoke();
+    }
+
+    public void OnItemInteract(InputAction.CallbackContext context) {
+        throw new System.NotImplementedException();
+    }
+
+    public void OnEmote(InputAction.CallbackContext context) {
+        throw new System.NotImplementedException();
     }
 
     public void OnUnpause(InputAction.CallbackContext context) {

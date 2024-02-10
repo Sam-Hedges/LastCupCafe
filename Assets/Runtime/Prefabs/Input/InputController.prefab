@@ -76,15 +76,35 @@ MonoBehaviour:
     m_ActionId: f807cc8f-5243-446e-86be-80f8a25a0582
     m_ActionName: Gameplay/Movement[/XInputControllerWindows1/leftStick,/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d,/Keyboard/upArrow,/Keyboard/downArrow,/Keyboard/leftArrow,/Keyboard/rightArrow]
   - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 23d5a7d1-9058-41e3-8cbd-32419c0ff4fd
-    m_ActionName: Gameplay/Look[/Mouse/delta,/XInputControllerWindows1/rightStick]
-  - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1366427878097147130}
+        m_TargetAssemblyTypeName: InputController, Assembly-CSharp
+        m_MethodName: OnStationInteract
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: ab3c3caf-ed85-460b-bb4d-ba1dc7d17b97
     m_ActionName: Gameplay/Attack[/XInputControllerWindows1/buttonWest,/Keyboard/space]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1366427878097147130}
+        m_TargetAssemblyTypeName: InputController, Assembly-CSharp
+        m_MethodName: OnDash
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 48096af2-fa24-40ec-a02c-9d517d241476
     m_ActionName: Gameplay/Dodge[/XInputControllerWindows1/buttonSouth,/Keyboard/shift]
   - m_PersistentCalls:
@@ -92,7 +112,19 @@ MonoBehaviour:
     m_ActionId: f9e81c97-25c1-4be6-8f1d-5f1c68e8adb0
     m_ActionName: Gameplay/Pause[/XInputControllerWindows1/start,/Keyboard/escape]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1366427878097147130}
+        m_TargetAssemblyTypeName: InputController, Assembly-CSharp
+        m_MethodName: OnItemInteract
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: ff662a2f-df06-4cc7-8293-c3c683a1fb4e
     m_ActionName: Gameplay/Skill_01[/XInputControllerWindows1/buttonNorth,/Keyboard/e]
   - m_PersistentCalls:
@@ -127,6 +159,22 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: ea16f3d4-af94-4478-b182-8c2bc7c6ba61
     m_ActionName: UI/RightClick[/Mouse/rightButton]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1366427878097147130}
+        m_TargetAssemblyTypeName: InputController, Assembly-CSharp
+        m_MethodName: OnEmote
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 5c92bad2-f0f7-4469-8cd9-facb2c9fe232
+    m_ActionName: Gameplay/Emote[/XInputControllerWindows/buttonNorth,/Keyboard/g]
   m_NeverAutoSwitchControlSchemes: 1
   m_DefaultControlScheme: Keyboard&Mouse
   m_DefaultActionMap: Gameplay

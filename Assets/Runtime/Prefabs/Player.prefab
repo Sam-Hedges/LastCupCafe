@@ -15,7 +15,7 @@ GameObject:
   m_Icon: {fileID: 4422084297763085224, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7104304210489053234
 Transform:
   m_ObjectHideFlags: 0
@@ -80,7 +80,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7104304210522484520}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -207,7 +207,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -239,7 +239,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7104304212009502274}
   - component: {fileID: 1995975727682358264}
-  - component: {fileID: 2041298799506612214}
+  - component: {fileID: 5257620446069213375}
   - component: {fileID: 7104304212009502273}
   - component: {fileID: 7104304212009502275}
   m_Layer: 0
@@ -280,12 +280,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7bf1f64010b4c443a160d1c9fbdb3d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainCamera: {fileID: 0}
-  rideHeight: 1.2
-  rideSpringStrength: 2000
-  rideSpringDamper: 100
-  maxSpeed: 8
+  maxSpeed: 5
   acceleration: 200
+  maxAcceleration: 150
   accelerationFactor:
     serializedVersion: 2
     m_Curve:
@@ -319,7 +316,6 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  maxAcceleration: 150
   maxAccelerationFactor:
     serializedVersion: 2
     m_Curve:
@@ -354,12 +350,23 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   forceScale: {x: 1, y: 0, z: 1}
+  dashSpeed: 8
+  rideHeight: 1.2
+  rideSpringStrength: 2000
+  rideSpringDamper: 100
   groundMask:
     serializedVersion: 2
     m_Bits: 1
-  groundCheckRad: 0.5
   groundCheckOrigin: {fileID: 7104304211531077975}
---- !u!114 &2041298799506612214
+  interactionLayerMask:
+    serializedVersion: 2
+    m_Bits: 64
+  interactionBoxSize: {x: 1, y: 2, z: 0.01}
+  interactionBoxCastMaxDistance: 1
+  playerMotionBlendStateAnchor: {fileID: 0}
+  playerPickupItemEventChannel: {fileID: 0}
+  playerDropItemEventChannel: {fileID: 0}
+--- !u!114 &5257620446069213375
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -368,11 +375,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 7104304212009502285}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 63e76e9e56ef5b64a92cb9591aeaaffd, type: 3}
+  m_Script: {fileID: 11500000, guid: aaa29ed99db5df24187b86c0137eb772, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gravityStrength: 9.81
-  debugVector: {x: 0, y: 0, z: 0}
+  playerModels:
+  - {fileID: 5362025121097832189, guid: 0da59bd1f7117f84a8b59d383effdaef, type: 3}
+  - {fileID: 5131495029731022068, guid: 9d4dd85afa58a17438e34b09e8d15f77, type: 3}
+  - {fileID: 8062157943529065004, guid: b2dfadfada0fd634ebbfc36909e42c1c, type: 3}
+  playerMotionBlendSpeed: 5
 --- !u!136 &7104304212009502273
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -421,7 +431,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 1
-  m_Constraints: 0
+  m_Constraints: 80
   m_CollisionDetection: 1
 --- !u!1 &7104304212324126016
 GameObject:
