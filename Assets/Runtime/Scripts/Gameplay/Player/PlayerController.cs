@@ -4,69 +4,84 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour {
-    // INPUT
+    // GENERAL REFERENCES
     private InputController _inputController;
     private PlayerInputAnchor _playerInputAnchor;
     private InputActionAsset _inputActionAsset;
-
-    // CAMERA
-    private Camera mainCamera;
-    private Vector3 CameraTransformForward => ScaleCameraTransform(mainCamera.transform.forward);
-    private Vector3 CameraTransformRight => ScaleCameraTransform(mainCamera.transform.right);
-
+    private Camera _mainCamera;
+    private Rigidbody _rb;
+    
+    // INPUT
+    private Vector3 MovementOutputVector =>
+        ScaleCameraTransform(_mainCamera.transform.forward) * _movementInputVector.y +
+        CameraTransformRight * _movementInputVector.x;
+    private Vector2 _movementInputVector;
+    private Vector2 _lookInputVector;
+    private Vector3 _lookOutputVector;
+    private Vector3 CameraTransformForward => ScaleCameraTransform(_mainCamera.transform.forward);
+    private Vector3 CameraTransformRight => ScaleCameraTransform(_mainCamera.transform.right);
     private Vector3 ScaleCameraTransform(Vector3 cameraTransform) {
         cameraTransform.y = 0.0f;
         cameraTransform.Normalize();
         return cameraTransform;
     }
 
-    private float _xRot;
-    private float _yRot;
-
-    // Input
-    private Vector3 MovementOutputVector =>
-        ScaleCameraTransform(mainCamera.transform.forward) * _movementInputVector.y +
-        CameraTransformRight * _movementInputVector.x;
-
-    private Vector2 _movementInputVector;
-    private Vector2 _lookInputVector;
-    private Vector3 _lookOutputVector;
-
-
-    // MOVEMENT
-    private Rigidbody _rb;
-    [SerializeField] private float rideHeight = 1.2f;
-    [SerializeField] private float rideSpringStrength = 2000f;
-    [SerializeField] private float rideSpringDamper = 100f;
-    [SerializeField] private float maxSpeed = 8f;
+    [Header("Movement"), Space] 
+    [Tooltip("The speed of the player when moving")]
+    [SerializeField] private float maxSpeed = 5f;
+    
+    [Tooltip("How fast the player reaches max speed")]
     [SerializeField] private float acceleration = 200f;
-    [SerializeField] private AnimationCurve accelerationFactor;
+    
+    [Tooltip("Limits the maximum force that can be applied whilst accelerating")]
     [SerializeField] private float maxAcceleration = 150;
+    
+    [Tooltip("Adjusts the acceleration based on how close the current velocity is to the goal velocity. " +
+             "By default, this is set to ramp up the acceleration when changing direction, and keep it the same when in the same direction.")]
+    [SerializeField] private AnimationCurve accelerationFactor;
+    
+    [Tooltip("Adjusts the maximum acceleration based on how close the current velocity is to the goal velocity. " +
+             "By default, this is set to ramp up the maximum acceleration when changing direction, and keep it the same when in the same direction.")]
     [SerializeField] private AnimationCurve maxAccelerationFactor;
+    
+    [Tooltip("Used to change which axis the force is applied to.")]
     [SerializeField] private Vector3 forceScale;
-    private Vector3 _unitGoal;
-    private Vector3 _goalVel;
-    private bool IsGrounded => Physics.CheckSphere(groundCheckOrigin.position, groundCheckRad, groundMask);
-    private Vector3 _velocity;
-    private GameObject _currentlyHeldItem;
+    
+    [Tooltip("The speed of the player when dashing")]
+    [SerializeField] private float dashSpeed = 8f;
+
+    
+    [Header("RigidBody Ride"), Space] 
+    [Tooltip("How high the player should ride above the ground")]
+    [SerializeField] private float rideHeight = 1.2f;
+    
+    [Tooltip("The strength of the spring force that maintains the ride height")]
+    [SerializeField] private float rideSpringStrength = 2000f;
+    
+    [Tooltip("The damping force that reduces the spring force over time")]
+    [SerializeField] private float rideSpringDamper = 100f;
+    
+    [Tooltip("The layer mask used to determine what is considered ground")]
     [SerializeField] private LayerMask groundMask;
-    [SerializeField] private float groundCheckRad = 0.5f;
+    
+    [Tooltip("The origin of the ray used to check for ground")]
     [SerializeField] private Transform groundCheckOrigin;
 
+    private Vector3 _unitGoal;
+    private Vector3 _goalVel;
+    private bool _hasDashed;
 
-    [Header("Interaction")] [SerializeField]
+    [Header("Interaction")] [Space] [SerializeField]
     private LayerMask interactionLayerMask;
 
-    [SerializeField] private Vector3 interactionBoxSize = new(1, 2, 1);
+    [SerializeField] private Vector3 interactionBoxSize = new(1, 2, 0.01f);
     [SerializeField] private float interactionBoxCastMaxDistance = 1f;
-    private bool _hitDetect;
-    private RaycastHit _hit;
+    private GameObject _currentlyHeldItem;
 
     // ANIMATION
     [HideInInspector] public FloatAnchor playerMotionBlendStateAnchor;
     [HideInInspector] public VoidEventChannelSO playerPickupItemEventChannel;
     [HideInInspector] public VoidEventChannelSO playerDropItemEventChannel;
-
 
     public void SetPlayerInput(InputController newInputController) {
         _playerInputAnchor.Provide(newInputController);
@@ -75,7 +90,7 @@ public class PlayerController : MonoBehaviour {
     #region Unity Event Methods
 
     private void Awake() {
-        mainCamera = Camera.main;
+        _mainCamera = Camera.main;
         _rb = GetComponent<Rigidbody>();
 
         // Cursor.lockState = CursorLockMode.Locked;
@@ -99,7 +114,6 @@ public class PlayerController : MonoBehaviour {
         _inputController.PauseEvent += OnPause;
         _inputController.EmoteEvent += OnEmote;
     }
-
 
     private void OnDisable() {
         if (_inputController == null) return;
@@ -130,34 +144,30 @@ public class PlayerController : MonoBehaviour {
     }
 
     private void OnStationInteract() {
-        if (Physics.BoxCast(transform.position + transform.forward, interactionBoxSize, transform.forward,
-                out RaycastHit hit, transform.rotation, interactionBoxCastMaxDistance, interactionLayerMask)) {
-            if (_currentlyHeldItem != null) {
-                // TODO: Implement Throwing Logic For Entering Throwing Mode
-                return;
-            }
+        RaycastHit raycastHit = default;
+        bool hit = BoxCastForInteractable(ref raycastHit);
 
-            if (!hit.collider.CompareTag("Station")) return;
-            if (hit.collider.TryGetComponent(out IInteractable interactable)) interactable?.OnInteract();
+        if (!hit) return;
+
+        if (_currentlyHeldItem != null) {
+            // TODO: Implement Throwing Logic For Entering Throwing Mode
+            return;
         }
-    }
-
-    private void OnThrow() {
-        throw new System.NotImplementedException();
+        
+        if (!raycastHit.collider.TryGetComponent(out Workstation station)) return;
+        if (raycastHit.collider.TryGetComponent(out IInteractable interactable)) interactable?.OnInteract();
     }
 
     private void OnItemInteract() {
-        Debug.Log("Item Interact");
-        _hitDetect = Physics.BoxCast(transform.position, interactionBoxSize, transform.forward,
-            out _hit, transform.rotation, interactionBoxCastMaxDistance, interactionLayerMask);
+        RaycastHit raycastHit = default;
+        bool hit = BoxCastForInteractable(ref raycastHit);
+        if (!hit) return;
 
         // Put Down Logic
         if (_currentlyHeldItem != null) {
-            if (_hitDetect) {
-                if (_hit.collider.TryGetComponent(out Station station)) {
-                    PlaceItem();
-                    return;
-                }
+            if (raycastHit.collider.TryGetComponent(out Workstation station1) && station1.item == null) { 
+                PlaceItem(station1);
+                return;
             }
 
             DropItem();
@@ -165,110 +175,148 @@ public class PlayerController : MonoBehaviour {
         }
 
         // Pick Up Logic
-        if (!_hitDetect) return;
-        if (_hit.collider.TryGetComponent(out Item item)) {
-            PickupItem(_hit.collider.gameObject);
+        if (raycastHit.collider.TryGetComponent(out Workstation station2)) {
+            RemoveItem(station2);
             return;
+        }
+        if (raycastHit.collider.TryGetComponent(out Item item)) {
+            PickupItem(raycastHit.collider.gameObject);
         }
     }
 
     private void OnDash() {
-        // Implement Dash Logic
-        // Use my movement code to implement a dash
+        StartCoroutine(DashRoutine(5f));
     }
 
     private void FixedUpdate() {
         RigidBodyRide();
         RotateToUpright();
-        Movement();
+        Movement(maxSpeed);
+        QueryInteractables();
     }
 
     #endregion
 
     #region Interaction Methods
 
+    private bool BoxCastForInteractable(ref RaycastHit raycastHit) {
+        Transform tform = transform;
+        bool hitDetect = Physics.BoxCast(tform.position, interactionBoxSize, tform.forward,
+            out var hit, tform.rotation, interactionBoxCastMaxDistance, interactionLayerMask);
+        raycastHit = hit;
+        return hitDetect;
+    }
+    
+    private void ToggleItemCollisionAndPhysics(GameObject item) {
+        Rigidbody itemRigidbody = item.GetComponent<Rigidbody>();
+        Collider itemCollider = item.GetComponent<Collider>();
+
+        itemRigidbody.isKinematic = !itemRigidbody.isKinematic;
+        itemCollider.enabled = !itemCollider.enabled;
+    } 
+
     private void PickupItem(GameObject item) {
         if (_currentlyHeldItem != null) return;
-        Debug.Log("Picking Up Item");
 
         _currentlyHeldItem = item;
         _currentlyHeldItem.transform.SetParent(transform);
         _currentlyHeldItem.transform.localPosition = new Vector3(0, 0, 0.75f);
+
+        ToggleItemCollisionAndPhysics(_currentlyHeldItem);
         
-        // Disable the rigidbody of the item
-        Rigidbody itemRigidbody = _currentlyHeldItem.GetComponent<Rigidbody>();
-        itemRigidbody.isKinematic = true;
+        playerPickupItemEventChannel.RaiseEvent();
+    }
+    
+    private void RemoveItem(Workstation station) {
+        if (station.item == null || _currentlyHeldItem != null) return;
+
+        _currentlyHeldItem = station.OnRemoveItem();
+        _currentlyHeldItem.transform.SetParent(transform);
+        _currentlyHeldItem.transform.localPosition = new Vector3(0, 0, 0.75f);
+
+        ToggleItemCollisionAndPhysics(_currentlyHeldItem);
         
-        // Disable the collider of the item
-        Collider itemCollider = _currentlyHeldItem.GetComponent<Collider>();
-        itemCollider.enabled = false;
-        
-        // Broadcast the pickup event to the player pickup item event channel
         playerPickupItemEventChannel.RaiseEvent();
     }
 
     private void DropItem() {
         if (_currentlyHeldItem == null) return;
-        Debug.Log("Dropping Item");
 
         _currentlyHeldItem.transform.SetParent(null);
-        
-        // Enable the collider of the item
-        Rigidbody itemRigidbody = _currentlyHeldItem.GetComponent<Rigidbody>();
-        itemRigidbody.isKinematic = false;
-        
-        // Enable the collider of the item
-        Collider itemCollider = _currentlyHeldItem.GetComponent<Collider>();
-        itemCollider.enabled = true;
-
         _currentlyHeldItem = null;
-        
+
+        ToggleItemCollisionAndPhysics(_currentlyHeldItem);
+
         playerDropItemEventChannel.RaiseEvent();
     }
 
-    private void PlaceItem() {
-        if (_currentlyHeldItem == null) return;
-        Debug.Log("Placing Item");
-
+    private void PlaceItem(Workstation station) {
+        if (station.item != null || _currentlyHeldItem == null) return;
+        
         _currentlyHeldItem.transform.SetParent(null);
         _currentlyHeldItem = null;
+
+        ToggleItemCollisionAndPhysics(_currentlyHeldItem);
+        
+        playerDropItemEventChannel.RaiseEvent();
+        
+        station.OnPlaceItem(_currentlyHeldItem);
+    }
+    
+    private void QueryInteractables() {
+        RaycastHit raycastHit = default;
+        bool hit = BoxCastForInteractable(ref raycastHit);
+
+        if (!hit) return;
+
+        if (raycastHit.collider.TryGetComponent(out Workstation station)) station.OnHighlight();
     }
 
     #endregion
 
     #region Movement Methods
 
-    private void RigidBodyRide() {
-        if (Physics.Raycast(transform.position, -transform.up, out RaycastHit hit, rideHeight + 1)) {
-            Vector3 velocity = _rb.velocity;
-            Vector3 rayDirection = -transform.up;
+    private IEnumerator DashRoutine(float durationSeconds) {
+        _hasDashed = true;
+        float timeElapsed = 0;
+        while (timeElapsed < durationSeconds) {
+            Movement(dashSpeed);
 
-            Vector3 otherVelocity = Vector3.zero;
-            Rigidbody hitRigidbody = hit.rigidbody;
-            if (hitRigidbody != null) {
-                otherVelocity = hitRigidbody.velocity;
-            }
+            timeElapsed += Time.fixedDeltaTime;
 
-            float rayDirectionVelocity = Vector3.Dot(rayDirection, velocity);
-            float otherDirectionVelocity = Vector3.Dot(rayDirection, otherVelocity);
-
-            float relativeVelocity = rayDirectionVelocity - otherDirectionVelocity;
-
-            float x = hit.distance - rideHeight;
-
-            float springForce = (x * rideSpringStrength) - (relativeVelocity * rideSpringDamper);
-
-            Debug.DrawLine(transform.position, transform.position + (-transform.up * (rideHeight + 1)), Color.red);
-
-            _rb.AddForce(rayDirection * springForce);
+            yield return new WaitForFixedUpdate();
         }
+
+        _hasDashed = false;
+    }
+
+    private void RigidBodyRide() {
+        if (!Physics.Raycast(transform.position, -transform.up, out RaycastHit hit, rideHeight + 1)) return;
+
+        Vector3 velocity = _rb.velocity;
+        Vector3 rayDirection = -transform.up;
+
+        // Get the velocity of the raycastHit rigidbody in case we're riding on a moving platform
+        Vector3 hitRigidbodyVelocity = hit.rigidbody ? hit.rigidbody.velocity : Vector3.zero;
+
+        float rayDirectionVelocity = Vector3.Dot(rayDirection, velocity);
+        float hitRigidbodyDirectionVelocity = Vector3.Dot(rayDirection, hitRigidbodyVelocity);
+
+        float relativeVelocity = rayDirectionVelocity - hitRigidbodyDirectionVelocity;
+
+        float distanceFromRideHeight = hit.distance - rideHeight;
+        float springForce = (distanceFromRideHeight * rideSpringStrength) - (relativeVelocity * rideSpringDamper);
+
+        _rb.AddForce(rayDirection * springForce);
     }
 
     private void RotateToUpright() {
+        Transform tform = transform;
+
         // The rotationTarget is the rotation that the player should be facing
-        Quaternion currentRotation = transform.rotation;
+        Quaternion currentRotation = tform.rotation;
         Quaternion rotationTarget =
-            ShortestRotation(Quaternion.LookRotation(transform.forward, transform.up), currentRotation);
+            ShortestRotation(Quaternion.LookRotation(tform.forward, tform.up), currentRotation);
 
         // ToAngleAxis returns the angle and axis of the rotation
         // The out variables are declared inline within the method call
@@ -282,7 +330,7 @@ public class PlayerController : MonoBehaviour {
         _rb.AddTorque((rotationAxis * (rotationRadians * 500)) - (_rb.angularVelocity * 100));
     }
 
-    private void Movement() {
+    private void Movement(float speed) {
         // Clamp the magnitude of the movement output vector to 1 to ensure the direction doesn't exceed a unit vector.
         Vector3 moveDirection = Vector3.ClampMagnitude(MovementOutputVector, 1f);
 
@@ -294,7 +342,7 @@ public class PlayerController : MonoBehaviour {
             // Slerp the player's rotation to the direction of movement.
             transform.rotation = Quaternion.Slerp(transform.rotation,
                 Quaternion.LookRotation(moveDirection), Time.fixedDeltaTime * 25f);
-            
+
             // transform.rotation = Quaternion.LookRotation(moveDirection);
         }
 
@@ -308,7 +356,7 @@ public class PlayerController : MonoBehaviour {
         float accel = acceleration * accelerationFactor.Evaluate(velDot);
 
         // Calculate the desired velocity in the goal direction, scaled by the maximum speed.
-        Vector3 goalVel = _unitGoal * maxSpeed;
+        Vector3 goalVel = _unitGoal * speed;
 
         // Gradually adjust the current velocity towards the desired velocity using the calculated acceleration,
         // taking into account the fixed delta time for consistent physics updates.
@@ -328,15 +376,6 @@ public class PlayerController : MonoBehaviour {
         _rb.AddForce(Vector3.Scale(targetAccel * _rb.mass, forceScale));
     }
 
-
-    private void Jump() {
-        // Changes the height position of the player..
-        // if (_input.Player.Jump.GetButtonDown() && IsGrounded)
-        // {
-        //     _velocity.y += Mathf.Sqrt(playerJumpHeight * -3.0f * gravityStrength);
-        // }
-    }
-
     #endregion
 
     private static Quaternion ShortestRotation(Quaternion to, Quaternion from) {
@@ -353,20 +392,15 @@ public class PlayerController : MonoBehaviour {
 
     // Gizmo function to draw the interaction box
     private void OnDrawGizmos() {
-        Gizmos.color = Color.red;
-
-        //Check if there has been a hit yet
-        if (_hitDetect) {
-            //Draw a Ray forward from GameObject toward the hit
-            Gizmos.DrawRay(transform.position, transform.forward * _hit.distance);
-            //Draw a cube that extends to where the hit exists
-            Gizmos.DrawWireCube(transform.position + transform.forward * _hit.distance, interactionBoxSize * 2);
+        RaycastHit hit = default;
+        if (BoxCastForInteractable(ref hit)) {
+            Gizmos.color = Color.green;
+            Gizmos.DrawRay(transform.position, transform.forward * hit.distance);
+            Gizmos.DrawWireCube(transform.position + transform.forward * hit.distance, interactionBoxSize * 2);
         }
-        //If there hasn't been a hit yet, draw the ray at the maximum distance
         else {
-            //Draw a Ray forward from GameObject toward the maximum distance
+            Gizmos.color = Color.red;
             Gizmos.DrawRay(transform.position, transform.forward * interactionBoxCastMaxDistance);
-            //Draw a cube at the maximum distance
             Gizmos.DrawWireCube(transform.position + transform.forward * interactionBoxCastMaxDistance,
                 interactionBoxSize * 2);
         }

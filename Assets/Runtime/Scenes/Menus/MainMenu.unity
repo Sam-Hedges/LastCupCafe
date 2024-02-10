@@ -21872,7 +21872,6 @@ MonoBehaviour:
     type: 2}
   m_fontSharedMaterials:
   - {fileID: 777344093514916945, guid: b70755d17942a224283dba3682e77a21, type: 2}
-  - {fileID: 0}
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:

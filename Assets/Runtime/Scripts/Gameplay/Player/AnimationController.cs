@@ -18,7 +18,7 @@ public class AnimationController : MonoBehaviour
     
     private GameObject _playerModel;
     private PlayerController _playerController;
-    private RiggingController _riggingController;
+    private RiggingHandler _riggingHandler;
     private Animator _animator;
     private static readonly int MotionBlend = Animator.StringToHash("MotionBlend");
 
@@ -33,7 +33,7 @@ public class AnimationController : MonoBehaviour
         
         _animator = _playerModel.GetComponent<Animator>();
         
-        _riggingController = _playerModel.GetComponent<RiggingController>();
+        _riggingHandler = _playerModel.GetComponent<RiggingHandler>();
     }
     
     private void OnEnable() {
@@ -78,10 +78,10 @@ public class AnimationController : MonoBehaviour
     }
 
     private void OnPlayerPickupItem() {
-        _riggingController.PickupItem();
+        _riggingHandler.PickupItem();
     }
     
     private void OnPlayerDropItem() {
-        _riggingController.DropItem();
+        _riggingHandler.DropItem();
     }
 }
