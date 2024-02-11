@@ -248,7 +248,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7104304212009502274
 Transform:
   m_ObjectHideFlags: 0
@@ -361,7 +361,7 @@ MonoBehaviour:
   interactionLayerMask:
     serializedVersion: 2
     m_Bits: 64
-  interactionBoxSize: {x: 1, y: 2, z: 0.01}
+  interactionBoxSize: {x: 1, y: 2, z: 1}
   interactionBoxCastMaxDistance: 1
   playerMotionBlendStateAnchor: {fileID: 0}
   playerPickupItemEventChannel: {fileID: 0}
