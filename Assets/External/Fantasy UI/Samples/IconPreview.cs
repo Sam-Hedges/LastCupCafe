@@ -19,7 +19,7 @@ public class IconPreview : MonoBehaviour {
 		}
 	}
 	
-	// Update is called once per frame
+	// UpdateState is called once per frame
 	void Update () {
 		
 	}

@@ -9,35 +9,40 @@ public class Workstation : MonoBehaviour, IInteractable
     [SerializeField] private Material highlightMaterial;
     private MeshRenderer _meshRenderer;
     private Material[] _defaultMaterials;
-    private Coroutine _removeHighlightCoroutine;
-    private float _interactCooldownSeconds = 0.25f;
+    private Material[] _highlightMaterials;
+    private PlayerController _playerController;
 
     private void Awake() {
         _meshRenderer = GetComponent<MeshRenderer>();
         _defaultMaterials = _meshRenderer.materials;
-    }
-    
-    public void OnHighlight() {
-        // Check if the object is already highlighted
-        foreach (Material material in _meshRenderer.materials) {
-            if (material == highlightMaterial) return;
-        }
-        
-        // Add highlight material a list of materials
-        Material[] newMaterials = new Material[_defaultMaterials.Length + 1];
-        Array.Copy(_defaultMaterials, newMaterials, _defaultMaterials.Length);
-        newMaterials[_defaultMaterials.Length] = highlightMaterial;
-        _meshRenderer.materials = newMaterials;
-        
-        // Start cooldown for removing highlight
-        _interactCooldownSeconds = 0.25f;
-        if (_removeHighlightCoroutine == null) _removeHighlightCoroutine = StartCoroutine(RemoveHighlight());
+        InitHightlightMaterials();
     }
 
-    private IEnumerator RemoveHighlight() {
-        yield return new WaitForSeconds(_interactCooldownSeconds);
+    private void FixedUpdate() {
+        // Remove highlight if the player is not looking at the object
+        if (_playerController != null && _playerController.recentlyCastInteractable != gameObject) RemoveHighlight();
+        
+    }
+
+    private void InitHightlightMaterials() {
+        _highlightMaterials = new Material[_defaultMaterials.Length + 1];
+        Array.Copy(_defaultMaterials, _highlightMaterials, _defaultMaterials.Length);
+        _highlightMaterials[_defaultMaterials.Length] = highlightMaterial;
+    }
+
+    public void AddHighlight(PlayerController playerController) {
+        // Check if the object is already highlighted
+        if (_meshRenderer.materials == _highlightMaterials) return;
+        _meshRenderer.materials = _highlightMaterials;
+        _playerController = playerController;
+
+        if (currentlyStoredItem == null) return;
+        currentlyStoredItem.GetComponent<Item>().AddHighlight(playerController);
+    }
+
+    private void RemoveHighlight() {
         _meshRenderer.materials = _defaultMaterials;
-        _removeHighlightCoroutine = null;
+        _playerController = null;
     }
 
     public void OnPlaceItem(GameObject newItem) {

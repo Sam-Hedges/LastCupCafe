@@ -1,31 +1,32 @@
 using UnityEngine;
 using System;
 
-/// <summary>
-/// Base class for all states.
-/// </summary>
-/// <typeparam name="EState"></typeparam>
-public abstract class BaseState<EState> where EState : Enum
-{
-    public BaseState(EState key)
-    {
+public abstract class BaseState<EState> where EState : Enum {
+    
+    // The key for the state
+    public EState StateKey { get; private set; }
+    protected BaseState(EState key) {
         StateKey = key;
     }
+
+    /// <summary>
+    /// Called at the start of the state
+    /// </summary>
+    public abstract void EnterState();
     
-    public EState StateKey { get; private set; }
-    public string Name => StateKey.ToString();
+    /// <summary>
+    /// Called at the end of the state
+    /// </summary>
+    public abstract void ExitState();
     
-    // Abstract methods are required to override
-    public abstract void Enter();
-    public abstract void Exit();
-    public abstract EState GetNextState();
+    /// <summary>
+    /// Called every frame
+    /// </summary>
+    public virtual void UpdateState() { }
     
-    // Virtual methods are optional to override
-    public virtual void Update() { }
-    public virtual void FixedUpdate() { }
-    public virtual void OnTriggerEnter(Collider col) { }
-    public virtual void OnTriggerStay(Collider col) { }
-    public virtual void OnTriggerExit(Collider col) { }
-    
-    
+    /// <summary>
+    /// Called every physics update
+    /// </summary>
+    public virtual void FixedUpdateState() { }
 }
+

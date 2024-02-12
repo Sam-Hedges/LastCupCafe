@@ -21,7 +21,7 @@ public class CharacterSkinController : MonoBehaviour
         
     }
 
-    // Update is called once per frame
+    // UpdateState is called once per frame
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Alpha1))

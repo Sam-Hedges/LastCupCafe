@@ -69,12 +69,13 @@ public class PlayerController : MonoBehaviour {
 
     private Vector3 _unitGoal;
     private Vector3 _goalVel;
-    private bool _hasDashed;
+    private bool _isDashing;
 
     [Header("Interaction")] [Space]
     [SerializeField] private LayerMask interactionLayerMask;
     [SerializeField] private Vector3 interactionBoxSize = new(1, 2, 1);
     private GameObject _currentlyHeldItem;
+    [HideInInspector] public GameObject recentlyCastInteractable;
 
     // ANIMATION
     [HideInInspector] public FloatAnchor playerMotionBlendStateAnchor;
@@ -185,13 +186,20 @@ public class PlayerController : MonoBehaviour {
     }
 
     private void OnDash() {
-        StartCoroutine(DashRoutine(5f));
+        StartCoroutine(DashRoutine(0.5f));
     }
 
     private void FixedUpdate() {
         RigidBodyRide();
         RotateToUpright();
-        Movement(maxSpeed);
+        
+        if (!_isDashing) {
+            Movement(maxSpeed);
+        }
+        else {
+            Movement(dashSpeed);
+        }
+        
         QueryInteractables();
     }
 
@@ -248,6 +256,7 @@ public class PlayerController : MonoBehaviour {
         _currentlyHeldItem = item;
         _currentlyHeldItem.transform.SetParent(transform);
         _currentlyHeldItem.transform.localPosition = new Vector3(0, 0, 0.75f);
+        _currentlyHeldItem.transform.localRotation = Quaternion.Euler(0, 0, 0);
 
         ToggleItemCollisionAndPhysics(_currentlyHeldItem, false);
         
@@ -260,6 +269,7 @@ public class PlayerController : MonoBehaviour {
         _currentlyHeldItem = station.OnRemoveItem();
         _currentlyHeldItem.transform.SetParent(transform);
         _currentlyHeldItem.transform.localPosition = new Vector3(0, 0, 0.75f);
+        _currentlyHeldItem.transform.localRotation = Quaternion.Euler(0, 0, 0);
 
         ToggleItemCollisionAndPhysics(_currentlyHeldItem, false);
         
@@ -294,9 +304,14 @@ public class PlayerController : MonoBehaviour {
         Collider hitCollider = default;
         bool hit = CastForInteractable(ref hitCollider);
 
-        if (!hit) return;
-
-        if (hitCollider.TryGetComponent(out Workstation station)) station.OnHighlight();
+        if (!hit) {
+            recentlyCastInteractable = null;
+            return;
+        }
+        
+        recentlyCastInteractable = hitCollider.gameObject;
+        if (hitCollider.TryGetComponent(out Workstation station)) station.AddHighlight(this);
+        if (hitCollider.TryGetComponent(out Item item)) item.AddHighlight(this);
     }
 
     #endregion
@@ -304,21 +319,17 @@ public class PlayerController : MonoBehaviour {
     #region Movement Methods
 
     private IEnumerator DashRoutine(float durationSeconds) {
-        _hasDashed = true;
+        _isDashing = true;
         float timeElapsed = 0;
         while (timeElapsed < durationSeconds) {
-            Movement(dashSpeed);
-
             timeElapsed += Time.fixedDeltaTime;
-
             yield return new WaitForFixedUpdate();
         }
-
-        _hasDashed = false;
+        _isDashing = false;
     }
 
     private void RigidBodyRide() {
-        if (!Physics.Raycast(transform.position, -transform.up, out RaycastHit hit, rideHeight + 1)) return;
+        if (!Physics.Raycast(transform.position, -transform.up, out RaycastHit hit, rideHeight + 1, groundMask)) return;
 
         Vector3 velocity = _rb.velocity;
         Vector3 rayDirection = -transform.up;

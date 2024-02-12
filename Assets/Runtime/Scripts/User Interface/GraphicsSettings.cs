@@ -16,7 +16,7 @@ namespace ArcadeGame
         
         }
 
-        // Update is called once per frame
+        // UpdateState is called once per frame
         void Update()
         {
         

@@ -10,7 +10,7 @@ public class LocomotionHandler : MonoBehaviour
         
     }
 
-    // Update is called once per frame
+    // UpdateState is called once per frame
     void Update()
     {
         
