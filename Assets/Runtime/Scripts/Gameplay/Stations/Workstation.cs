@@ -3,8 +3,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum WorkstationType {
+    CoffeePlant,
+    CoffeeMachine,
+    MilkFridge,
+    SyrupCrate,
+    ChocolateCreate,
+    Grinder,
+    KitchenSink,
+    Counter,
+}
+
 public class Workstation : MonoBehaviour, IInteractable
 {
+    public WorkstationType workstationType;
     public GameObject currentlyStoredItem;
     [SerializeField] private Material highlightMaterial;
     private MeshRenderer _meshRenderer;
@@ -63,7 +75,7 @@ public class Workstation : MonoBehaviour, IInteractable
         return temp;
     }
 
-    public void OnInteract() {
+    public virtual void OnInteract() {
         if (currentlyStoredItem == null) return; // TODO: Implement not going to work without newItem sound
         
         

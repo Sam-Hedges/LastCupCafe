@@ -35,7 +35,7 @@ public class AnimationController : MonoBehaviour
         
         _riggingHandler = _playerModel.GetComponent<RiggingHandler>();
     }
-    
+
     private void OnEnable() {
         // Motion Blend State
         _playerMotionBlendStateAnchor = ScriptableObject.CreateInstance<FloatAnchor>();

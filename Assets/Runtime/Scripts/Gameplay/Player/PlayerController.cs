@@ -152,9 +152,13 @@ public class PlayerController : MonoBehaviour {
             // TODO: Implement Throwing Logic For Entering Throwing Mode
             return;
         }
+
+        if (hitCollider.TryGetComponent(out Workstation station)) {
+            if (station.TryGetComponent(out IProduceItem produceItem)) {
+                PickupItem(produceItem.ProduceItem());
+            }
+        }
         
-        if (!hitCollider.TryGetComponent(out Workstation station)) return;
-        if (hitCollider.TryGetComponent(out IInteractable interactable)) interactable?.OnInteract();
     }
 
     private void OnItemInteract() {
