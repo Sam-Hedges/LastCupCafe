@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
-public class AddLocalPlayersUI : MonoBehaviour {
+public class HandleLocalPlayersUI : MonoBehaviour {
     [Header("UI Elements")] [Tooltip("Local Player UI Prefab")] [SerializeField]
     private GameObject prefab;
 
@@ -16,6 +16,8 @@ public class AddLocalPlayersUI : MonoBehaviour {
     [Tooltip("Receives a reference of an Input Controller when it is spawned")]
     [SerializeField]
     private GameObjectEventChannelSO inputControllerInstancedChannel;
+    
+    private Dictionary<PlayerInput, GameObject> _playerInputToUI = new Dictionary<PlayerInput, GameObject>();
 
     private void OnEnable() {
         inputControllerInstancedChannel.OnEventRaised += AddLocalPlayerUI;
@@ -24,9 +26,20 @@ public class AddLocalPlayersUI : MonoBehaviour {
     private void OnDisable() {
         inputControllerInstancedChannel.OnEventRaised -= AddLocalPlayerUI;
     }
+    
+    private void RemoveLocalPlayerUI(PlayerInput playerInput) {
+        if (_playerInputToUI.TryGetValue(playerInput, out GameObject localPlayerUI)) {
+            Destroy(localPlayerUI);
+            _playerInputToUI.Remove(playerInput);
+        }
+    }
 
     private void AddLocalPlayerUI(GameObject go) {
-        var newLocalPlayerUI = Instantiate(prefab, transform);
+        PlayerInput playerInput = go.GetComponent<PlayerInput>();
+        GameObject newLocalPlayerUI = Instantiate(prefab, transform);
+        playerInput.onDeviceLost += RemoveLocalPlayerUI;
+        
+        _playerInputToUI.Add(playerInput, newLocalPlayerUI);
         
         foreach (Transform child in newLocalPlayerUI.transform) {
             if (child.name == "Icon") {

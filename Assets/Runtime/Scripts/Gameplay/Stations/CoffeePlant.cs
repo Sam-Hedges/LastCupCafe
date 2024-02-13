@@ -2,11 +2,11 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class CoffeePlant : Workstation, IProduceItem {
-    [SerializeField] private int maxHealth = 10;
+    [SerializeField] private float maxHealth = 10;
     [SerializeField] private GameObject coffeeBeansPrefab;
     [SerializeField] private float regenerationRate = 5f; // CurrentHealth per minute
     [SerializeField] private Image healthSlider;
-    private int _currentHealth;
+    private float _currentHealth;
     
     private void Start() {
         _currentHealth = maxHealth;
@@ -19,7 +19,7 @@ public class CoffeePlant : Workstation, IProduceItem {
     }
     
     private void UpdateHealthSlider() {
-        healthSlider.fillAmount = (float) _currentHealth / maxHealth;
+        healthSlider.fillAmount = _currentHealth / maxHealth;
     }
 
     private void RegenerateHealth() {

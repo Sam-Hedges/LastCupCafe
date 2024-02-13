@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6262171259207781690}
   - component: {fileID: 8747296383948859421}
   - component: {fileID: 1366427878097147130}
+  - component: {fileID: -5006564826599535944}
   m_Layer: 0
   m_Name: InputController
   m_TagString: Untagged
@@ -176,7 +177,7 @@ MonoBehaviour:
     m_ActionId: 5c92bad2-f0f7-4469-8cd9-facb2c9fe232
     m_ActionName: Gameplay/Emote[/XInputControllerWindows/buttonNorth,/Keyboard/g]
   m_NeverAutoSwitchControlSchemes: 1
-  m_DefaultControlScheme: Keyboard&Mouse
+  m_DefaultControlScheme: Gamepad
   m_DefaultActionMap: Gameplay
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
@@ -196,3 +197,15 @@ MonoBehaviour:
     type: 2}
   _InputControllerDestroyedChannel: {fileID: 11400000, guid: ed038767a1dd9fd43b23b5e9e67ed8ea,
     type: 2}
+--- !u!114 &-5006564826599535944
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6257469764243993116}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e17aac6570965014b809b75d181b1875, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
