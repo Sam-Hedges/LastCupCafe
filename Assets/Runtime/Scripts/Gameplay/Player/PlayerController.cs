@@ -163,7 +163,6 @@ public class PlayerController : MonoBehaviour {
     }
     
     private void OnThrow() {
-        Debug.Log("Throw Happened");
         _inputController.MoveEvent -= OnAim;
         _inputController.MoveEvent += OnMovement;
         ThrowItem();
@@ -177,7 +176,6 @@ public class PlayerController : MonoBehaviour {
             _inputController.MoveEvent -= OnMovement;
             _inputController.MoveEvent += OnAim;
             _movementInputVector = Vector3.zero;
-            Debug.Log("Started Throw");
             return;
         }
         
