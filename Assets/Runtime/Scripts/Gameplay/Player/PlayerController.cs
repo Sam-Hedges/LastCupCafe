@@ -181,7 +181,7 @@ public class PlayerController : MonoBehaviour {
         // Pick Up Logic
         if (!hit) return;
         if (hitCollider.TryGetComponent(out station)) {
-            RemoveItem(station);
+            PickupItem(station);
             return;
         }
         if (hitCollider.TryGetComponent(out Item item)) {
@@ -267,7 +267,7 @@ public class PlayerController : MonoBehaviour {
         playerPickupItemEventChannel.RaiseEvent();
     }
     
-    private void RemoveItem(Workstation station) {
+    private void PickupItem(Workstation station) {
         if (station.currentlyStoredItem == null || _currentlyHeldItem != null) return;
 
         _currentlyHeldItem = station.OnRemoveItem();
