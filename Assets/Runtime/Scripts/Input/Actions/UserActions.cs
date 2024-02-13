@@ -42,7 +42,7 @@ public partial class @UserActions: IInputActionCollection2, IDisposable
                     ""id"": ""ab3c3caf-ed85-460b-bb4d-ba1dc7d17b97"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": ""Hold(duration=0.1)"",
+                    ""interactions"": ""Press(behavior=2)"",
                     ""initialStateCheck"": false
                 },
                 {
@@ -88,7 +88,7 @@ public partial class @UserActions: IInputActionCollection2, IDisposable
                     ""id"": ""b4f7985f-ff7a-4c3e-a7a4-38b407cb8baa"",
                     ""path"": ""<Gamepad>/leftStick"",
                     ""interactions"": """",
-                    ""processors"": """",
+                    ""processors"": ""StickDeadzone"",
                     ""groups"": """",
                     ""action"": ""Movement"",
                     ""isComposite"": false,

@@ -107,7 +107,7 @@ public class InputController : MonoBehaviour, UserActions.IGameplayActions, User
     public event UnityAction DashEvent = delegate { };
     public event UnityAction StationInteractEvent = delegate { };
     
-    // public event UnityAction AttackCanceledEvent = delegate { };
+    public event UnityAction ThrowEvent = delegate { };
 
     public event UnityAction PauseEvent = delegate { };
     public event UnityAction ItemInteractEvent = delegate { };
@@ -119,8 +119,10 @@ public class InputController : MonoBehaviour, UserActions.IGameplayActions, User
     }
 
     public void OnStationInteract(InputAction.CallbackContext context) {
-        if (context.phase == InputActionPhase.Performed)
+        if (context.phase == InputActionPhase.Started)
             StationInteractEvent?.Invoke();
+        else if (context.phase == InputActionPhase.Canceled)
+            ThrowEvent?.Invoke();
     }
 
     public void OnDash(InputAction.CallbackContext context) {

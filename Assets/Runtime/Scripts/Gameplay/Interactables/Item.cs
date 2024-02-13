@@ -10,6 +10,7 @@ public class Item : MonoBehaviour, IInteractable
     private Material[] _defaultMaterials;
     private Material[] _highlightMaterials;
     private PlayerController _playerController;
+    public bool hasBeenThrown;
 
     private void Awake() {
         _meshRenderer = GetComponent<MeshRenderer>();
@@ -21,6 +22,19 @@ public class Item : MonoBehaviour, IInteractable
         ValidateIfHighlighted();
     }
     
+    private void OnCollisionEnter(Collision col) {
+        if (col.gameObject.TryGetComponent(out Workstation workstation) && hasBeenThrown) {
+            if (workstation.currentlyStoredItem != null) return;
+            workstation.currentlyStoredItem = gameObject;
+            transform.SetParent(workstation.transform);
+            transform.localPosition = Vector3.up;
+            transform.localRotation = Quaternion.identity;
+            GetComponent<Rigidbody>().isKinematic = true;
+            GetComponent<Collider>().enabled = false;
+        }
+        hasBeenThrown = false;
+    }
+
     private void ValidateIfHighlighted() {
         if (_playerController == null) return;
         

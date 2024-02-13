@@ -124,6 +124,7 @@ public class PlayerController : MonoBehaviour {
         _inputController.StationInteractEvent -= OnStationInteract;
         _inputController.PauseEvent -= OnPause;
         _inputController.EmoteEvent -= OnEmote;
+        _inputController.ThrowEvent -= OnThrow;
     }
 
     internal void OnMovement(Vector2 input) {
@@ -133,7 +134,26 @@ public class PlayerController : MonoBehaviour {
         // Broadcast the motion blend state to the animation controller
         playerMotionBlendStateAnchor.Provide(_movementInputVector.magnitude);
     }
+    
+    private void OnAim(Vector2 input) {
+        Vector2 inputValue = new Vector2(input.x, input.y);
+        
+        Vector3 lookDirection = ScaleCameraTransform(_mainCamera.transform.forward) * inputValue.y +
+        CameraTransformRight * inputValue.x;
+        
+        // Clamp the magnitude of the movement output vector to 1 to ensure the direction doesn't exceed a unit vector.
+        Vector3 clampLookDirection = Vector3.ClampMagnitude(lookDirection, 1f);
 
+        // Make the player face the direction of the movement.
+        if (clampLookDirection != Vector3.zero) {
+            // Slerp the player's rotation to the direction of movement.
+            transform.rotation = Quaternion.Slerp(transform.rotation,
+                Quaternion.LookRotation(clampLookDirection), Time.fixedDeltaTime * 25f);
+        }
+        
+        playerMotionBlendStateAnchor.Provide(clampLookDirection.magnitude);
+    }
+    
     private void OnEmote() {
         throw new System.NotImplementedException();
     }
@@ -141,17 +161,30 @@ public class PlayerController : MonoBehaviour {
     private void OnPause() {
         throw new System.NotImplementedException();
     }
+    
+    private void OnThrow() {
+        Debug.Log("Throw Happened");
+        _inputController.MoveEvent -= OnAim;
+        _inputController.MoveEvent += OnMovement;
+        ThrowItem();
+        _inputController.ThrowEvent -= OnThrow;
+    }
 
     private void OnStationInteract() {
+
+        if (_currentlyHeldItem != null) {
+            _inputController.ThrowEvent += OnThrow;
+            _inputController.MoveEvent -= OnMovement;
+            _inputController.MoveEvent += OnAim;
+            _movementInputVector = Vector3.zero;
+            Debug.Log("Started Throw");
+            return;
+        }
+        
         Collider hitCollider = default;
         bool hit = CastForInteractable(ref hitCollider);
 
         if (!hit) return;
-
-        if (_currentlyHeldItem != null) {
-            // TODO: Implement Throwing Logic For Entering Throwing Mode
-            return;
-        }
 
         if (hitCollider.TryGetComponent(out Workstation station)) {
             if (station.TryGetComponent(out IProduceItem produceItem)) {
@@ -304,6 +337,23 @@ public class PlayerController : MonoBehaviour {
         
     }
     
+    private void ThrowItem() {
+        if (_currentlyHeldItem == null) return;
+        
+        ToggleItemCollisionAndPhysics(_currentlyHeldItem, true);
+        
+        _currentlyHeldItem.transform.position += transform.forward;
+        _currentlyHeldItem.transform.SetParent(null);
+        _currentlyHeldItem.GetComponent<Item>().hasBeenThrown = true;
+        
+        Rigidbody itemRigidbody = _currentlyHeldItem.GetComponent<Rigidbody>();
+        itemRigidbody.AddForce(transform.forward * 100, ForceMode.Impulse);
+        itemRigidbody.AddTorque(new Vector3(Random.Range(0, 1), Random.Range(0, 1), Random.Range(0, 1)) * 10, ForceMode.Impulse);
+        _currentlyHeldItem = null;
+        
+        playerDropItemEventChannel.RaiseEvent();
+    }
+    
     private void QueryInteractables() {
         Collider hitCollider = default;
         bool hit = CastForInteractable(ref hitCollider);
@@ -450,5 +500,4 @@ public class PlayerController : MonoBehaviour {
         Gizmos.matrix = Matrix4x4.TRS(boxCenter, tform.rotation, Vector3.one); // Align Gizmo with the transform's orientation
         Gizmos.DrawWireCube(Vector3.zero, interactionBoxSize * 2); // DrawWireCube draws in local space of the matrix
     }
-
 }
