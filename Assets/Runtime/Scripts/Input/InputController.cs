@@ -1,7 +1,11 @@
-using System.Collections;
+using System;
+using System.Linq;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.UI;
 
 /// <summary>
 /// Input is handled by the InputHandler, which is a ScriptableObject that can be referenced by other classes.
@@ -20,18 +24,29 @@ public class InputController : MonoBehaviour, UserActions.IGameplayActions, User
     private PlayerController _parentPlayerController;
     private UserActions _userActions; // Actions Asset
     private PlayerInput _playerInput; // Player Input Component
-
+    
+    private InputSystemUIInputModule _uiModule;
+    private MultiplayerEventSystem _eventSystem;
+    
     #region Control Flow Methods
 
     private void Awake() {
+        _uiModule = GetComponent<InputSystemUIInputModule>();
+        _eventSystem = GetComponent<MultiplayerEventSystem>();
         _playerInput = GetComponent<PlayerInput>();
+        
         _userActions = new UserActions();
 
         _InputControllerInstancedChannel.RaiseEvent(this.gameObject);
+        
+        _eventSystem.playerRoot = FindObjectOfType<Canvas>().gameObject;
+        _playerInput.uiInputModule = _uiModule;
+        _uiModule.actionsAsset = _playerInput.actions;
+        ReassignActions();
     }
 
     private void Start() {
-        // _playerInput.uiInputModule = FindAnyObjectByType<InputSystemUIInputModule>();
+        
     }
 
     private void OnDestroy() {
@@ -39,39 +54,11 @@ public class InputController : MonoBehaviour, UserActions.IGameplayActions, User
     }
 
     private void OnEnable() {
-        
         EnableGameplayInput();
-        // _userActions.Gameplay.Attack.performed += OnAttack;
-        // _userActions.Gameplay.Attack.canceled += OnAttack;
-        //
-        // _userActions.Gameplay.Movement.started += OnMovement;
-        // _userActions.Gameplay.Movement.performed += OnMovement;
-        // _userActions.Gameplay.Movement.canceled += OnMovement;
-        //
-        // _userActions.Gameplay.Dodge.performed += OnDodge;
-        // _userActions.Gameplay.Interact.performed += OnInteract;
-        // _userActions.Gameplay.Look.performed += OnLook;
-
-        // LEGACY: Before using the Player Input Component for callbacks
-        // we used SetCallbacks to assign the callbacks for the action maps
-        // Assign the callbacks for the action maps
-        // _userActions.UI.SetCallbacks(this);
-        // _userActions.Gameplay.SetCallbacks(this);
     }
 
     private void OnDisable() {
         DisableAllInput();
-        
-        // _userActions.Gameplay.Attack.performed -= OnAttack;
-        // _userActions.Gameplay.Attack.canceled -= OnAttack;
-        //
-        // _userActions.Gameplay.Movement.started -= OnMovement;
-        // _userActions.Gameplay.Movement.performed -= OnMovement;
-        // _userActions.Gameplay.Movement.canceled -= OnMovement;
-        //
-        // _userActions.Gameplay.Dodge.performed -= OnDodge;
-        // _userActions.Gameplay.Interact.performed -= OnInteract;
-        // _userActions.Gameplay.Look.performed -= OnLook;
     }
 
     public void EnableGameplayInput() {
@@ -89,6 +76,16 @@ public class InputController : MonoBehaviour, UserActions.IGameplayActions, User
         _userActions.UI.Disable();
     }
 
+    public void ToggleInputMap() {
+        if (_playerInput.currentActionMap.name == "Gameplay") {
+            _userActions.UI.Enable();
+            _userActions.Gameplay.Disable();
+        } else {
+            _userActions.Gameplay.Enable();
+            _userActions.UI.Disable();
+        }
+    }
+
     public PlayerController GetPlayerController() {
         return _parentPlayerController;
     }
@@ -98,7 +95,7 @@ public class InputController : MonoBehaviour, UserActions.IGameplayActions, User
     }
 
     #endregion
-    
+
     #region Gameplay
 
     // Event handlers for the Gameplay action map
@@ -106,7 +103,7 @@ public class InputController : MonoBehaviour, UserActions.IGameplayActions, User
     // so we can skip the null check when we use them
     public event UnityAction DashEvent = delegate { };
     public event UnityAction StationInteractEvent = delegate { };
-    
+
     public event UnityAction ThrowEvent = delegate { };
 
     public event UnityAction PauseEvent = delegate { };
@@ -142,6 +139,17 @@ public class InputController : MonoBehaviour, UserActions.IGameplayActions, User
         }
     }
 
+    public void OnPause(InputAction.CallbackContext context) {
+        // _uiModule.actionsAsset = _playerInput.actions;
+        
+        _eventSystem.playerRoot = gameObject;
+        _playerInput.uiInputModule = _uiModule;
+        ReassignActions();
+
+        // if (context.phase == InputActionPhase.Performed)
+        //     PauseEvent?.Invoke();
+    }
+
     #endregion
 
     #region Menu
@@ -154,7 +162,6 @@ public class InputController : MonoBehaviour, UserActions.IGameplayActions, User
     public event UnityAction MenuMouseMoveEvent = delegate { };
     public event UnityAction MenuClickButtonEvent = delegate { };
     public event UnityAction MenuUnpauseEvent = delegate { };
-    public event UnityAction MenuPauseEvent = delegate { };
     public event UnityAction MenuCloseEvent = delegate { };
     public event UnityAction OpenInventoryEvent = delegate { }; // Used to bring up the inventory
     public event UnityAction CloseInventoryEvent = delegate { }; // Used to bring up the inventory
@@ -203,11 +210,6 @@ public class InputController : MonoBehaviour, UserActions.IGameplayActions, User
             MenuMouseMoveEvent.Invoke();
     }
 
-    public void OnPause(InputAction.CallbackContext context) {
-        if (context.phase == InputActionPhase.Performed)
-            MenuPauseEvent.Invoke();
-    }
-
     public void OnUnpause(InputAction.CallbackContext context) {
         if (context.phase == InputActionPhase.Performed)
             MenuUnpauseEvent.Invoke();
@@ -244,4 +246,15 @@ public class InputController : MonoBehaviour, UserActions.IGameplayActions, User
     public void OnMiddleClick(InputAction.CallbackContext context) { }
 
     #endregion
+
+    private void ReassignActions() {
+        _uiModule.point = InputActionReference.Create(_userActions.UI.Point);
+        _uiModule.leftClick = InputActionReference.Create(_userActions.UI.Click);
+        _uiModule.rightClick = InputActionReference.Create(_userActions.UI.RightClick);
+        _uiModule.middleClick = InputActionReference.Create(_userActions.UI.MiddleClick);
+        _uiModule.scrollWheel = InputActionReference.Create(_userActions.UI.ScrollWheel);
+        _uiModule.move = InputActionReference.Create(_userActions.UI.Navigate);
+        _uiModule.submit = InputActionReference.Create(_userActions.UI.Submit);
+        _uiModule.cancel = InputActionReference.Create(_userActions.UI.Cancel);
+    }
 }
