@@ -809,12 +809,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Input Manager
       objectReference: {fileID: 0}
-    - target: {fileID: 3737704738904191813, guid: 6a81b76f1a66a834284f19d6371e7d3b,
-        type: 3}
-      propertyPath: onSceneReadyChannel
-      value: 
-      objectReference: {fileID: 11400000, guid: e0362bb60c575754d97d578dd4d244fe,
-        type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
