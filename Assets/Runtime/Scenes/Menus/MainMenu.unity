@@ -36801,6 +36801,7 @@ GameObject:
   m_Component:
   - component: {fileID: 369027168872946474}
   - component: {fileID: 369027168872946468}
+  - component: {fileID: 369027168872946476}
   m_Layer: 5
   m_Name: Content
   m_TagString: Untagged
@@ -36808,6 +36809,26 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &369027168872946476
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 369027168872946475}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c571943ec6bbb87489cb62e4d9242723, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerCardPrefab: {fileID: 0}
+  addPlayerCard: {fileID: 0}
+  inputControllerInstancedChannel: {fileID: 11400000, guid: 91574c04e1e8b624fb8cd6da3ff422a5,
+    type: 2}
+  inputControllerDestroyedChannel: {fileID: 11400000, guid: ed038767a1dd9fd43b23b5e9e67ed8ea,
+    type: 2}
+  inputControllerManagerAnchor: {fileID: 11400000, guid: 9b6aad5fb193bc54880e3690b978c49b,
+    type: 2}
 --- !u!222 &369027168914780217
 CanvasRenderer:
   m_ObjectHideFlags: 0
