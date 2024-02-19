@@ -6,31 +6,44 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
-public class PlayerSelectMenuHandler : MonoBehaviour
-{
-    [Header("Cards")]
-    [Tooltip("")] [SerializeField]
+public class PlayerSelectMenuHandler : MonoBehaviour {
+    [Serializable]
+    private class CharacterCardPreset {
+        public CharacterCard characterCard;
+        public string name;
+        public Sprite titleSprite;
+        public RenderTexture characterImage;
+        public bool isReady;
+        public int characterIndex;
+    }
+
+    [Header("Cards")] [Tooltip("")] [SerializeField]
     private GameObject playerCardPrefab;
-    
-    [Tooltip("")] [SerializeField]
-    private GameObject addPlayerCard;
-    
-    
+
+    [Tooltip("")] [SerializeField] private GameObject addPlayerCard;
+
+    [Tooltip("")] [SerializeField] private CharacterCardPreset[] _characterCardPresets;
+
+    [SerializeField] private Sprite gamepadIcon;
+    [SerializeField] private Sprite keyboardIcon;
+
+
     [Header("Listening on Channels")]
-    [Tooltip("Receives a reference of an Input Controller when it is spawned")] [SerializeField]
+    [Tooltip("Receives a reference of an Input Controller when it is spawned")]
+    [SerializeField]
     private GameObjectEventChannelSO inputControllerInstancedChannel;
-    
+
     [Tooltip("Receives a reference of an Input Controller when it is destroyed")] [SerializeField]
     private GameObjectEventChannelSO inputControllerDestroyedChannel;
-    
-    
-    [Header("Runtime Anchors")]
-    [Tooltip("")] [SerializeField]
+
+
+    [Header("Runtime Anchors")] [Tooltip("")] [SerializeField]
     private InputControllerManagerAnchor inputControllerManagerAnchor;
 
     private InputControllerManager _inputControllerManager;
-    private Dictionary<InputController, GameObject> _playerInputToUI = new Dictionary<InputController, GameObject>();
-    
+
+    private Dictionary<InputController, CharacterCardPreset> _playerInputToUI = new();
+
     private void OnEnable() {
         inputControllerManagerAnchor.OnAnchorProvided += InputControllerManagerProvided;
         inputControllerInstancedChannel.OnEventRaised += InputControllerInstanced;
@@ -41,32 +54,37 @@ public class PlayerSelectMenuHandler : MonoBehaviour
         inputControllerManagerAnchor.OnAnchorProvided -= InputControllerManagerProvided;
         inputControllerInstancedChannel.OnEventRaised -= InputControllerInstanced;
         inputControllerDestroyedChannel.OnEventRaised -= InputControllerDestroyed;
+        
     }
 
     private void InputControllerInstanced(GameObject go) {
         InputController inputController = go.GetComponent<InputController>();
-        GameObject newLocalPlayerUI = Instantiate(playerCardPrefab, transform);
+
+        int randomIndex = UnityEngine.Random.Range(0, _characterCardPresets.Length);
+        CharacterCardPreset playerCard = _characterCardPresets[randomIndex];
+        playerCard.characterCard = Instantiate(playerCardPrefab, transform).GetComponent<CharacterCard>();
         
-        _playerInputToUI.Add(inputController, newLocalPlayerUI);
+        // Set the character card transform parent to this transform and make it second from last in the hierarchy
+        playerCard.characterCard.transform.SetParent(transform);
+        playerCard.characterCard.transform.SetSiblingIndex(transform.childCount - 2);
         
-        foreach (Transform child in newLocalPlayerUI.transform) {
-            if (child.name == "Icon") {
-                if (go.GetComponent<PlayerInput>().currentControlScheme == "Gamepad") {
-                    // child.GetComponent<Image>().sprite = gamepadIcon;
-                }
-                else {
-                    // child.GetComponent<Image>().sprite = keyboardIcon;
-                }
-            }
+        playerCard.isReady = false;
+        playerCard.characterIndex = randomIndex;
+
+        if (go.GetComponent<PlayerInput>().currentControlScheme == "Gamepad") {
+            playerCard.characterCard._inputTypeImage.sprite = gamepadIcon;
+        }
+        else {
+            playerCard.characterCard._inputTypeImage.sprite = keyboardIcon;
         }
 
-        newLocalPlayerUI.GetComponentInChildren<TextMeshProUGUI>().text = "Player " + transform.childCount;
+        _playerInputToUI.Add(inputController, playerCard);
     }
-    
+
     private void InputControllerDestroyed(GameObject go) {
         var inputController = go.GetComponent<InputController>();
-        if (_playerInputToUI.TryGetValue(inputController, out GameObject localPlayerUI)) {
-            Destroy(localPlayerUI);
+        if (_playerInputToUI.TryGetValue(inputController, out CharacterCardPreset characterCardPreset)) {
+            Destroy(characterCardPreset.characterCard.gameObject);
             _playerInputToUI.Remove(inputController);
         }
     }
