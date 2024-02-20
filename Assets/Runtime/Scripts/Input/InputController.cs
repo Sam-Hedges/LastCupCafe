@@ -1,9 +1,5 @@
-using System;
-using System.Linq;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.UI;
 
@@ -21,27 +17,30 @@ public class InputController : MonoBehaviour, UserActions.IGameplayActions, User
     [Tooltip("Sends a reference of itself to the Input Controller Manager when it is destroyed")] [SerializeField]
     private GameObjectEventChannelSO _InputControllerDestroyedChannel = default;
 
-    private PlayerController _parentPlayerController;
-    private UserActions _userActions; // Actions Asset
-    private PlayerInput _playerInput; // Player Input Component
-    
-    private InputSystemUIInputModule _uiModule;
-    private MultiplayerEventSystem _eventSystem;
+    [SerializeField]
+    private PlayerController parentPlayerController;
+    private UserActions userActions; // Actions Asset
+    [SerializeField]
+    private PlayerInput playerInput; // Player Input Component
+    [SerializeField]
+    private InputSystemUIInputModule uiModule;
+    [SerializeField]
+    private MultiplayerEventSystem eventSystem;
     
     #region Control Flow Methods
 
     private void Awake() {
-        _uiModule = GetComponent<InputSystemUIInputModule>();
-        _eventSystem = GetComponent<MultiplayerEventSystem>();
-        _playerInput = GetComponent<PlayerInput>();
+        uiModule = GetComponent<InputSystemUIInputModule>();
+        eventSystem = GetComponent<MultiplayerEventSystem>();
+        playerInput = GetComponent<PlayerInput>();
         
-        _userActions = new UserActions();
+        userActions = new UserActions();
 
         _InputControllerInstancedChannel.RaiseEvent(this.gameObject);
         
-        _eventSystem.playerRoot = FindObjectOfType<Canvas>().gameObject;
-        _playerInput.uiInputModule = _uiModule;
-        _uiModule.actionsAsset = _playerInput.actions;
+        eventSystem.playerRoot = FindObjectOfType<Canvas>().gameObject;
+        playerInput.uiInputModule = uiModule;
+        uiModule.actionsAsset = playerInput.actions;
         ReassignActions();
     }
 
@@ -63,35 +62,35 @@ public class InputController : MonoBehaviour, UserActions.IGameplayActions, User
 
     public void EnableGameplayInput() {
         DisableAllInput();
-        _userActions.Gameplay.Enable();
+        userActions.Gameplay.Enable();
     }
 
     public void EnableMenuInput() {
         DisableAllInput();
-        _userActions.UI.Enable();
+        userActions.UI.Enable();
     }
 
     public void DisableAllInput() {
-        _userActions.Gameplay.Disable();
-        _userActions.UI.Disable();
+        userActions.Gameplay.Disable();
+        userActions.UI.Disable();
     }
 
     public void ToggleInputMap() {
-        if (_playerInput.currentActionMap.name == "Gameplay") {
-            _userActions.UI.Enable();
-            _userActions.Gameplay.Disable();
+        if (playerInput.currentActionMap.name == "Gameplay") {
+            userActions.UI.Enable();
+            userActions.Gameplay.Disable();
         } else {
-            _userActions.Gameplay.Enable();
-            _userActions.UI.Disable();
+            userActions.Gameplay.Enable();
+            userActions.UI.Disable();
         }
     }
 
     public PlayerController GetPlayerController() {
-        return _parentPlayerController;
+        return parentPlayerController;
     }
 
     public void SetPlayerController(PlayerController playerController) {
-        _parentPlayerController = playerController;
+        parentPlayerController = playerController;
     }
 
     #endregion
@@ -142,8 +141,8 @@ public class InputController : MonoBehaviour, UserActions.IGameplayActions, User
     public void OnPause(InputAction.CallbackContext context) {
         // _uiModule.actionsAsset = _playerInput.actions;
         
-        _eventSystem.playerRoot = gameObject;
-        _playerInput.uiInputModule = _uiModule;
+        eventSystem.playerRoot = gameObject;
+        playerInput.uiInputModule = uiModule;
         ReassignActions();
 
         // if (context.phase == InputActionPhase.Performed)
@@ -248,13 +247,23 @@ public class InputController : MonoBehaviour, UserActions.IGameplayActions, User
     #endregion
 
     private void ReassignActions() {
-        _uiModule.point = InputActionReference.Create(_userActions.UI.Point);
-        _uiModule.leftClick = InputActionReference.Create(_userActions.UI.Click);
-        _uiModule.rightClick = InputActionReference.Create(_userActions.UI.RightClick);
-        _uiModule.middleClick = InputActionReference.Create(_userActions.UI.MiddleClick);
-        _uiModule.scrollWheel = InputActionReference.Create(_userActions.UI.ScrollWheel);
-        _uiModule.move = InputActionReference.Create(_userActions.UI.Navigate);
-        _uiModule.submit = InputActionReference.Create(_userActions.UI.Submit);
-        _uiModule.cancel = InputActionReference.Create(_userActions.UI.Cancel);
+        Debug.Log("Reassigning actions");
+        // uiModule.point = InputActionReference.Create(userActions.UI.Point);
+        // uiModule.leftClick = InputActionReference.Create(userActions.UI.Click);
+        // uiModule.rightClick = InputActionReference.Create(userActions.UI.RightClick);
+        // uiModule.middleClick = InputActionReference.Create(userActions.UI.MiddleClick);
+        // uiModule.scrollWheel = InputActionReference.Create(userActions.UI.ScrollWheel);
+        // uiModule.move = InputActionReference.Create(userActions.UI.Navigate);
+        // uiModule.submit = InputActionReference.Create(userActions.UI.Submit);
+        // uiModule.cancel = InputActionReference.Create(userActions.UI.Cancel);
+        
+        uiModule.point.Set(userActions.UI.Point);
+        uiModule.leftClick.Set(userActions.UI.Click);
+        uiModule.rightClick.Set(userActions.UI.RightClick);
+        uiModule.middleClick.Set(userActions.UI.MiddleClick);
+        uiModule.scrollWheel.Set(userActions.UI.ScrollWheel);
+        uiModule.move.Set(userActions.UI.Navigate);
+        uiModule.submit.Set(userActions.UI.Submit);
+        uiModule.cancel.Set(userActions.UI.Cancel);
     }
 }
