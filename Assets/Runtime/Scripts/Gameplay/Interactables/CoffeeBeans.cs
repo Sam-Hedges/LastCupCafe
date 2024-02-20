@@ -1,0 +1,1 @@
+public class CoffeeBeans : Item { }

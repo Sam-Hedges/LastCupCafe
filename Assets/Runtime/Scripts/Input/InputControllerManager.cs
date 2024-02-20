@@ -28,6 +28,10 @@ public class InputControllerManager : MonoBehaviour {
     [Tooltip("Event is raised when the gameplay scene has finished loading")] [SerializeField]
     private VoidEventChannelSO onSceneReadyChannel;
     
+    [Header("Runtime Anchors")]
+    [Tooltip("Provides a reference to this input controller manager")] [SerializeField]
+    private InputControllerManagerAnchor inputControllerManagerAnchor;
+    
     private List<InputController> _inputs;
     private List<PlayerController> _players;
 
@@ -42,6 +46,8 @@ public class InputControllerManager : MonoBehaviour {
         // Init Players
         _players = new List<PlayerController>();
         playerControllerPool.Prewarm(initialSize);
+        
+        inputControllerManagerAnchor.Provide(this);
     }
 
     private void OnEnable() {
@@ -59,7 +65,7 @@ public class InputControllerManager : MonoBehaviour {
         despawnPlayerControllerChannel.OnEventRaised -= DespawnPlayer;
         setPlayerControllerParentChannel.OnEventRaised -= SetPlayersParent;
     }
-
+    
     private void InputControllerInstanced(GameObject go) {
         go.transform.SetParent(this.transform);
         _inputs.Add(go.GetComponent<InputController>());

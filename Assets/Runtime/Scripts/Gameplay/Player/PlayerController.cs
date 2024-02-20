@@ -69,14 +69,13 @@ public class PlayerController : MonoBehaviour {
 
     private Vector3 _unitGoal;
     private Vector3 _goalVel;
-    private bool _hasDashed;
+    private bool _isDashing;
 
-    [Header("Interaction")] [Space] [SerializeField]
-    private LayerMask interactionLayerMask;
-
-    [SerializeField] private Vector3 interactionBoxSize = new(1, 2, 0.01f);
-    [SerializeField] private float interactionBoxCastMaxDistance = 1f;
+    [Header("Interaction")] [Space]
+    [SerializeField] private LayerMask interactionLayerMask;
+    [SerializeField] private Vector3 interactionBoxSize = new(1, 2, 1);
     private GameObject _currentlyHeldItem;
+    [HideInInspector] public GameObject recentlyCastInteractable;
 
     // ANIMATION
     [HideInInspector] public FloatAnchor playerMotionBlendStateAnchor;
@@ -125,6 +124,7 @@ public class PlayerController : MonoBehaviour {
         _inputController.StationInteractEvent -= OnStationInteract;
         _inputController.PauseEvent -= OnPause;
         _inputController.EmoteEvent -= OnEmote;
+        _inputController.ThrowEvent -= OnThrow;
     }
 
     internal void OnMovement(Vector2 input) {
@@ -134,7 +134,26 @@ public class PlayerController : MonoBehaviour {
         // Broadcast the motion blend state to the animation controller
         playerMotionBlendStateAnchor.Provide(_movementInputVector.magnitude);
     }
+    
+    private void OnAim(Vector2 input) {
+        Vector2 inputValue = new Vector2(input.x, input.y);
+        
+        Vector3 lookDirection = ScaleCameraTransform(_mainCamera.transform.forward) * inputValue.y +
+        CameraTransformRight * inputValue.x;
+        
+        // Clamp the magnitude of the movement output vector to 1 to ensure the direction doesn't exceed a unit vector.
+        Vector3 clampLookDirection = Vector3.ClampMagnitude(lookDirection, 1f);
 
+        // Make the player face the direction of the movement.
+        if (clampLookDirection != Vector3.zero) {
+            // Slerp the player's rotation to the direction of movement.
+            transform.rotation = Quaternion.Slerp(transform.rotation,
+                Quaternion.LookRotation(clampLookDirection), Time.fixedDeltaTime * 25f);
+        }
+        
+        playerMotionBlendStateAnchor.Provide(clampLookDirection.magnitude);
+    }
+    
     private void OnEmote() {
         throw new System.NotImplementedException();
     }
@@ -142,56 +161,80 @@ public class PlayerController : MonoBehaviour {
     private void OnPause() {
         throw new System.NotImplementedException();
     }
+    
+    private void OnThrow() {
+        _inputController.MoveEvent -= OnAim;
+        _inputController.MoveEvent += OnMovement;
+        ThrowItem();
+        _inputController.ThrowEvent -= OnThrow;
+    }
 
     private void OnStationInteract() {
-        RaycastHit raycastHit = default;
-        bool hit = BoxCastForInteractable(ref raycastHit);
-
-        if (!hit) return;
 
         if (_currentlyHeldItem != null) {
-            // TODO: Implement Throwing Logic For Entering Throwing Mode
+            _inputController.ThrowEvent += OnThrow;
+            _inputController.MoveEvent -= OnMovement;
+            _inputController.MoveEvent += OnAim;
+            _movementInputVector = Vector3.zero;
             return;
         }
         
-        if (!raycastHit.collider.TryGetComponent(out Workstation station)) return;
-        if (raycastHit.collider.TryGetComponent(out IInteractable interactable)) interactable?.OnInteract();
+        Collider hitCollider = default;
+        bool hit = CastForInteractable(ref hitCollider);
+
+        if (!hit) return;
+
+        if (hitCollider.TryGetComponent(out Workstation station)) {
+            if (station.TryGetComponent(out IProduceItem produceItem)) {
+                PickupItem(produceItem.ProduceItem());
+            }
+        }
+        
     }
 
     private void OnItemInteract() {
-        RaycastHit raycastHit = default;
-        bool hit = BoxCastForInteractable(ref raycastHit);
-        if (!hit) return;
+        Collider hitCollider = default;
+        Workstation station;
+        bool hit = CastForInteractable(ref hitCollider);
 
         // Put Down Logic
         if (_currentlyHeldItem != null) {
-            if (raycastHit.collider.TryGetComponent(out Workstation station1) && station1.item == null) { 
-                PlaceItem(station1);
+            // If the player is holding an currentlyStoredItem and the hit collider is a workstation, place the currentlyStoredItem
+            if (hit && hitCollider.TryGetComponent(out station) && station.currentlyStoredItem == null) { 
+                PlaceItem(station);
                 return;
             }
 
             DropItem();
             return;
         }
-
+        
         // Pick Up Logic
-        if (raycastHit.collider.TryGetComponent(out Workstation station2)) {
-            RemoveItem(station2);
+        if (!hit) return;
+        if (hitCollider.TryGetComponent(out station)) {
+            PickupItem(station);
             return;
         }
-        if (raycastHit.collider.TryGetComponent(out Item item)) {
-            PickupItem(raycastHit.collider.gameObject);
+        if (hitCollider.TryGetComponent(out Item item)) {
+            PickupItem(item.gameObject);
         }
     }
 
     private void OnDash() {
-        StartCoroutine(DashRoutine(5f));
+        StartCoroutine(DashRoutine(0.5f));
     }
 
     private void FixedUpdate() {
         RigidBodyRide();
         RotateToUpright();
-        Movement(maxSpeed);
+        
+        if (!_isDashing) {
+            Movement(maxSpeed);
+        }
+        else {
+            Movement(dashSpeed);
+        }
+        
         QueryInteractables();
     }
 
@@ -199,20 +242,47 @@ public class PlayerController : MonoBehaviour {
 
     #region Interaction Methods
 
-    private bool BoxCastForInteractable(ref RaycastHit raycastHit) {
+    private bool CastForInteractable(ref Collider hitCollider) {
         Transform tform = transform;
-        bool hitDetect = Physics.BoxCast(tform.position, interactionBoxSize, tform.forward,
-            out var hit, tform.rotation, interactionBoxCastMaxDistance, interactionLayerMask);
-        raycastHit = hit;
-        return hitDetect;
+        // Calculate the center of the box
+        Vector3 boxCenter = tform.position + tform.forward;
+    
+        // Use Physics.OverlapBox to find colliders within the specified box
+        Collider[] hitColliders = Physics.OverlapBox(boxCenter, interactionBoxSize, tform.rotation, interactionLayerMask);
+    
+        // Check if we found any colliders
+        if (hitColliders.Length == 0) {
+            hitCollider = null;
+            return false; // No colliders found
+        }
+    
+        // Find the closest collider
+        Collider closestCollider = hitColliders[0];
+        float closestDistance = Vector3.Distance(tform.position, closestCollider.transform.position);
+        foreach (Collider hit in hitColliders) {
+            float distance = Vector3.Distance(tform.position, hit.transform.position);
+            if (distance < closestDistance) {
+                closestCollider = hit;
+                closestDistance = distance;
+            }
+        }
+
+        hitCollider = closestCollider;
+        return true; // Collider found
     }
     
-    private void ToggleItemCollisionAndPhysics(GameObject item) {
+    private void ToggleItemCollisionAndPhysics(GameObject item, bool enable) {
         Rigidbody itemRigidbody = item.GetComponent<Rigidbody>();
         Collider itemCollider = item.GetComponent<Collider>();
+        
+        if (enable) {
+            itemRigidbody.isKinematic = false;
+            itemCollider.enabled = true;
+            return;
+        }
 
-        itemRigidbody.isKinematic = !itemRigidbody.isKinematic;
-        itemCollider.enabled = !itemCollider.enabled;
+        itemRigidbody.isKinematic = true;
+        itemCollider.enabled = false;
     } 
 
     private void PickupItem(GameObject item) {
@@ -221,55 +291,79 @@ public class PlayerController : MonoBehaviour {
         _currentlyHeldItem = item;
         _currentlyHeldItem.transform.SetParent(transform);
         _currentlyHeldItem.transform.localPosition = new Vector3(0, 0, 0.75f);
+        _currentlyHeldItem.transform.localRotation = Quaternion.Euler(0, 0, 0);
 
-        ToggleItemCollisionAndPhysics(_currentlyHeldItem);
+        ToggleItemCollisionAndPhysics(_currentlyHeldItem, false);
         
         playerPickupItemEventChannel.RaiseEvent();
     }
     
-    private void RemoveItem(Workstation station) {
-        if (station.item == null || _currentlyHeldItem != null) return;
+    private void PickupItem(Workstation station) {
+        if (station.currentlyStoredItem == null || _currentlyHeldItem != null) return;
 
         _currentlyHeldItem = station.OnRemoveItem();
         _currentlyHeldItem.transform.SetParent(transform);
         _currentlyHeldItem.transform.localPosition = new Vector3(0, 0, 0.75f);
+        _currentlyHeldItem.transform.localRotation = Quaternion.Euler(0, 0, 0);
 
-        ToggleItemCollisionAndPhysics(_currentlyHeldItem);
+        ToggleItemCollisionAndPhysics(_currentlyHeldItem, false);
         
         playerPickupItemEventChannel.RaiseEvent();
     }
 
     private void DropItem() {
         if (_currentlyHeldItem == null) return;
+        
+        ToggleItemCollisionAndPhysics(_currentlyHeldItem, true);
 
         _currentlyHeldItem.transform.SetParent(null);
         _currentlyHeldItem = null;
-
-        ToggleItemCollisionAndPhysics(_currentlyHeldItem);
 
         playerDropItemEventChannel.RaiseEvent();
     }
 
     private void PlaceItem(Workstation station) {
-        if (station.item != null || _currentlyHeldItem == null) return;
+        if (station.currentlyStoredItem != null || _currentlyHeldItem == null) return;
+        
+        ToggleItemCollisionAndPhysics(_currentlyHeldItem, false);
         
         _currentlyHeldItem.transform.SetParent(null);
+        station.OnPlaceItem(_currentlyHeldItem);
         _currentlyHeldItem = null;
-
-        ToggleItemCollisionAndPhysics(_currentlyHeldItem);
         
         playerDropItemEventChannel.RaiseEvent();
         
-        station.OnPlaceItem(_currentlyHeldItem);
+    }
+    
+    private void ThrowItem() {
+        if (_currentlyHeldItem == null) return;
+        
+        ToggleItemCollisionAndPhysics(_currentlyHeldItem, true);
+        
+        _currentlyHeldItem.transform.position += transform.forward;
+        _currentlyHeldItem.transform.SetParent(null);
+        _currentlyHeldItem.GetComponent<Item>().hasBeenThrown = true;
+        
+        Rigidbody itemRigidbody = _currentlyHeldItem.GetComponent<Rigidbody>();
+        itemRigidbody.AddForce(transform.forward * 100, ForceMode.Impulse);
+        itemRigidbody.AddTorque(new Vector3(Random.Range(0, 1), Random.Range(0, 1), Random.Range(0, 1)) * 10, ForceMode.Impulse);
+        _currentlyHeldItem = null;
+        
+        playerDropItemEventChannel.RaiseEvent();
     }
     
     private void QueryInteractables() {
-        RaycastHit raycastHit = default;
-        bool hit = BoxCastForInteractable(ref raycastHit);
+        Collider hitCollider = default;
+        bool hit = CastForInteractable(ref hitCollider);
 
-        if (!hit) return;
-
-        if (raycastHit.collider.TryGetComponent(out Workstation station)) station.OnHighlight();
+        if (!hit) {
+            recentlyCastInteractable = null;
+            return;
+        }
+        
+        recentlyCastInteractable = hitCollider.gameObject;
+        if (hitCollider.TryGetComponent(out Workstation station)) station.AddHighlight(this);
+        if (hitCollider.TryGetComponent(out Item item)) item.AddHighlight(this);
     }
 
     #endregion
@@ -277,21 +371,17 @@ public class PlayerController : MonoBehaviour {
     #region Movement Methods
 
     private IEnumerator DashRoutine(float durationSeconds) {
-        _hasDashed = true;
+        _isDashing = true;
         float timeElapsed = 0;
         while (timeElapsed < durationSeconds) {
-            Movement(dashSpeed);
-
             timeElapsed += Time.fixedDeltaTime;
-
             yield return new WaitForFixedUpdate();
         }
-
-        _hasDashed = false;
+        _isDashing = false;
     }
 
     private void RigidBodyRide() {
-        if (!Physics.Raycast(transform.position, -transform.up, out RaycastHit hit, rideHeight + 1)) return;
+        if (!Physics.Raycast(transform.position, -transform.up, out RaycastHit hit, rideHeight + 1, groundMask)) return;
 
         Vector3 velocity = _rb.velocity;
         Vector3 rayDirection = -transform.up;
@@ -391,18 +481,21 @@ public class PlayerController : MonoBehaviour {
     }
 
     // Gizmo function to draw the interaction box
-    private void OnDrawGizmos() {
-        RaycastHit hit = default;
-        if (BoxCastForInteractable(ref hit)) {
-            Gizmos.color = Color.green;
-            Gizmos.DrawRay(transform.position, transform.forward * hit.distance);
-            Gizmos.DrawWireCube(transform.position + transform.forward * hit.distance, interactionBoxSize * 2);
-        }
-        else {
-            Gizmos.color = Color.red;
-            Gizmos.DrawRay(transform.position, transform.forward * interactionBoxCastMaxDistance);
-            Gizmos.DrawWireCube(transform.position + transform.forward * interactionBoxCastMaxDistance,
-                interactionBoxSize * 2);
-        }
+    void OnDrawGizmos() {
+        Transform tform = transform;
+        Vector3 boxCenter = tform.position + tform.forward;
+    
+        // Temporarily store the collider hit by the CastForInteractable method
+        Collider hitCollider = null;
+        // Check if something was hit and set the Gizmo color accordingly
+        bool hitDetected = CastForInteractable(ref hitCollider);
+    
+        // Set Gizmo color based on whether an interactable was hit
+        Gizmos.color = hitDetected ? Color.green : Color.red;
+    
+        // Draw the box Gizmo
+        // Note: Unity's Gizmos.DrawCube expects the world space position (center of the cube) and its size
+        Gizmos.matrix = Matrix4x4.TRS(boxCenter, tform.rotation, Vector3.one); // Align Gizmo with the transform's orientation
+        Gizmos.DrawWireCube(Vector3.zero, interactionBoxSize * 2); // DrawWireCube draws in local space of the matrix
     }
 }

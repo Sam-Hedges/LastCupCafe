@@ -47,7 +47,7 @@ namespace TMPro.Examples
             // Get a reference to the text object's textInfo
             m_TextInfo = m_TextComponent.textInfo;
 
-            // Update Text Statistics
+            // UpdateState Text Statistics
             ObjectStats = "Characters: " + m_TextInfo.characterCount + "   Words: " + m_TextInfo.wordCount + "   Spaces: " + m_TextInfo.spaceCount + "   Sprites: " + m_TextInfo.spriteCount + "   Links: " + m_TextInfo.linkCount
                           + "\nLines: " + m_TextInfo.lineCount + "   Pages: " + m_TextInfo.pageCount;
 
@@ -320,7 +320,7 @@ namespace TMPro.Examples
                         }
                     }
 
-                    // Last Character of Word
+                    // Last CharacterCard of Word
                     if (isBeginRegion && j == wInfo.characterCount - 1)
                     {
                         isBeginRegion = false;
@@ -426,7 +426,7 @@ namespace TMPro.Examples
                         }
                     }
 
-                    // Last Character of Link
+                    // Last CharacterCard of Link
                     if (isBeginRegion && j == linkInfo.linkTextLength - 1)
                     {
                         isBeginRegion = false;

@@ -43,7 +43,7 @@ public class MovementInput : MonoBehaviour {
 		controller = this.GetComponent<CharacterController> ();
 	}
 	
-	// Update is called once per frame
+	// UpdateState is called once per frame
 	void Update () {
 		InputMagnitude ();
 

@@ -3,7 +3,7 @@ using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
 /// <summary>
-/// This class is used for Events that have no arguments (Example: Exit game event)
+/// This class is used for Events that have no arguments (Example: ExitState game event)
 /// </summary>
 [CreateAssetMenu(menuName = "Events/Void Event Channel")]
 public class VoidEventChannelSO : SerializableScriptableObject {

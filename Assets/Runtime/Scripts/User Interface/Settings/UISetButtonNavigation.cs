@@ -17,7 +17,7 @@ public class UISetButtonNavigation : MonoBehaviour
 		}
 		if (_listSettingItems.Length > 0)
 			if (_listSettingItems[0].GetComponent<MultiInputButton>() != null)
-				//select first item
+				//select first currentlyStoredItem
 				_listSettingItems[0].GetComponent<MultiInputButton>().Select();
 	}
 	private void Start()

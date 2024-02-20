@@ -3,46 +3,80 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum WorkstationType {
+    CoffeePlant,
+    CoffeeMachine,
+    MilkFridge,
+    SyrupCrate,
+    ChocolateCreate,
+    Grinder,
+    KitchenSink,
+    Counter,
+}
+
 public class Workstation : MonoBehaviour, IInteractable
 {
-    public GameObject item;
+    public WorkstationType workstationType;
+    public GameObject currentlyStoredItem;
     [SerializeField] private Material highlightMaterial;
     private MeshRenderer _meshRenderer;
     private Material[] _defaultMaterials;
+    private Material[] _highlightMaterials;
+    private PlayerController _playerController;
 
     private void Awake() {
         _meshRenderer = GetComponent<MeshRenderer>();
         _defaultMaterials = _meshRenderer.materials;
+        InitHightlightMaterials();
     }
-    
-    public void OnHighlight() {
-        // Add highlight material a list of materials
-        Material[] newMaterials = new Material[_defaultMaterials.Length + 1];
-        Array.Copy(_defaultMaterials, newMaterials, _defaultMaterials.Length);
-        newMaterials[_defaultMaterials.Length] = highlightMaterial;
-        _meshRenderer.materials = newMaterials;
-    }
-    
-    public void OnPlaceItem(GameObject newItem) {
-        if (item != null) return;
+
+    private void FixedUpdate() {
+        // Remove highlight if the player is not looking at the object
+        if (_playerController != null && _playerController.recentlyCastInteractable != gameObject) RemoveHighlight();
         
-        item = newItem;
-        item.transform.position = transform.position;
-        item.transform.rotation = transform.rotation;
-        item.transform.SetParent(transform);
-        item.transform.localPosition = Vector3.up;
+    }
+
+    private void InitHightlightMaterials() {
+        _highlightMaterials = new Material[_defaultMaterials.Length + 1];
+        Array.Copy(_defaultMaterials, _highlightMaterials, _defaultMaterials.Length);
+        _highlightMaterials[_defaultMaterials.Length] = highlightMaterial;
+    }
+
+    public void AddHighlight(PlayerController playerController) {
+        // Check if the object is already highlighted
+        if (_meshRenderer.materials == _highlightMaterials) return;
+        _meshRenderer.materials = _highlightMaterials;
+        _playerController = playerController;
+
+        if (currentlyStoredItem == null) return;
+        currentlyStoredItem.GetComponent<Item>().AddHighlight(playerController);
+    }
+
+    private void RemoveHighlight() {
+        _meshRenderer.materials = _defaultMaterials;
+        _playerController = null;
+    }
+
+    public void OnPlaceItem(GameObject newItem) {
+        if (currentlyStoredItem != null) return; 
+        
+        currentlyStoredItem = newItem;
+        currentlyStoredItem.transform.position = transform.position;
+        currentlyStoredItem.transform.rotation = transform.rotation;
+        currentlyStoredItem.transform.SetParent(transform);
+        currentlyStoredItem.transform.localPosition = Vector3.up;
     }
     
     public GameObject OnRemoveItem() {
-        if (item == null) return null;
+        if (currentlyStoredItem == null) return null;
         
-        GameObject temp = item;
-        item = null;
+        GameObject temp = currentlyStoredItem;
+        currentlyStoredItem = null;
         return temp;
     }
 
-    public void OnInteract() {
-        if (item == null) return; // TODO: Implement not going to work without newItem sound
+    public virtual void OnInteract() {
+        if (currentlyStoredItem == null) return; // TODO: Implement not going to work without newItem sound
         
         
     }

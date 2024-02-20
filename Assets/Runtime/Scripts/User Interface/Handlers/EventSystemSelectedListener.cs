@@ -8,10 +8,10 @@ public class EventSystemSelectedListener : MonoBehaviour
 {
     [Header("Listening to")]
     [SerializeField] private GameObjectEventChannelSO selectedGameObjectEventChannel;
-    private EventSystem eventSystem;
+    private EventSystem _eventSystem;
     
     private void Awake() {
-        eventSystem = GetComponent<EventSystem>();
+        _eventSystem = GetComponent<EventSystem>();
     }
     
     private void OnEnable() {
@@ -24,6 +24,6 @@ public class EventSystemSelectedListener : MonoBehaviour
 
     private void SetSelectedGameObject(GameObject go)
     {
-        eventSystem.SetSelectedGameObject(go);
+        _eventSystem.SetSelectedGameObject(go);
     }
 }

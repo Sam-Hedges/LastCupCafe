@@ -112,7 +112,7 @@ public class SceneLoader : MonoBehaviour
 	/// </summary>
 	private void LoadMenu(GameSceneSO menuToLoad, bool showLoadingScreen, bool fadeScreen)
 	{
-		//Prevent a double-loading, for situations where the player falls in two Exit colliders in one frame
+		//Prevent a double-loading, for situations where the player falls in two ExitState colliders in one frame
 		if (_isLoading)
 			return;
 
@@ -200,6 +200,6 @@ public class SceneLoader : MonoBehaviour
 	private void ExitGame()
 	{
 		Application.Quit();
-		Debug.Log("Exit!");
+		Debug.Log("ExitState!");
 	}
 }

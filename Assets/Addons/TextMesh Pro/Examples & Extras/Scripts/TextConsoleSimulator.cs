@@ -51,14 +51,14 @@ namespace TMPro.Examples
 
             TMP_TextInfo textInfo = textComponent.textInfo;
 
-            int totalVisibleCharacters = textInfo.characterCount; // Get # of Visible Character in text object
+            int totalVisibleCharacters = textInfo.characterCount; // Get # of Visible CharacterCard in text object
             int visibleCount = 0;
 
             while (true)
             {
                 if (hasTextChanged)
                 {
-                    totalVisibleCharacters = textInfo.characterCount; // Update visible character count.
+                    totalVisibleCharacters = textInfo.characterCount; // UpdateState visible character count.
                     hasTextChanged = false; 
                 }
 
@@ -86,7 +86,7 @@ namespace TMPro.Examples
             textComponent.ForceMeshUpdate();
 
             int totalWordCount = textComponent.textInfo.wordCount;
-            int totalVisibleCharacters = textComponent.textInfo.characterCount; // Get # of Visible Character in text object
+            int totalVisibleCharacters = textComponent.textInfo.characterCount; // Get # of Visible CharacterCard in text object
             int counter = 0;
             int currentWord = 0;
             int visibleCount = 0;
