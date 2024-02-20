@@ -11,19 +11,20 @@ public class Timer : MonoBehaviour
 
     bool timerRunning;
 
+    public bool fail = false;
+
+    public bool Destroyable = false;
+
     public TextMeshProUGUI timeText;
 
     float timer;
-
-    // Start is called before the first frame update
     void Start()
     {
-        timer = timeRemaining * 60;
+        timer = timeRemaining * 60; //converts time to seconds
 
         timerRunning = true;
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (timerRunning)
@@ -37,10 +38,12 @@ public class Timer : MonoBehaviour
             {
                 timeRemaining = 0;
                 timerRunning = false;
+                fail = true;
             }
         }
     }
 
+    //dislays time remaining in a minutes:seconds format
     void DisplayTime(float timeToDisplay)
     {
         timeToDisplay += 1;
