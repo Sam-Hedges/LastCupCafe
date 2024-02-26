@@ -157,7 +157,7 @@ public class InputController : MonoBehaviour, UserActions.IGameplayActions, User
     // Event handlers for the Menu action map
     // Assign delegate{} to events to initialise them with an empty delegate
     // so we can skip the null check when we use them
-    public event UnityAction StartGameEvent = delegate { };
+    public event UnityAction<InputController> AnyInputEvent = delegate { };
     public event UnityAction MoveSelectionEvent = delegate { };
     public event UnityAction MenuMouseMoveEvent = delegate { };
     public event UnityAction MenuClickButtonEvent = delegate { };
@@ -236,9 +236,9 @@ public class InputController : MonoBehaviour, UserActions.IGameplayActions, User
         CloseInventoryEvent.Invoke();
     }
 
-    public void OnStartGame(InputAction.CallbackContext context) {
+    public void OnAnyInput(InputAction.CallbackContext context) {
         if (context.phase == InputActionPhase.Performed)
-            StartGameEvent.Invoke();
+            AnyInputEvent?.Invoke(this);
     }
 
     public void OnScrollWheel(InputAction.CallbackContext context) { }

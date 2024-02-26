@@ -391,6 +391,15 @@ public partial class @UserActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""AnyInput"",
+                    ""type"": ""Button"",
+                    ""id"": ""e33f231f-1289-4d00-8d33-4f0246b6de08"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -789,6 +798,28 @@ public partial class @UserActions: IInputActionCollection2, IDisposable
                     ""action"": ""RightClick"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1a52abae-92dd-4a71-bd04-a2e70a98e6d5"",
+                    ""path"": ""<Gamepad>/*"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""AnyInput"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""07b26d3d-eb8e-4c90-8066-d2ad77fe3f9e"",
+                    ""path"": ""<Keyboard>/anyKey"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""AnyInput"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -846,6 +877,7 @@ public partial class @UserActions: IInputActionCollection2, IDisposable
         m_UI_ScrollWheel = m_UI.FindAction("ScrollWheel", throwIfNotFound: true);
         m_UI_MiddleClick = m_UI.FindAction("MiddleClick", throwIfNotFound: true);
         m_UI_RightClick = m_UI.FindAction("RightClick", throwIfNotFound: true);
+        m_UI_AnyInput = m_UI.FindAction("AnyInput", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -1001,6 +1033,7 @@ public partial class @UserActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_UI_ScrollWheel;
     private readonly InputAction m_UI_MiddleClick;
     private readonly InputAction m_UI_RightClick;
+    private readonly InputAction m_UI_AnyInput;
     public struct UIActions
     {
         private @UserActions m_Wrapper;
@@ -1013,6 +1046,7 @@ public partial class @UserActions: IInputActionCollection2, IDisposable
         public InputAction @ScrollWheel => m_Wrapper.m_UI_ScrollWheel;
         public InputAction @MiddleClick => m_Wrapper.m_UI_MiddleClick;
         public InputAction @RightClick => m_Wrapper.m_UI_RightClick;
+        public InputAction @AnyInput => m_Wrapper.m_UI_AnyInput;
         public InputActionMap Get() { return m_Wrapper.m_UI; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1046,6 +1080,9 @@ public partial class @UserActions: IInputActionCollection2, IDisposable
             @RightClick.started += instance.OnRightClick;
             @RightClick.performed += instance.OnRightClick;
             @RightClick.canceled += instance.OnRightClick;
+            @AnyInput.started += instance.OnAnyInput;
+            @AnyInput.performed += instance.OnAnyInput;
+            @AnyInput.canceled += instance.OnAnyInput;
         }
 
         private void UnregisterCallbacks(IUIActions instance)
@@ -1074,6 +1111,9 @@ public partial class @UserActions: IInputActionCollection2, IDisposable
             @RightClick.started -= instance.OnRightClick;
             @RightClick.performed -= instance.OnRightClick;
             @RightClick.canceled -= instance.OnRightClick;
+            @AnyInput.started -= instance.OnAnyInput;
+            @AnyInput.performed -= instance.OnAnyInput;
+            @AnyInput.canceled -= instance.OnAnyInput;
         }
 
         public void RemoveCallbacks(IUIActions instance)
@@ -1128,5 +1168,6 @@ public partial class @UserActions: IInputActionCollection2, IDisposable
         void OnScrollWheel(InputAction.CallbackContext context);
         void OnMiddleClick(InputAction.CallbackContext context);
         void OnRightClick(InputAction.CallbackContext context);
+        void OnAnyInput(InputAction.CallbackContext context);
     }
 }

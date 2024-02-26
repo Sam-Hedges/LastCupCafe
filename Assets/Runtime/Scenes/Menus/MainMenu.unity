@@ -1040,7 +1040,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: -3898648949451298505, guid: a911d99f7e4716c49a45203ea9084990, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 6202847356474842794, guid: a911d99f7e4716c49a45203ea9084990,
@@ -2599,7 +2600,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5272b4cb00aeda148a2c315f6fd2f1e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inputHandler: {fileID: 11400000, guid: e533313ae0257664baf6abfd92a57764, type: 2}
+  _inputControllerManagerAnchor: {fileID: 11400000, guid: 9b6aad5fb193bc54880e3690b978c49b,
+    type: 2}
   backEvent:
     m_PersistentCalls:
       m_Calls:
@@ -3221,7 +3223,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5272b4cb00aeda148a2c315f6fd2f1e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inputHandler: {fileID: 11400000, guid: e533313ae0257664baf6abfd92a57764, type: 2}
+  _inputControllerManagerAnchor: {fileID: 11400000, guid: 9b6aad5fb193bc54880e3690b978c49b,
+    type: 2}
   backEvent:
     m_PersistentCalls:
       m_Calls:
@@ -3683,7 +3686,6 @@ GameObject:
   m_Component:
   - component: {fileID: 299161287}
   - component: {fileID: 299161290}
-  - component: {fileID: 299161289}
   - component: {fileID: 299161288}
   m_Layer: 0
   m_Name: Camera
@@ -3751,14 +3753,6 @@ MonoBehaviour:
     mipBias: 0
     varianceClampScale: 0.9
     contrastAdaptiveSharpening: 0
---- !u!81 &299161289
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 299161286}
-  m_Enabled: 1
 --- !u!20 &299161290
 Camera:
   m_ObjectHideFlags: 0
@@ -4661,7 +4655,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: -3898648949451298505, guid: a911d99f7e4716c49a45203ea9084990, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 6202847356474842794, guid: a911d99f7e4716c49a45203ea9084990,
@@ -4925,7 +4920,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5272b4cb00aeda148a2c315f6fd2f1e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inputHandler: {fileID: 11400000, guid: e533313ae0257664baf6abfd92a57764, type: 2}
+  _inputControllerManagerAnchor: {fileID: 11400000, guid: 9b6aad5fb193bc54880e3690b978c49b,
+    type: 2}
   backEvent:
     m_PersistentCalls:
       m_Calls:
@@ -5736,7 +5732,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: -3898648949451298505, guid: a911d99f7e4716c49a45203ea9084990, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 6202847356474842794, guid: a911d99f7e4716c49a45203ea9084990,
@@ -7616,7 +7613,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: -3898648949451298505, guid: a911d99f7e4716c49a45203ea9084990, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 6202847356474842794, guid: a911d99f7e4716c49a45203ea9084990,
@@ -8080,7 +8078,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5272b4cb00aeda148a2c315f6fd2f1e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inputHandler: {fileID: 11400000, guid: e533313ae0257664baf6abfd92a57764, type: 2}
+  _inputControllerManagerAnchor: {fileID: 11400000, guid: 9b6aad5fb193bc54880e3690b978c49b,
+    type: 2}
   backEvent:
     m_PersistentCalls:
       m_Calls:
@@ -10133,7 +10132,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5272b4cb00aeda148a2c315f6fd2f1e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inputHandler: {fileID: 11400000, guid: e533313ae0257664baf6abfd92a57764, type: 2}
+  _inputControllerManagerAnchor: {fileID: 11400000, guid: 9b6aad5fb193bc54880e3690b978c49b,
+    type: 2}
   backEvent:
     m_PersistentCalls:
       m_Calls:
@@ -11740,7 +11740,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: -3898648949451298505, guid: a911d99f7e4716c49a45203ea9084990, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 6202847356474842794, guid: a911d99f7e4716c49a45203ea9084990,
@@ -15355,7 +15356,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5272b4cb00aeda148a2c315f6fd2f1e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inputHandler: {fileID: 11400000, guid: e533313ae0257664baf6abfd92a57764, type: 2}
+  _inputControllerManagerAnchor: {fileID: 11400000, guid: 9b6aad5fb193bc54880e3690b978c49b,
+    type: 2}
   backEvent:
     m_PersistentCalls:
       m_Calls:
@@ -16792,7 +16794,8 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: -3898648949451298505, guid: a911d99f7e4716c49a45203ea9084990, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 6202847356474842794, guid: a911d99f7e4716c49a45203ea9084990,
@@ -16939,7 +16942,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: -3898648949451298505, guid: a911d99f7e4716c49a45203ea9084990, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 6202847356474842794, guid: a911d99f7e4716c49a45203ea9084990,
@@ -17258,7 +17262,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1155966577}
   - component: {fileID: 1155966580}
-  - component: {fileID: 1155966579}
   - component: {fileID: 1155966578}
   m_Layer: 0
   m_Name: Camera
@@ -17326,14 +17329,6 @@ MonoBehaviour:
     mipBias: 0
     varianceClampScale: 0.9
     contrastAdaptiveSharpening: 0
---- !u!81 &1155966579
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1155966576}
-  m_Enabled: 1
 --- !u!20 &1155966580
 Camera:
   m_ObjectHideFlags: 0
@@ -17440,7 +17435,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5272b4cb00aeda148a2c315f6fd2f1e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inputHandler: {fileID: 11400000, guid: e533313ae0257664baf6abfd92a57764, type: 2}
+  _inputControllerManagerAnchor: {fileID: 11400000, guid: 9b6aad5fb193bc54880e3690b978c49b,
+    type: 2}
   backEvent:
     m_PersistentCalls:
       m_Calls:
@@ -18167,7 +18163,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: -3898648949451298505, guid: a911d99f7e4716c49a45203ea9084990, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 6202847356474842794, guid: a911d99f7e4716c49a45203ea9084990,
@@ -20884,7 +20881,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: -3898648949451298505, guid: a911d99f7e4716c49a45203ea9084990, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 6202847356474842794, guid: a911d99f7e4716c49a45203ea9084990,
@@ -23416,7 +23414,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5272b4cb00aeda148a2c315f6fd2f1e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inputHandler: {fileID: 11400000, guid: e533313ae0257664baf6abfd92a57764, type: 2}
+  _inputControllerManagerAnchor: {fileID: 11400000, guid: 9b6aad5fb193bc54880e3690b978c49b,
+    type: 2}
   backEvent:
     m_PersistentCalls:
       m_Calls:
@@ -23801,7 +23800,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5272b4cb00aeda148a2c315f6fd2f1e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inputHandler: {fileID: 11400000, guid: e533313ae0257664baf6abfd92a57764, type: 2}
+  _inputControllerManagerAnchor: {fileID: 11400000, guid: 9b6aad5fb193bc54880e3690b978c49b,
+    type: 2}
   backEvent:
     m_PersistentCalls:
       m_Calls:
@@ -25725,7 +25725,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5272b4cb00aeda148a2c315f6fd2f1e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inputHandler: {fileID: 11400000, guid: e533313ae0257664baf6abfd92a57764, type: 2}
+  _inputControllerManagerAnchor: {fileID: 11400000, guid: 9b6aad5fb193bc54880e3690b978c49b,
+    type: 2}
   backEvent:
     m_PersistentCalls:
       m_Calls:
@@ -25979,7 +25980,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: -3898648949451298505, guid: a911d99f7e4716c49a45203ea9084990, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 6202847356474842794, guid: a911d99f7e4716c49a45203ea9084990,
@@ -29622,7 +29624,8 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: -3898648949451298505, guid: a911d99f7e4716c49a45203ea9084990, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 6202847356474842794, guid: a911d99f7e4716c49a45203ea9084990,
@@ -30395,7 +30398,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1917606883}
   - component: {fileID: 1917606886}
-  - component: {fileID: 1917606885}
   - component: {fileID: 1917606884}
   m_Layer: 0
   m_Name: Camera
@@ -30463,14 +30465,6 @@ MonoBehaviour:
     mipBias: 0
     varianceClampScale: 0.9
     contrastAdaptiveSharpening: 0
---- !u!81 &1917606885
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1917606882}
-  m_Enabled: 1
 --- !u!20 &1917606886
 Camera:
   m_ObjectHideFlags: 0
@@ -30660,7 +30654,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: -3898648949451298505, guid: a911d99f7e4716c49a45203ea9084990, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 6202847356474842794, guid: a911d99f7e4716c49a45203ea9084990,
@@ -30765,7 +30760,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5272b4cb00aeda148a2c315f6fd2f1e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inputHandler: {fileID: 11400000, guid: e533313ae0257664baf6abfd92a57764, type: 2}
+  _inputControllerManagerAnchor: {fileID: 11400000, guid: 9b6aad5fb193bc54880e3690b978c49b,
+    type: 2}
   backEvent:
     m_PersistentCalls:
       m_Calls:
@@ -32835,7 +32831,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: -3898648949451298505, guid: a911d99f7e4716c49a45203ea9084990, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 6202847356474842794, guid: a911d99f7e4716c49a45203ea9084990,
@@ -33077,7 +33074,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5272b4cb00aeda148a2c315f6fd2f1e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inputHandler: {fileID: 11400000, guid: e533313ae0257664baf6abfd92a57764, type: 2}
+  _inputControllerManagerAnchor: {fileID: 11400000, guid: 9b6aad5fb193bc54880e3690b978c49b,
+    type: 2}
   backEvent:
     m_PersistentCalls:
       m_Calls:
@@ -35210,7 +35208,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &369027169291196415
 RectTransform:
   m_ObjectHideFlags: 0
@@ -38904,7 +38902,7 @@ PrefabInstance:
     - target: {fileID: 3892636229888216091, guid: 79354985341bfde42ab587a3ec25adb9,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3892636229888216091, guid: 79354985341bfde42ab587a3ec25adb9,
         type: 3}
@@ -38914,7 +38912,7 @@ PrefabInstance:
     - target: {fileID: 3892636229888216091, guid: 79354985341bfde42ab587a3ec25adb9,
         type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3892636229888216091, guid: 79354985341bfde42ab587a3ec25adb9,
         type: 3}
@@ -38964,12 +38962,12 @@ PrefabInstance:
     - target: {fileID: 3892636229888216091, guid: 79354985341bfde42ab587a3ec25adb9,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 1917.6305
       objectReference: {fileID: 0}
     - target: {fileID: 3892636229888216091, guid: 79354985341bfde42ab587a3ec25adb9,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -370.65802
       objectReference: {fileID: 0}
     - target: {fileID: 3892636229888216091, guid: 79354985341bfde42ab587a3ec25adb9,
         type: 3}

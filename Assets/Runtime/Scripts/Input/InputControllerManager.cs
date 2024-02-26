@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(PlayerInputManager))]
@@ -32,6 +33,7 @@ public class InputControllerManager : MonoBehaviour {
     [Tooltip("Provides a reference to this input controller manager")] [SerializeField]
     private InputControllerManagerAnchor inputControllerManagerAnchor;
     
+    public InputController _leaderInputController;
     private List<InputController> _inputs;
     private List<PlayerController> _players;
 
@@ -68,9 +70,11 @@ public class InputControllerManager : MonoBehaviour {
     
     private void InputControllerInstanced(GameObject go) {
         go.transform.SetParent(this.transform);
-        _inputs.Add(go.GetComponent<InputController>());
+        var inputController = go.GetComponent<InputController>();
+        // inputController.AnyInputEvent += SetLeaderInputController();
+        _inputs.Add(inputController);
     }
-    
+
     private void InputControllerDestroyed(GameObject go) {
         var inputController = go.GetComponent<InputController>();
         var playerController = inputController.GetPlayerController();
@@ -80,6 +84,11 @@ public class InputControllerManager : MonoBehaviour {
         }
         _inputs.Remove(inputController);
     }
+    
+    private void SetLeaderInputController(InputController inputController) {
+        _leaderInputController = inputController;
+    }
+    
 	private void SetPlayersParent(Transform parent) {
 		playerControllerPool.SetParent(parent);
 		
