@@ -6,7 +6,7 @@ using UnityEngine.Rendering;
 
 public class Order : MonoBehaviour
 {
-    public GameObject order1, order2;
+    public GameObject order1, order2, order3;
 
     int id = 1;
 
@@ -50,16 +50,21 @@ public class Order : MonoBehaviour
     //generates an order by rolling a random number
     void TakeOrder(int slot)
     {
-        int order = Random.Range(0, 50);
-        if (order <= 25)
+        int order = Random.Range(0, 90);
+        if (order <= 30)
         {
             Instantiate(order1, slots[slot].transform, worldPositionStays: false);
             drinkID[slot] = 1;
         }
-        else
+        else if(order <= 60)
         {
             Instantiate(order2, slots[slot].transform, worldPositionStays: false);
             drinkID[slot] = 2;
+        }
+        else
+        {
+            Instantiate(order3, slots[slot].transform, worldPositionStays: false);
+            drinkID[slot] = 3;
         }
         customerID[slot] = id;
         id += 1;

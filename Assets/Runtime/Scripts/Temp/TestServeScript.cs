@@ -21,5 +21,9 @@ public class TestServeScript : MonoBehaviour
         {
             Serve.serveID = 2;
         }
+        else if (Input.GetKeyDown("3"))
+        {
+            Serve.serveID = 3;
+        }
     }
 }
