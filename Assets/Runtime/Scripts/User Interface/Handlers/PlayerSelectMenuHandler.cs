@@ -4,19 +4,11 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class PlayerSelectMenuHandler : MonoBehaviour {
-    [Serializable]
-    private class CharacterCardPreset {
-        public CharacterCard characterCard;
-        public string name;
-        public Sprite titleSprite;
-        public RenderTexture characterImage;
-        public bool isReady;
-        public int characterIndex;
-    }
-
+    
     [Header("Cards")] [Tooltip("")] [SerializeField]
     private GameObject playerCardPrefab;
 
@@ -42,7 +34,7 @@ public class PlayerSelectMenuHandler : MonoBehaviour {
 
     private InputControllerManager _inputControllerManager;
 
-    private Dictionary<InputController, CharacterCardPreset> _playerInputToUI = new();
+    private Dictionary<InputController, CharacterCardController> _playerInputToUI = new();
 
     private void OnEnable() {
         inputControllerManagerAnchor.OnAnchorProvided += InputControllerManagerProvided;
@@ -58,24 +50,25 @@ public class PlayerSelectMenuHandler : MonoBehaviour {
     }
 
     private void InputControllerInstanced(GameObject go) {
-        InputController inputController = go.GetComponent<InputController>();
 
-        int randomIndex = UnityEngine.Random.Range(0, _characterCardPresets.Length);
-        CharacterCardPreset playerCard = _characterCardPresets[randomIndex];
-        playerCard.characterCard = Instantiate(playerCardPrefab, transform).GetComponent<CharacterCard>();
-        
         // Set the character card transform parent to this transform and make it second from last in the hierarchy
-        playerCard.characterCard.transform.SetParent(transform);
-        playerCard.characterCard.transform.SetSiblingIndex(transform.childCount - 2);
+        CharacterCardController playerCard = Instantiate(playerCardPrefab, transform).GetComponent<CharacterCardController>();
+        playerCard.transform.SetSiblingIndex(transform.childCount - 2);
         
-        playerCard.isReady = false;
+        // Input
+        InputController inputController = go.GetComponent<InputController>();
+        inputController.EnableMenuInput();
+        playerCard.InputController = inputController;
+        
+        int randomIndex = UnityEngine.Random.Range(0, _characterCardPresets.Length - 1);
+        playerCard.Preset = _characterCardPresets[randomIndex];
         playerCard.characterIndex = randomIndex;
 
         if (go.GetComponent<PlayerInput>().currentControlScheme == "Gamepad") {
-            playerCard.characterCard._inputTypeImage.sprite = gamepadIcon;
+            playerCard.inputTypeImage.sprite = gamepadIcon;
         }
         else {
-            playerCard.characterCard._inputTypeImage.sprite = keyboardIcon;
+            playerCard.inputTypeImage.sprite = keyboardIcon;
         }
 
         _playerInputToUI.Add(inputController, playerCard);
@@ -83,12 +76,32 @@ public class PlayerSelectMenuHandler : MonoBehaviour {
 
     private void InputControllerDestroyed(GameObject go) {
         var inputController = go.GetComponent<InputController>();
-        if (_playerInputToUI.TryGetValue(inputController, out CharacterCardPreset characterCardPreset)) {
-            Destroy(characterCardPreset.characterCard.gameObject);
+        if (_playerInputToUI.TryGetValue(inputController, out CharacterCardController characterCard)) {
+            Destroy(characterCard.gameObject);
             _playerInputToUI.Remove(inputController);
         }
     }
+    
+    public void IncrementPreset(CharacterCardController characterCard) { 
+        if (characterCard.characterIndex == _characterCardPresets.Length - 1) {
+            characterCard.characterIndex = 0;
+        }
+        else {
+            characterCard.characterIndex++;
+        }
+        characterCard.Preset = _characterCardPresets[characterCard.characterIndex];
+    }
 
+    public void DecrementPreset(CharacterCardController characterCard) {
+        if (characterCard.characterIndex == 0) {
+            characterCard.characterIndex = _characterCardPresets.Length - 1;
+        }
+        else {
+            characterCard.characterIndex--;
+        }
+        characterCard.Preset = _characterCardPresets[characterCard.characterIndex];
+    }
+    
     private void InputControllerManagerProvided() {
         _inputControllerManager = inputControllerManagerAnchor.Value;
     }

@@ -37,7 +37,7 @@ public class InputController : MonoBehaviour, UserActions.IGameplayActions, User
         
         _userActions = new UserActions();
 
-        _InputControllerInstancedChannel.RaiseEvent(this.gameObject);
+        _InputControllerInstancedChannel.RaiseEvent(gameObject);
         
         _eventSystem.playerRoot = FindObjectOfType<Canvas>().gameObject;
         _playerInput.uiInputModule = _uiModule;
@@ -74,16 +74,6 @@ public class InputController : MonoBehaviour, UserActions.IGameplayActions, User
     public void DisableAllInput() {
         _userActions.Gameplay.Disable();
         _userActions.UI.Disable();
-    }
-
-    public void ToggleInputMap() {
-        if (_playerInput.currentActionMap.name == "Gameplay") {
-            _userActions.UI.Enable();
-            _userActions.Gameplay.Disable();
-        } else {
-            _userActions.Gameplay.Enable();
-            _userActions.UI.Disable();
-        }
     }
 
     public PlayerController GetPlayerController() {
@@ -158,21 +148,16 @@ public class InputController : MonoBehaviour, UserActions.IGameplayActions, User
     // Assign delegate{} to events to initialise them with an empty delegate
     // so we can skip the null check when we use them
     public event UnityAction<InputController> AnyInputEvent = delegate { };
+    public event UnityAction<Vector2> NavigateEvent = delegate { };
     public event UnityAction MoveSelectionEvent = delegate { };
     public event UnityAction MenuMouseMoveEvent = delegate { };
     public event UnityAction MenuClickButtonEvent = delegate { };
     public event UnityAction MenuUnpauseEvent = delegate { };
     public event UnityAction MenuCloseEvent = delegate { };
-    public event UnityAction OpenInventoryEvent = delegate { }; // Used to bring up the inventory
-    public event UnityAction CloseInventoryEvent = delegate { }; // Used to bring up the inventory
     public event UnityAction<float> TabSwitched = delegate { };
     public event UnityAction InventoryActionButtonEvent = delegate { };
     public event UnityAction SaveActionButtonEvent = delegate { };
 
-    public void OnOpenInventory(InputAction.CallbackContext context) {
-        if (context.phase == InputActionPhase.Performed)
-            OpenInventoryEvent.Invoke();
-    }
 
     public void OnCancel(InputAction.CallbackContext context) {
         if (context.phase == InputActionPhase.Performed)
@@ -230,10 +215,10 @@ public class InputController : MonoBehaviour, UserActions.IGameplayActions, User
 
     public void OnRightClick(InputAction.CallbackContext context) { }
 
-    public void OnNavigate(InputAction.CallbackContext context) { }
-
-    public void OnCloseInventory(InputAction.CallbackContext context) {
-        CloseInventoryEvent.Invoke();
+    public void OnNavigate(InputAction.CallbackContext context) {
+        if (context.phase == InputActionPhase.Performed)
+            NavigateEvent.Invoke(context.ReadValue<Vector2>());
+        Debug.Log("Navigate Val: " + context.ReadValue<Vector2>());
     }
 
     public void OnAnyInput(InputAction.CallbackContext context) {

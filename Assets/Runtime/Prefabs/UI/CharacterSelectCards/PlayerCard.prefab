@@ -326,12 +326,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a60b14e07c6b5b408544d9bc823f940, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _nameBackground: {fileID: 5062892047114458595}
-  _characterName: {fileID: 3764460613603857391}
-  _characterImage: {fileID: 4733746128340191776}
-  _inputTypeImage: {fileID: 4239571558172565552}
-  _isNotReadyIconGameObject: {fileID: 1363380836478401751}
-  _isReadyIconGameObject: {fileID: 2337838565896479069}
+  nameBackground: {fileID: 5062892047114458595}
+  characterName: {fileID: 3764460613603857391}
+  characterImage: {fileID: 4733746128340191776}
+  inputTypeImage: {fileID: 4239571558172565552}
+  isNotReadyIconGameObject: {fileID: 1363380836478401751}
+  isReadyIconGameObject: {fileID: 2337838565896479069}
+  isReady: 0
+  characterIndex: 0
 --- !u!1 &2590269273001728396
 GameObject:
   m_ObjectHideFlags: 0
