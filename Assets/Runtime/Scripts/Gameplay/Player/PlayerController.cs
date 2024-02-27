@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Runtime.CompilerServices;
 using Cinemachine;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -10,7 +11,8 @@ public class PlayerController : MonoBehaviour {
     private InputActionAsset _inputActionAsset;
     private Camera _mainCamera;
     private Rigidbody _rb;
-    
+    private bool inMinigame = false;
+
     // INPUT
     private Vector3 MovementOutputVector =>
         ScaleCameraTransform(_mainCamera.transform.forward) * _movementInputVector.y +
@@ -184,9 +186,26 @@ public class PlayerController : MonoBehaviour {
 
         if (!hit) return;
 
-        if (hitCollider.TryGetComponent(out Workstation station)) {
-            if (station.TryGetComponent(out IProduceItem produceItem)) {
+        if (hitCollider.TryGetComponent(out Workstation station))
+        {
+            if (station.TryGetComponent(out IProduceItem produceItem))
+            {
                 PickupItem(produceItem.ProduceItem());
+                return;
+            }
+            if (station.TryGetComponent(out IMinigameInteract minigameInteract))
+            {
+                if (inMinigame == false)
+                {
+                    _inputController.MoveEvent -= OnMovement;
+                    inMinigame = true;
+                    Debug.Log("Interacting");
+                }
+                else
+                {
+                    _inputController.MoveEvent += OnMovement;
+                    inMinigame = false;
+                }
             }
         }
         

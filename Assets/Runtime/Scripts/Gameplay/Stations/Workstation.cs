@@ -4,14 +4,14 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public enum WorkstationType {
+    Counter,
     CoffeePlant,
     CoffeeMachine,
     MilkFridge,
     SyrupCrate,
     ChocolateCreate,
     Grinder,
-    KitchenSink,
-    Counter,
+    KitchenSink
 }
 
 public class Workstation : MonoBehaviour, IInteractable

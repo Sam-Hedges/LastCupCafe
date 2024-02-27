@@ -1,5 +1,5 @@
 using UnityEngine;
-public class KitchenSink : Workstation, IProcessItem {
+public class KitchenSink : Workstation, IProcessItem, IMinigameInteract {
     public bool CanProcessItem(GameObject item) {
         // Check if the item is a dirty mug
         return item.GetComponent<Mug>() != null && item.GetComponent<Mug>().IsDirty;
