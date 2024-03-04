@@ -199,12 +199,13 @@ public class PlayerController : MonoBehaviour {
                 {
                     _inputController.MoveEvent -= OnMovement;
                     inMinigame = true;
-                    Debug.Log("Interacting");
+                    minigameInteract.Minigame(true);
                 }
                 else
                 {
                     _inputController.MoveEvent += OnMovement;
                     inMinigame = false;
+                    minigameInteract.Minigame(false);
                 }
             }
         }
