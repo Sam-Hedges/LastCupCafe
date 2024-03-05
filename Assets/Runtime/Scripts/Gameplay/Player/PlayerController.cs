@@ -198,14 +198,17 @@ public class PlayerController : MonoBehaviour {
                 if (inMinigame == false)
                 {
                     _inputController.MoveEvent -= OnMovement;
+                    //Disable Item pickup/placement, enable Minigame interactions
+                    _inputController.ItemInteractEvent -= OnItemInteract;
+                    _inputController.ItemInteractEvent += OnGameInteract;
                     inMinigame = true;
-                    minigameInteract.Minigame(true);
+                    minigameInteract.Minigame(true, _currentlyHeldItem);
                 }
                 else
                 {
                     _inputController.MoveEvent += OnMovement;
                     inMinigame = false;
-                    minigameInteract.Minigame(false);
+                    minigameInteract.Minigame(false, null);
                 }
             }
         }
@@ -238,6 +241,11 @@ public class PlayerController : MonoBehaviour {
         if (hitCollider.TryGetComponent(out Item item)) {
             PickupItem(item.gameObject);
         }
+    }
+
+    public void OnGameInteract()
+    {
+
     }
 
     private void OnDash() {

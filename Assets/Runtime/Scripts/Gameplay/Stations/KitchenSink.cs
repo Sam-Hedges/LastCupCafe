@@ -25,16 +25,19 @@ public class KitchenSink : Workstation, IProcessItem, IMinigameInteract
         }
     }
 
-    public void Minigame(bool active)
+    public void Minigame(bool active, GameObject heldItem)
     {
         minigameCanvas = this.gameObject.transform.GetChild(0).gameObject;
         if (active == true)
         {
             minigameCanvas.SetActive(true);
+            Debug.Log("Activated Station");
+
         }
         else
         {
             minigameCanvas.SetActive(false);
+            Debug.Log("Left Station");
         }
 
     }
