@@ -64,6 +64,14 @@ public class InputController : MonoBehaviour, UserActions.IGameplayActions, User
     public void EnableGameplayInput() {
         DisableAllInput();
         _userActions.Gameplay.Enable();
+        
+        AssignInputAction(_userActions.Gameplay.Movement, OnMovement);
+        AssignInputAction(_userActions.Gameplay.Dash, OnDash);
+        AssignInputAction(_userActions.Gameplay.StationInteract, OnStationInteract);
+        AssignInputAction(_userActions.Gameplay.Pause, OnPause);
+        AssignInputAction(_userActions.Gameplay.ItemInteract, OnItemInteract);
+        AssignInputAction(_userActions.Gameplay.Emote, OnEmote);
+        
     }
 
     public void EnableMenuInput() {
@@ -82,6 +90,18 @@ public class InputController : MonoBehaviour, UserActions.IGameplayActions, User
 
     public void SetPlayerController(PlayerController playerController) {
         _parentPlayerController = playerController;
+    }
+
+    private void AssignInputAction(InputAction action, Action<InputAction.CallbackContext> callback) {
+        action.started += callback;
+        action.performed += callback;
+        action.canceled += callback;
+    }
+    
+    private void RemoveInputAction(InputAction action, Action<InputAction.CallbackContext> callback) {
+        action.started -= callback;
+        action.performed -= callback;
+        action.canceled -= callback;
     }
 
     #endregion
