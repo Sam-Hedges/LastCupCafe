@@ -1,9 +1,5 @@
-using System;
-using System.Linq;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.UI;
 
@@ -16,96 +12,56 @@ public class InputController : MonoBehaviour, UserActions.IGameplayActions, User
     [Header("Broadcasting on Channels")]
     [Tooltip("Sends a reference of itself to the Input Controller Manager when it is spawned")]
     [SerializeField]
-    private GameObjectEventChannelSO _InputControllerInstancedChannel = default;
+    private GameObjectEventChannelSO inputControllerInstancedChannel = default;
 
     [Tooltip("Sends a reference of itself to the Input Controller Manager when it is destroyed")] [SerializeField]
-    private GameObjectEventChannelSO _InputControllerDestroyedChannel = default;
+    private GameObjectEventChannelSO inputControllerDestroyedChannel = default;
 
-    private PlayerController _parentPlayerController;
-    private UserActions _userActions; // Actions Asset
-    private PlayerInput _playerInput; // Player Input Component
+    [Header("Anchors")]
+    [Tooltip("Used to set this input controllers selected UI element")] [SerializeField]
+    private GameObjectAnchor selectedGameObjectAnchor = default;
     
-    private InputSystemUIInputModule _uiModule;
     private MultiplayerEventSystem _eventSystem;
+    private PlayerInput _playerInput;
+
+    public PlayerController PlayerController { get; set; }
     
-    #region Control Flow Methods
-
     private void Awake() {
-        _uiModule = GetComponent<InputSystemUIInputModule>();
-        _eventSystem = GetComponent<MultiplayerEventSystem>();
+        // Player Input
         _playerInput = GetComponent<PlayerInput>();
+        _playerInput.uiInputModule = GetComponent<InputSystemUIInputModule>();
+        _playerInput.uiInputModule.actionsAsset = _playerInput.actions;
         
-        _userActions = new UserActions();
-
-        _InputControllerInstancedChannel.RaiseEvent(gameObject);
+        // Event System
+        _eventSystem = GetComponent<MultiplayerEventSystem>();
+        if (selectedGameObjectAnchor.Value != null)
+        {
+            _eventSystem.SetSelectedGameObject(selectedGameObjectAnchor.Value);
+        }
         
-        _eventSystem.playerRoot = FindObjectOfType<Canvas>().gameObject;
-        _playerInput.uiInputModule = _uiModule;
-        _uiModule.actionsAsset = _playerInput.actions;
-        ReassignActions();
-    }
-
-    private void Start() {
-        
+        // Events and Anchors
+        selectedGameObjectAnchor.OnAnchorProvided += SetSelectedGameObject;
+        inputControllerInstancedChannel.RaiseEvent(gameObject);
     }
 
     private void OnDestroy() {
-        _InputControllerDestroyedChannel.RaiseEvent(this.gameObject);
+        inputControllerDestroyedChannel.RaiseEvent(gameObject);
+        selectedGameObjectAnchor.OnAnchorProvided -= SetSelectedGameObject;
     }
 
-    private void OnEnable() {
-        EnableGameplayInput();
-    }
-
-    private void OnDisable() {
-        DisableAllInput();
-    }
-
-    public void EnableGameplayInput() {
-        DisableAllInput();
-        _userActions.Gameplay.Enable();
-        
-        AssignInputAction(_userActions.Gameplay.Movement, OnMovement);
-        AssignInputAction(_userActions.Gameplay.Dash, OnDash);
-        AssignInputAction(_userActions.Gameplay.StationInteract, OnStationInteract);
-        AssignInputAction(_userActions.Gameplay.Pause, OnPause);
-        AssignInputAction(_userActions.Gameplay.ItemInteract, OnItemInteract);
-        AssignInputAction(_userActions.Gameplay.Emote, OnEmote);
-        
-    }
-
-    public void EnableMenuInput() {
-        DisableAllInput();
-        _userActions.UI.Enable();
-    }
-
-    public void DisableAllInput() {
-        _userActions.Gameplay.Disable();
-        _userActions.UI.Disable();
-    }
-
-    public PlayerController GetPlayerController() {
-        return _parentPlayerController;
-    }
-
-    public void SetPlayerController(PlayerController playerController) {
-        _parentPlayerController = playerController;
-    }
-
-    private void AssignInputAction(InputAction action, Action<InputAction.CallbackContext> callback) {
-        action.started += callback;
-        action.performed += callback;
-        action.canceled += callback;
+    private void SetSelectedGameObject()
+    {
+        _eventSystem.SetSelectedGameObject(selectedGameObjectAnchor.Value);
     }
     
-    private void RemoveInputAction(InputAction action, Action<InputAction.CallbackContext> callback) {
-        action.started -= callback;
-        action.performed -= callback;
-        action.canceled -= callback;
+    public void EnableGameplayInput() {
+        _playerInput.SwitchCurrentActionMap("Gameplay");
     }
-
-    #endregion
-
+    
+    public void EnableMenuInput() {
+        _playerInput.SwitchCurrentActionMap("Menu");
+    }
+    
     #region Gameplay
 
     // Event handlers for the Gameplay action map
@@ -151,115 +107,72 @@ public class InputController : MonoBehaviour, UserActions.IGameplayActions, User
 
     public void OnPause(InputAction.CallbackContext context) {
         // _uiModule.actionsAsset = _playerInput.actions;
-        
-        _eventSystem.playerRoot = gameObject;
-        _playerInput.uiInputModule = _uiModule;
-        ReassignActions();
+
+        // eventSystem.playerRoot = gameObject;
+        // playerInput.uiInputModule = uiModule;
 
         // if (context.phase == InputActionPhase.Performed)
         //     PauseEvent?.Invoke();
     }
-
+    
     #endregion
 
-    #region Menu
+   #region Menu
 
     // Event handlers for the Menu action map
     // Assign delegate{} to events to initialise them with an empty delegate
     // so we can skip the null check when we use them
-    public event UnityAction<InputController> AnyInputEvent = delegate { };
-    public event UnityAction<Vector2> NavigateEvent = delegate { };
-    public event UnityAction MoveSelectionEvent = delegate { };
+    public event UnityAction<Vector2> MenuNavigateEvent = delegate { };
+    public event UnityAction<Vector2> MenuScrollEvent = delegate { };
     public event UnityAction MenuMouseMoveEvent = delegate { };
-    public event UnityAction MenuClickButtonEvent = delegate { };
-    public event UnityAction MenuUnpauseEvent = delegate { };
-    public event UnityAction MenuCloseEvent = delegate { };
+    public event UnityAction MenuInteractEvent = delegate { };
+    public event UnityAction MenuRightMouseEvent = delegate { };
+    public event UnityAction MenuMiddleMouseEvent = delegate { };
+    public event UnityAction MenuCancelEvent = delegate { };
     public event UnityAction<float> TabSwitched = delegate { };
-    public event UnityAction InventoryActionButtonEvent = delegate { };
-    public event UnityAction SaveActionButtonEvent = delegate { };
 
+    public void OnAnyInput(InputAction.CallbackContext context) { }
 
-    public void OnCancel(InputAction.CallbackContext context) {
+    public void OnPoint(InputAction.CallbackContext context) {
         if (context.phase == InputActionPhase.Performed)
-            MenuCloseEvent.Invoke();
+            MenuMouseMoveEvent?.Invoke();
     }
 
-    public void OnInventoryActionButton(InputAction.CallbackContext context) {
+    public void OnClick(InputAction.CallbackContext context) {
         if (context.phase == InputActionPhase.Performed)
-            InventoryActionButtonEvent.Invoke();
+            MenuInteractEvent?.Invoke();
     }
 
-    public void OnSaveActionButton(InputAction.CallbackContext context) {
+    public void OnMiddleClick(InputAction.CallbackContext context) {
         if (context.phase == InputActionPhase.Performed)
-            SaveActionButtonEvent.Invoke();
+            MenuMiddleMouseEvent?.Invoke();
     }
 
-    public void OnResetActionButton(InputAction.CallbackContext context) {
+    public void OnRightClick(InputAction.CallbackContext context) {
         if (context.phase == InputActionPhase.Performed)
-            PauseEvent.Invoke();
+            MenuRightMouseEvent?.Invoke();
     }
 
-    public void OnMoveSelection(InputAction.CallbackContext context) {
+    public void OnScrollWheel(InputAction.CallbackContext context) {
         if (context.phase == InputActionPhase.Performed)
-            MoveSelectionEvent.Invoke();
+            MenuScrollEvent?.Invoke(context.ReadValue<Vector2>());
     }
-
-    public void OnConfirm(InputAction.CallbackContext context) {
-        if (context.phase == InputActionPhase.Performed)
-            MenuClickButtonEvent.Invoke();
-    }
-
-
-    public void OnMouseMove(InputAction.CallbackContext context) {
-        if (context.phase == InputActionPhase.Performed)
-            MenuMouseMoveEvent.Invoke();
-    }
-
-    public void OnUnpause(InputAction.CallbackContext context) {
-        if (context.phase == InputActionPhase.Performed)
-            MenuUnpauseEvent.Invoke();
-    }
-
-    public void OnChangeTab(InputAction.CallbackContext context) {
-        if (context.phase == InputActionPhase.Performed)
-            TabSwitched.Invoke(context.ReadValue<float>());
-    }
-
-    public bool LeftMouseDown() => Mouse.current.leftButton.isPressed;
-
-    public void OnClick(InputAction.CallbackContext context) { }
-
-    public void OnSubmit(InputAction.CallbackContext context) { }
-
-    public void OnPoint(InputAction.CallbackContext context) { }
-
-    public void OnRightClick(InputAction.CallbackContext context) { }
 
     public void OnNavigate(InputAction.CallbackContext context) {
-        if (context.phase == InputActionPhase.Performed)
-            NavigateEvent.Invoke(context.ReadValue<Vector2>());
-        Debug.Log("Navigate Val: " + context.ReadValue<Vector2>());
+        if (context.phase == InputActionPhase.Performed) {
+            MenuNavigateEvent?.Invoke(context.ReadValue<Vector2>());
+            Debug.Log("Navigate");
+        }
     }
 
-    public void OnAnyInput(InputAction.CallbackContext context) {
+    public void OnSubmit(InputAction.CallbackContext context) {
         if (context.phase == InputActionPhase.Performed)
-            AnyInputEvent?.Invoke(this);
+            MenuInteractEvent?.Invoke();
     }
-
-    public void OnScrollWheel(InputAction.CallbackContext context) { }
-
-    public void OnMiddleClick(InputAction.CallbackContext context) { }
-
+    public void OnCancel(InputAction.CallbackContext context) {
+        if (context.phase == InputActionPhase.Performed)
+            MenuCancelEvent?.Invoke();
+    }
+    
     #endregion
-
-    private void ReassignActions() {
-        _uiModule.point = InputActionReference.Create(_userActions.UI.Point);
-        _uiModule.leftClick = InputActionReference.Create(_userActions.UI.Click);
-        _uiModule.rightClick = InputActionReference.Create(_userActions.UI.RightClick);
-        _uiModule.middleClick = InputActionReference.Create(_userActions.UI.MiddleClick);
-        _uiModule.scrollWheel = InputActionReference.Create(_userActions.UI.ScrollWheel);
-        _uiModule.move = InputActionReference.Create(_userActions.UI.Navigate);
-        _uiModule.submit = InputActionReference.Create(_userActions.UI.Submit);
-        _uiModule.cancel = InputActionReference.Create(_userActions.UI.Cancel);
-    }
 }

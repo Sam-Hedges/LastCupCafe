@@ -34,9 +34,9 @@ public class CharacterCardController : MonoBehaviour
     public InputController InputController {
         get => inputController;
         set {
-            if (inputController != null) inputController.NavigateEvent -= OnNavigate;
+            if (inputController != null) inputController.MenuNavigateEvent -= OnNavigate;
             inputController = value;
-            inputController.NavigateEvent += OnNavigate;
+            inputController.MenuNavigateEvent += OnNavigate;
         }
     }
 
@@ -52,7 +52,7 @@ public class CharacterCardController : MonoBehaviour
     }
 
     private void OnDestroy() {
-        InputController.NavigateEvent -= OnNavigate;
+        InputController.MenuNavigateEvent -= OnNavigate;
     }
 
     private void Awake() {

@@ -33,7 +33,7 @@ public class InputControllerManager : MonoBehaviour {
     [Tooltip("Provides a reference to this input controller manager")] [SerializeField]
     private InputControllerManagerAnchor inputControllerManagerAnchor;
     
-    public InputController _leaderInputController;
+    public InputController leaderInputController;
     private List<InputController> _inputs;
     private List<PlayerController> _players;
 
@@ -69,15 +69,16 @@ public class InputControllerManager : MonoBehaviour {
     }
     
     private void InputControllerInstanced(GameObject go) {
-        go.transform.SetParent(this.transform);
+        go.transform.SetParent(transform);
         var inputController = go.GetComponent<InputController>();
         // inputController.AnyInputEvent += SetLeaderInputController();
         _inputs.Add(inputController);
+        SetLeaderInputController(inputController);
     }
 
     private void InputControllerDestroyed(GameObject go) {
         var inputController = go.GetComponent<InputController>();
-        var playerController = inputController.GetPlayerController();
+        var playerController = inputController.PlayerController;
         
         if (playerController != null) {
             DespawnPlayer(playerController);
@@ -86,7 +87,7 @@ public class InputControllerManager : MonoBehaviour {
     }
     
     private void SetLeaderInputController(InputController inputController) {
-        _leaderInputController = inputController;
+        leaderInputController = inputController;
     }
     
 	private void SetPlayersParent(Transform parent) {
@@ -100,12 +101,12 @@ public class InputControllerManager : MonoBehaviour {
 	private void SpawnPlayers() {
         // Find the first InputController that is not in use
         foreach (var inputController in _inputs) {
-            if (inputController.GetPlayerController() == null) {
+            if (inputController.PlayerController == null) {
                 
                 var playerController = playerControllerPool.Request();
 		        _players.Add(playerController);
                 
-                inputController.SetPlayerController(playerController);
+                inputController.PlayerController = playerController;
                 playerController.SetPlayerInput(inputController);
             }
         } 
@@ -114,12 +115,12 @@ public class InputControllerManager : MonoBehaviour {
 	private void SpawnPlayer() {
         // Find the first InputController that is not in use
         foreach (var inputController in _inputs) {
-            if (inputController.GetPlayerController() == null) {
+            if (inputController.PlayerController == null) {
                 
                 var playerController = playerControllerPool.Request();
 		        _players.Add(playerController);
                 
-                inputController.SetPlayerController(playerController);
+                inputController.PlayerController = playerController;
                 playerController.SetPlayerInput(inputController);
                 return;
             }

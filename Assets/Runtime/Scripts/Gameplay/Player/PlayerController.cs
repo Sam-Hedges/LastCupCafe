@@ -105,7 +105,6 @@ public class PlayerController : MonoBehaviour {
         _inputController = _playerInputAnchor.Value;
         if (_inputController == null) return;
 
-        _inputController.EnableGameplayInput();
         _inputController.MoveEvent += OnMovement;
         _inputController.DashEvent += OnDash;
         _inputController.ItemInteractEvent += OnItemInteract;
@@ -117,7 +116,6 @@ public class PlayerController : MonoBehaviour {
     private void OnDisable() {
         if (_inputController == null) return;
 
-        _inputController.DisableAllInput();
         _inputController.MoveEvent -= OnMovement;
         _inputController.DashEvent -= OnDash;
         _inputController.ItemInteractEvent -= OnItemInteract;

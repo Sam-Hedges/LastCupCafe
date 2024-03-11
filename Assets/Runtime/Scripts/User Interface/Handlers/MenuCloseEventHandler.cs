@@ -4,29 +4,28 @@ using UnityEngine.Events;
 
 public class MenuCloseEventHandler : MonoBehaviour
 {
-    [SerializeField] private InputControllerManagerAnchor _inputControllerManagerAnchor;
+    [SerializeField] private InputControllerManagerAnchor inputControllerManagerAnchor;
     [Space]
     [SerializeField] private UnityEvent backEvent;
 
     private InputController _inputController;
     private void OnEnable() {
-        _inputControllerManagerAnchor.OnAnchorProvided += UpdateCurrentInputController;
-        UpdateCurrentInputController();
+        inputControllerManagerAnchor.OnAnchorProvided += UpdateCurrentInputController;
     }
     
     private void OnDisable() {
         if (_inputController == null) return;
-        _inputController.MenuCloseEvent -= MenuClose;
+        _inputController.MenuCancelEvent -= MenuClose;
     }
     
     private void UpdateCurrentInputController() {
-        if (_inputController != null) _inputController.MenuCloseEvent -= MenuClose;
-        _inputController = _inputControllerManagerAnchor.Value._leaderInputController;
-        _inputController.MenuCloseEvent += MenuClose;
+        if (_inputController != null) _inputController.MenuCancelEvent -= MenuClose;
+        _inputController = inputControllerManagerAnchor.Value.leaderInputController;
+        _inputController.MenuCancelEvent += MenuClose;
     }
     
     internal void MenuClose() {
         backEvent.Invoke();
-        _inputController.MenuCloseEvent -= MenuClose;
+        _inputController.MenuCancelEvent -= MenuClose;
     }
 }
