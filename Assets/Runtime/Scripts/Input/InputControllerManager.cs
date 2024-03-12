@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 
 [RequireComponent(typeof(PlayerInputManager))]
 public class InputControllerManager : MonoBehaviour {
@@ -34,19 +35,18 @@ public class InputControllerManager : MonoBehaviour {
     private InputControllerManagerAnchor inputControllerManagerAnchor;
     
     public InputController leaderInputController;
-    private List<InputController> _inputs;
-    private List<PlayerController> _players;
-
+    public List<InputController> InputControllers { get; private set; }
+    private List<PlayerController> players;
     private PlayerInputManager _playerInputManager;
 
     private void Awake() {
         _playerInputManager = GetComponent<PlayerInputManager>();
 
         // Init Inputs
-        _inputs = new List<InputController>();
+        InputControllers = new List<InputController>();
 
         // Init Players
-        _players = new List<PlayerController>();
+        players = new List<PlayerController>();
         playerControllerPool.Prewarm(initialSize);
         
         inputControllerManagerAnchor.Provide(this);
@@ -72,7 +72,7 @@ public class InputControllerManager : MonoBehaviour {
         go.transform.SetParent(transform);
         var inputController = go.GetComponent<InputController>();
         // inputController.AnyInputEvent += SetLeaderInputController();
-        _inputs.Add(inputController);
+        InputControllers.Add(inputController);
         SetLeaderInputController(inputController);
     }
 
@@ -83,7 +83,7 @@ public class InputControllerManager : MonoBehaviour {
         if (playerController != null) {
             DespawnPlayer(playerController);
         }
-        _inputs.Remove(inputController);
+        InputControllers.Remove(inputController);
     }
     
     private void SetLeaderInputController(InputController inputController) {
@@ -93,18 +93,18 @@ public class InputControllerManager : MonoBehaviour {
 	private void SetPlayersParent(Transform parent) {
 		playerControllerPool.SetParent(parent);
 		
-		foreach (var player in _players) {
+		foreach (var player in players) {
 			player.transform.SetParent(parent);
 		}
 	}
 	
 	private void SpawnPlayers() {
         // Find the first InputController that is not in use
-        foreach (var inputController in _inputs) {
+        foreach (var inputController in InputControllers) {
             if (inputController.PlayerController == null) {
                 
                 var playerController = playerControllerPool.Request();
-		        _players.Add(playerController);
+		        players.Add(playerController);
                 
                 inputController.PlayerController = playerController;
                 playerController.SetPlayerInput(inputController);
@@ -114,11 +114,11 @@ public class InputControllerManager : MonoBehaviour {
     
 	private void SpawnPlayer() {
         // Find the first InputController that is not in use
-        foreach (var inputController in _inputs) {
+        foreach (var inputController in InputControllers) {
             if (inputController.PlayerController == null) {
                 
                 var playerController = playerControllerPool.Request();
-		        _players.Add(playerController);
+		        players.Add(playerController);
                 
                 inputController.PlayerController = playerController;
                 playerController.SetPlayerInput(inputController);
@@ -130,7 +130,7 @@ public class InputControllerManager : MonoBehaviour {
 	}
 	
 	private void DespawnPlayer(PlayerController playerController) {
-		_players.Remove(playerController);
+		players.Remove(playerController);
 		playerControllerPool.Return(playerController);
 	}
 }

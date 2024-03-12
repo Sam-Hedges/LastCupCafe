@@ -8,7 +8,8 @@ using UnityEngine.InputSystem.UI;
 /// This allows for the input to be easily referenced by classes across scenes
 /// </summary>
 [RequireComponent(typeof(PlayerInput))]
-public class InputController : MonoBehaviour, UserActions.IGameplayActions, UserActions.IUIActions {
+public class InputController : MonoBehaviour, UserActions.IGameplayActions, UserActions.IUIActions
+{
     [Header("Broadcasting on Channels")]
     [Tooltip("Sends a reference of itself to the Input Controller Manager when it is spawned")]
     [SerializeField]
@@ -17,28 +18,26 @@ public class InputController : MonoBehaviour, UserActions.IGameplayActions, User
     [Tooltip("Sends a reference of itself to the Input Controller Manager when it is destroyed")] [SerializeField]
     private GameObjectEventChannelSO inputControllerDestroyedChannel = default;
 
-    [Header("Anchors")]
-    [Tooltip("Used to set this input controllers selected UI element")] [SerializeField]
+    [Header("Anchors")] [Tooltip("Used to set this input controllers selected UI element")] [SerializeField]
     private GameObjectAnchor selectedGameObjectAnchor = default;
-    
+
     private MultiplayerEventSystem _eventSystem;
     private PlayerInput _playerInput;
 
     public PlayerController PlayerController { get; set; }
-    
+
     private void Awake() {
         // Player Input
         _playerInput = GetComponent<PlayerInput>();
         _playerInput.uiInputModule = GetComponent<InputSystemUIInputModule>();
         _playerInput.uiInputModule.actionsAsset = _playerInput.actions;
-        
+
         // Event System
         _eventSystem = GetComponent<MultiplayerEventSystem>();
-        if (selectedGameObjectAnchor.Value != null)
-        {
+        if (selectedGameObjectAnchor.Value != null) {
             _eventSystem.SetSelectedGameObject(selectedGameObjectAnchor.Value);
         }
-        
+
         // Events and Anchors
         selectedGameObjectAnchor.OnAnchorProvided += SetSelectedGameObject;
         inputControllerInstancedChannel.RaiseEvent(gameObject);
@@ -49,19 +48,18 @@ public class InputController : MonoBehaviour, UserActions.IGameplayActions, User
         selectedGameObjectAnchor.OnAnchorProvided -= SetSelectedGameObject;
     }
 
-    private void SetSelectedGameObject()
-    {
+    private void SetSelectedGameObject() {
         _eventSystem.SetSelectedGameObject(selectedGameObjectAnchor.Value);
     }
-    
+
     public void EnableGameplayInput() {
         _playerInput.SwitchCurrentActionMap("Gameplay");
     }
-    
+
     public void EnableMenuInput() {
-        _playerInput.SwitchCurrentActionMap("Menu");
+        _playerInput.SwitchCurrentActionMap("UI");
     }
-    
+
     #region Gameplay
 
     // Event handlers for the Gameplay action map
@@ -114,15 +112,15 @@ public class InputController : MonoBehaviour, UserActions.IGameplayActions, User
         // if (context.phase == InputActionPhase.Performed)
         //     PauseEvent?.Invoke();
     }
-    
+
     #endregion
 
-   #region Menu
+    #region Menu
 
     // Event handlers for the Menu action map
     // Assign delegate{} to events to initialise them with an empty delegate
     // so we can skip the null check when we use them
-    public event UnityAction<Vector2> MenuNavigateEvent = delegate { };
+    public event UnityAction<InputAction.CallbackContext> MenuNavigateEvent = delegate { };
     public event UnityAction<Vector2> MenuScrollEvent = delegate { };
     public event UnityAction MenuMouseMoveEvent = delegate { };
     public event UnityAction MenuInteractEvent = delegate { };
@@ -131,7 +129,8 @@ public class InputController : MonoBehaviour, UserActions.IGameplayActions, User
     public event UnityAction MenuCancelEvent = delegate { };
     public event UnityAction<float> TabSwitched = delegate { };
 
-    public void OnAnyInput(InputAction.CallbackContext context) { }
+    public void OnAnyInput(InputAction.CallbackContext context) {
+    }
 
     public void OnPoint(InputAction.CallbackContext context) {
         if (context.phase == InputActionPhase.Performed)
@@ -159,20 +158,19 @@ public class InputController : MonoBehaviour, UserActions.IGameplayActions, User
     }
 
     public void OnNavigate(InputAction.CallbackContext context) {
-        if (context.phase == InputActionPhase.Performed) {
-            MenuNavigateEvent?.Invoke(context.ReadValue<Vector2>());
-            Debug.Log("Navigate");
-        }
+        MenuNavigateEvent?.Invoke(context);
+        Debug.Log("Navigate");
     }
 
     public void OnSubmit(InputAction.CallbackContext context) {
         if (context.phase == InputActionPhase.Performed)
             MenuInteractEvent?.Invoke();
     }
+
     public void OnCancel(InputAction.CallbackContext context) {
         if (context.phase == InputActionPhase.Performed)
             MenuCancelEvent?.Invoke();
     }
-    
+
     #endregion
 }

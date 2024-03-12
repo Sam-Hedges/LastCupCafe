@@ -31,8 +31,7 @@ public class PlayerSelectMenuHandler : MonoBehaviour {
 
     [Header("Runtime Anchors")] [Tooltip("")] [SerializeField]
     private InputControllerManagerAnchor inputControllerManagerAnchor;
-
-    private InputControllerManager _inputControllerManager;
+    private InputControllerManager inputControllerManager;
 
     private Dictionary<InputController, CharacterCardController> _playerInputToUI = new();
 
@@ -47,6 +46,17 @@ public class PlayerSelectMenuHandler : MonoBehaviour {
         inputControllerInstancedChannel.OnEventRaised -= InputControllerInstanced;
         inputControllerDestroyedChannel.OnEventRaised -= InputControllerDestroyed;
         
+    }
+
+    private void Awake() {
+        inputControllerManager = inputControllerManagerAnchor.Value;
+    }
+    
+    private void Start() {
+        if (inputControllerManager == null) return;
+        foreach (var inputController in inputControllerManager.InputControllers) {
+            InputControllerInstanced(inputController.gameObject);
+        }
     }
 
     private void InputControllerInstanced(GameObject go) {
@@ -72,6 +82,8 @@ public class PlayerSelectMenuHandler : MonoBehaviour {
         }
 
         _playerInputToUI.Add(inputController, playerCard);
+        
+        UpdateAddPlayerCard();
     }
 
     private void InputControllerDestroyed(GameObject go) {
@@ -79,6 +91,16 @@ public class PlayerSelectMenuHandler : MonoBehaviour {
         if (_playerInputToUI.TryGetValue(inputController, out CharacterCardController characterCard)) {
             Destroy(characterCard.gameObject);
             _playerInputToUI.Remove(inputController);
+        }
+        
+        UpdateAddPlayerCard();
+    }
+    
+    private void UpdateAddPlayerCard() {
+        if (_playerInputToUI.Count < 2) {
+            addPlayerCard.SetActive(true);
+        } else {
+            addPlayerCard.SetActive(false);
         }
     }
     
@@ -103,6 +125,6 @@ public class PlayerSelectMenuHandler : MonoBehaviour {
     }
     
     private void InputControllerManagerProvided() {
-        _inputControllerManager = inputControllerManagerAnchor.Value;
+        inputControllerManager = inputControllerManagerAnchor.Value;
     }
 }

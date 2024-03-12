@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using TMPro;
+using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 
@@ -59,8 +60,10 @@ public class CharacterCardController : MonoBehaviour
         playerSelectMenuHandler = transform.parent.GetComponent<PlayerSelectMenuHandler>();
     }
 
-    private void OnNavigate(Vector2 value) {
-        Debug.Log("Navigating: " + value);
+    private void OnNavigate(InputAction.CallbackContext context) {
+        Vector2 value = context.ReadValue<Vector2>();
+
+        if (!context.started) return;
         if (value.x > 0) {
             playerSelectMenuHandler.IncrementPreset(this);
         }
