@@ -7,11 +7,15 @@ public class Serve : MonoBehaviour
 {
     public static int serveID = -1; //refer to this when serving customer in other script
 
+    public GameObject MainTimer;
+
+    public float newTime;
+
     //public Timer timer;
 
     void Start()
     {
-
+        newTime = MainTimer.GetComponent<Timer>().timer;
     }
 
     void Update()
@@ -47,6 +51,8 @@ public class Serve : MonoBehaviour
         //    }
         //}
 
+        newTime = MainTimer.GetComponent<Timer>().timer;
+
         for (int i = 0; i < Order.customerID.Length; i++)
         {
             if (Order.drinkID[i] == serveID)
@@ -71,6 +77,7 @@ public class Serve : MonoBehaviour
                     Order.customerID[i] = 0;
                     Destroy(Order.slots[i].transform.GetChild(0).gameObject);
                     serveID = -1;
+                    newTime = MainTimer.GetComponent<Timer>().timer - 20f;
                 }
             }
         }
