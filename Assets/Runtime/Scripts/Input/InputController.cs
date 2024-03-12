@@ -110,6 +110,7 @@ public class InputController : MonoBehaviour, UserActions.IGameplayActions, User
     public event UnityAction EmoteEvent = delegate { };
     public event UnityAction<Vector2> MoveEvent = delegate { };
     public event UnityAction<Vector2> MinigameMoveEvent = delegate { };
+    public event UnityAction<double> MinigamePressureEvent = delegate { };
 
     public void OnMovement(InputAction.CallbackContext context) {
         MoveEvent?.Invoke(context.ReadValue<Vector2>());
@@ -117,6 +118,11 @@ public class InputController : MonoBehaviour, UserActions.IGameplayActions, User
     public void OnMinigameMovement(InputAction.CallbackContext context)
     {
         MinigameMoveEvent?.Invoke(context.ReadValue<Vector2>());
+    }
+
+    public void OnMinigamePressureInteract(InputAction.CallbackContext context)
+    {
+        MinigamePressureEvent?.Invoke(context.ReadValue<double>());
     }
 
     public void OnStationInteract(InputAction.CallbackContext context) {

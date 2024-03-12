@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Runtime.CompilerServices;
 using Cinemachine;
+using Mono.CSharp;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -136,6 +137,11 @@ public class PlayerController : MonoBehaviour {
         // Broadcast the motion blend state to the animation controller
         playerMotionBlendStateAnchor.Provide(_movementInputVector.magnitude);
     }
+
+    public void OnPressureInput(double input)
+    {
+        float inputFloat = (float)input;
+    }
     
     private void OnAim(Vector2 input) {
         Vector2 inputValue = new Vector2(input.x, input.y);
@@ -201,6 +207,7 @@ public class PlayerController : MonoBehaviour {
                     //Disable Item pickup/placement, enable Minigame interactions
                     _inputController.ItemInteractEvent -= OnItemInteract;
                     _inputController.ItemInteractEvent += OnGameInteract;
+                    _inputController.MinigamePressureEvent += OnPressureInput;
                     inMinigame = true;
                     minigameInteract.GameUI(true);
                 }

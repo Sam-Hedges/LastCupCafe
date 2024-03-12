@@ -89,6 +89,15 @@ public partial class @UserActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""MinigamePressureInteract"",
+                    ""type"": ""Value"",
+                    ""id"": ""d753ed7e-d9e1-4327-b611-7c3ed85f4785"",
+                    ""expectedControlType"": ""Double"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -333,6 +342,28 @@ public partial class @UserActions: IInputActionCollection2, IDisposable
                     ""action"": ""MinigameMovement"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""bc9a8cc3-180c-46d6-a7ea-b4abe13c07ac"",
+                    ""path"": ""<Gamepad>/leftTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""MinigamePressureInteract"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c576a3f4-3459-40e4-981e-2070045372f1"",
+                    ""path"": ""<Gamepad>/rightTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""MinigamePressureInteract"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -857,6 +888,7 @@ public partial class @UserActions: IInputActionCollection2, IDisposable
         m_Gameplay_Pause = m_Gameplay.FindAction("Pause", throwIfNotFound: true);
         m_Gameplay_ItemInteract = m_Gameplay.FindAction("ItemInteract", throwIfNotFound: true);
         m_Gameplay_Emote = m_Gameplay.FindAction("Emote", throwIfNotFound: true);
+        m_Gameplay_MinigamePressureInteract = m_Gameplay.FindAction("MinigamePressureInteract", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -935,6 +967,7 @@ public partial class @UserActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Gameplay_Pause;
     private readonly InputAction m_Gameplay_ItemInteract;
     private readonly InputAction m_Gameplay_Emote;
+    private readonly InputAction m_Gameplay_MinigamePressureInteract;
     public struct GameplayActions
     {
         private @UserActions m_Wrapper;
@@ -946,6 +979,7 @@ public partial class @UserActions: IInputActionCollection2, IDisposable
         public InputAction @Pause => m_Wrapper.m_Gameplay_Pause;
         public InputAction @ItemInteract => m_Wrapper.m_Gameplay_ItemInteract;
         public InputAction @Emote => m_Wrapper.m_Gameplay_Emote;
+        public InputAction @MinigamePressureInteract => m_Wrapper.m_Gameplay_MinigamePressureInteract;
         public InputActionMap Get() { return m_Wrapper.m_Gameplay; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -976,6 +1010,9 @@ public partial class @UserActions: IInputActionCollection2, IDisposable
             @Emote.started += instance.OnEmote;
             @Emote.performed += instance.OnEmote;
             @Emote.canceled += instance.OnEmote;
+            @MinigamePressureInteract.started += instance.OnMinigamePressureInteract;
+            @MinigamePressureInteract.performed += instance.OnMinigamePressureInteract;
+            @MinigamePressureInteract.canceled += instance.OnMinigamePressureInteract;
         }
 
         private void UnregisterCallbacks(IGameplayActions instance)
@@ -1001,6 +1038,9 @@ public partial class @UserActions: IInputActionCollection2, IDisposable
             @Emote.started -= instance.OnEmote;
             @Emote.performed -= instance.OnEmote;
             @Emote.canceled -= instance.OnEmote;
+            @MinigamePressureInteract.started -= instance.OnMinigamePressureInteract;
+            @MinigamePressureInteract.performed -= instance.OnMinigamePressureInteract;
+            @MinigamePressureInteract.canceled -= instance.OnMinigamePressureInteract;
         }
 
         public void RemoveCallbacks(IGameplayActions instance)
@@ -1147,6 +1187,7 @@ public partial class @UserActions: IInputActionCollection2, IDisposable
         void OnPause(InputAction.CallbackContext context);
         void OnItemInteract(InputAction.CallbackContext context);
         void OnEmote(InputAction.CallbackContext context);
+        void OnMinigamePressureInteract(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {
