@@ -13,11 +13,13 @@ public class Timer : MonoBehaviour
 
     public bool fail = false;
 
-    public bool Destroyable = false;
+    public bool mainTimer = false;
 
     public TextMeshProUGUI timeText;
 
-    float timer;
+    public GameObject ui;
+
+    public float timer;
     void Start()
     {
         timer = timeRemaining * 60; //converts time to seconds
@@ -31,6 +33,10 @@ public class Timer : MonoBehaviour
         {
             if(timer > 0)
             {
+                if (mainTimer)
+                {
+                    timer = ui.GetComponent<Serve>().newTime;
+                }
                 timer -= Time.deltaTime;
                 DisplayTime(timer);
             }
