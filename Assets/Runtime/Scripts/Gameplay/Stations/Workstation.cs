@@ -16,6 +16,8 @@ public enum WorkstationType {
 
 public class Workstation : MonoBehaviour, IInteractable
 {
+    GameObject minigameCanvas;
+
     public WorkstationType workstationType;
     public GameObject currentlyStoredItem;
     [SerializeField] private Material highlightMaterial;
@@ -79,5 +81,22 @@ public class Workstation : MonoBehaviour, IInteractable
         if (currentlyStoredItem == null) return; // TODO: Implement not going to work without newItem sound
         
         
+    }
+
+    public void GameUI(bool active)
+    {
+        minigameCanvas = this.gameObject.transform.GetChild(0).gameObject;
+        if (active == true)
+        {
+            minigameCanvas.SetActive(true);
+            Debug.Log("Activated Station");
+
+        }
+        else
+        {
+            minigameCanvas.SetActive(false);
+            Debug.Log("Left Station");
+        }
+
     }
 }

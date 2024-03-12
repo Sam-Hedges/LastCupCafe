@@ -37,6 +37,15 @@ public partial class @UserActions: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": true
                 },
                 {
+                    ""name"": ""MinigameMovement"",
+                    ""type"": ""Value"",
+                    ""id"": ""7c58fcea-79b6-4246-ba85-d80d7cdc68e4"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": ""StickDeadzone"",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
                     ""name"": ""StationInteract"",
                     ""type"": ""Button"",
                     ""id"": ""ab3c3caf-ed85-460b-bb4d-ba1dc7d17b97"",
@@ -142,61 +151,6 @@ public partial class @UserActions: IInputActionCollection2, IDisposable
                     ""name"": ""right"",
                     ""id"": ""f614a090-249e-4f8b-be83-be4c9525df88"",
                     ""path"": ""<Keyboard>/d"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Movement"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""Arrows"",
-                    ""id"": ""b56b2f67-a315-46c1-8909-756aaefd41ce"",
-                    ""path"": ""2DVector"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Movement"",
-                    ""isComposite"": true,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""up"",
-                    ""id"": ""adeedb6d-951a-48a8-a46a-0ab8e99ffc48"",
-                    ""path"": ""<Keyboard>/upArrow"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Movement"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""down"",
-                    ""id"": ""78bad973-ad72-4f59-a619-d1fd05e0321b"",
-                    ""path"": ""<Keyboard>/downArrow"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Movement"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""left"",
-                    ""id"": ""af1d8685-f37a-4d75-863d-1d3ab216ab95"",
-                    ""path"": ""<Keyboard>/leftArrow"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Movement"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""right"",
-                    ""id"": ""0e5c0265-3db0-47bf-9847-919a7b6ead1f"",
-                    ""path"": ""<Keyboard>/rightArrow"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -313,6 +267,72 @@ public partial class @UserActions: IInputActionCollection2, IDisposable
                     ""action"": ""Emote"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6234e6d8-b829-48f5-b9a8-bf6939290b3a"",
+                    ""path"": ""<Gamepad>/rightStick"",
+                    ""interactions"": """",
+                    ""processors"": ""StickDeadzone"",
+                    ""groups"": """",
+                    ""action"": ""MinigameMovement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""Arrows"",
+                    ""id"": ""21490a67-b195-4674-bbb8-a514e8d9235a"",
+                    ""path"": ""2DVector"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MinigameMovement"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""1d0c7f13-0e8e-46f9-98a8-370a439be21a"",
+                    ""path"": ""<Keyboard>/upArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MinigameMovement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""25d670fe-7b66-4a77-88df-6ec2db20c1c4"",
+                    ""path"": ""<Keyboard>/downArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MinigameMovement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""d3811e7e-b788-400e-aaa6-81471f399b15"",
+                    ""path"": ""<Keyboard>/leftArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MinigameMovement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""ff079623-ad7d-441c-b281-aa4675141038"",
+                    ""path"": ""<Keyboard>/rightArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MinigameMovement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
                 }
             ]
         },
@@ -831,6 +851,7 @@ public partial class @UserActions: IInputActionCollection2, IDisposable
         // Gameplay
         m_Gameplay = asset.FindActionMap("Gameplay", throwIfNotFound: true);
         m_Gameplay_Movement = m_Gameplay.FindAction("Movement", throwIfNotFound: true);
+        m_Gameplay_MinigameMovement = m_Gameplay.FindAction("MinigameMovement", throwIfNotFound: true);
         m_Gameplay_StationInteract = m_Gameplay.FindAction("StationInteract", throwIfNotFound: true);
         m_Gameplay_Dash = m_Gameplay.FindAction("Dash", throwIfNotFound: true);
         m_Gameplay_Pause = m_Gameplay.FindAction("Pause", throwIfNotFound: true);
@@ -908,6 +929,7 @@ public partial class @UserActions: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_Gameplay;
     private List<IGameplayActions> m_GameplayActionsCallbackInterfaces = new List<IGameplayActions>();
     private readonly InputAction m_Gameplay_Movement;
+    private readonly InputAction m_Gameplay_MinigameMovement;
     private readonly InputAction m_Gameplay_StationInteract;
     private readonly InputAction m_Gameplay_Dash;
     private readonly InputAction m_Gameplay_Pause;
@@ -918,6 +940,7 @@ public partial class @UserActions: IInputActionCollection2, IDisposable
         private @UserActions m_Wrapper;
         public GameplayActions(@UserActions wrapper) { m_Wrapper = wrapper; }
         public InputAction @Movement => m_Wrapper.m_Gameplay_Movement;
+        public InputAction @MinigameMovement => m_Wrapper.m_Gameplay_MinigameMovement;
         public InputAction @StationInteract => m_Wrapper.m_Gameplay_StationInteract;
         public InputAction @Dash => m_Wrapper.m_Gameplay_Dash;
         public InputAction @Pause => m_Wrapper.m_Gameplay_Pause;
@@ -935,6 +958,9 @@ public partial class @UserActions: IInputActionCollection2, IDisposable
             @Movement.started += instance.OnMovement;
             @Movement.performed += instance.OnMovement;
             @Movement.canceled += instance.OnMovement;
+            @MinigameMovement.started += instance.OnMinigameMovement;
+            @MinigameMovement.performed += instance.OnMinigameMovement;
+            @MinigameMovement.canceled += instance.OnMinigameMovement;
             @StationInteract.started += instance.OnStationInteract;
             @StationInteract.performed += instance.OnStationInteract;
             @StationInteract.canceled += instance.OnStationInteract;
@@ -957,6 +983,9 @@ public partial class @UserActions: IInputActionCollection2, IDisposable
             @Movement.started -= instance.OnMovement;
             @Movement.performed -= instance.OnMovement;
             @Movement.canceled -= instance.OnMovement;
+            @MinigameMovement.started -= instance.OnMinigameMovement;
+            @MinigameMovement.performed -= instance.OnMinigameMovement;
+            @MinigameMovement.canceled -= instance.OnMinigameMovement;
             @StationInteract.started -= instance.OnStationInteract;
             @StationInteract.performed -= instance.OnStationInteract;
             @StationInteract.canceled -= instance.OnStationInteract;
@@ -1112,6 +1141,7 @@ public partial class @UserActions: IInputActionCollection2, IDisposable
     public interface IGameplayActions
     {
         void OnMovement(InputAction.CallbackContext context);
+        void OnMinigameMovement(InputAction.CallbackContext context);
         void OnStationInteract(InputAction.CallbackContext context);
         void OnDash(InputAction.CallbackContext context);
         void OnPause(InputAction.CallbackContext context);

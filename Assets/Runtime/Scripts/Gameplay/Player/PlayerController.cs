@@ -202,13 +202,15 @@ public class PlayerController : MonoBehaviour {
                     _inputController.ItemInteractEvent -= OnItemInteract;
                     _inputController.ItemInteractEvent += OnGameInteract;
                     inMinigame = true;
-                    minigameInteract.Minigame(true, _currentlyHeldItem);
+                    minigameInteract.GameUI(true);
                 }
                 else
                 {
                     _inputController.MoveEvent += OnMovement;
+                    _inputController.ItemInteractEvent -= OnGameInteract;
+                    _inputController.ItemInteractEvent += OnItemInteract;
                     inMinigame = false;
-                    minigameInteract.Minigame(false, null);
+                    minigameInteract.GameUI(false);
                 }
             }
         }

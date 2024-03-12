@@ -62,6 +62,7 @@ public class InputHandler : SerializableScriptableObject, UserActions.IGameplayA
     public event UnityAction SaveActionButtonEvent = delegate { };
     public event UnityAction ResetActionButtonEvent = delegate { };
     public event UnityAction<Vector2> MoveEvent = delegate { };
+    public event UnityAction<Vector2> MinigameMoveEvent = delegate { };
     public event UnityAction<Vector2> LookEvent = delegate { };
 
     public void OnMovement(InputAction.CallbackContext context) {
@@ -106,6 +107,14 @@ public class InputHandler : SerializableScriptableObject, UserActions.IGameplayA
     public void OnSkill_01(InputAction.CallbackContext context) {
         if (context.phase == InputActionPhase.Performed)
             SkillEvent_01.Invoke();
+    }
+
+    public void OnMinigameMovement(InputAction.CallbackContext context)
+    {
+        if (context.phase == InputActionPhase.Performed)
+        {
+            MinigameMoveEvent?.Invoke(context.ReadValue<Vector2>());
+        }
     }
 
     #endregion

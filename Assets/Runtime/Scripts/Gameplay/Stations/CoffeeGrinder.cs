@@ -1,5 +1,6 @@
 using UnityEngine;
-public class CoffeeGrinder : Workstation, IProcessItem {
+public class CoffeeGrinder : Workstation, IProcessItem, IMinigameInteract
+{
     [SerializeField] private GameObject coffeeGroundsPrefab;
     private int charges = 0;
     private const int maxCharges = 3;
@@ -30,5 +31,10 @@ public class CoffeeGrinder : Workstation, IProcessItem {
         if (currentlyStoredItem == null && charges > 0) {
             OnPlaceItem(RetrieveGrounds());
         }
+    }
+
+    public void Minigame(bool active, GameObject heldItem)
+    {
+
     }
 }

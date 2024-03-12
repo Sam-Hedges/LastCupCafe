@@ -109,9 +109,14 @@ public class InputController : MonoBehaviour, UserActions.IGameplayActions, User
     public event UnityAction ItemInteractEvent = delegate { };
     public event UnityAction EmoteEvent = delegate { };
     public event UnityAction<Vector2> MoveEvent = delegate { };
+    public event UnityAction<Vector2> MinigameMoveEvent = delegate { };
 
     public void OnMovement(InputAction.CallbackContext context) {
         MoveEvent?.Invoke(context.ReadValue<Vector2>());
+    }
+    public void OnMinigameMovement(InputAction.CallbackContext context)
+    {
+        MinigameMoveEvent?.Invoke(context.ReadValue<Vector2>());
     }
 
     public void OnStationInteract(InputAction.CallbackContext context) {
