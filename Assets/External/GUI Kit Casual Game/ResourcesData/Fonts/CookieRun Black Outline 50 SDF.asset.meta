@@ -1,8 +1,15 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/External/GUI Kit Casual Game/ResourcesData/Fonts/CookieRun Black Outline 50 SDF.asset.meta
 guid: c2f49fe8c22d94f9a9e6cd06ad490155
 NativeFormatImporter:
   externalObjects: {}
   mainObjectFileID: 0
+========
+guid: ff7e962e79441a5418cfc1ec12ae8964
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+>>>>>>>> origin/Design/Greybox-Charlie:Assets/Runtime/Art/Materials/M_Kitchen_Walls.mat.meta
   userData: 
   assetBundleName: 
   assetBundleVariant: 

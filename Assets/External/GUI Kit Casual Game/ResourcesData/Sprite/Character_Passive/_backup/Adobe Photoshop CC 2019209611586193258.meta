@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Unity.VisualScripting.Generated/VisualScripting.Flow/UnitOptions.db.meta
+guid: f06a0d5d1b3275c458fe0dc924de7ebf
+========
 guid: 608be24c2cfdc494381563ecae14d833
+>>>>>>>> Staging:Assets/External/GUI Kit Casual Game/ResourcesData/Sprite/Character_Passive/_backup/Adobe Photoshop CC 2019209611586193258.meta
 DefaultImporter:
   externalObjects: {}
   userData: 

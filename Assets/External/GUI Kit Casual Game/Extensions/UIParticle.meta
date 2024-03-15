@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Unity.VisualScripting.Generated/VisualScripting.Flow.meta
+guid: 182b3f1a79a6993418c7613dd170f366
+========
 guid: 77940c6c1f51b428ca74cd45545b1e5e
+>>>>>>>> Staging:Assets/External/GUI Kit Casual Game/Extensions/UIParticle.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}

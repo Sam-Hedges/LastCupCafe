@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/UI Work.meta
+guid: 9623f918f664e9047bc22d3d2a5ce84c
+========
 guid: b79006402903b5f4ca3b7ff8bd8331fa
+>>>>>>>> Staging:Assets/Samples.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}

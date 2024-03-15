@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Runtime/Art/Placeholders/source/CoffeeMachine.fbx.meta
 guid: 7811c20d7b6cd67488fe39f614e67538
+========
+guid: 119ef68542d2fdc4f9d61b449f55c519
+>>>>>>>> origin/Design/Greybox-Charlie:Assets/Runtime/Art/Static_Mesh/Wall_Small.fbx.meta
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
