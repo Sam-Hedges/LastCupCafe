@@ -34,6 +34,13 @@ public class PlayerSelectMenuHandler : MonoBehaviour {
     private InputControllerManager inputControllerManager;
 
     private Dictionary<InputController, CharacterCardController> _playerInputToUI = new();
+    
+    private Coroutine _countdownCoroutine;
+    [Header("Countdown")] 
+    [SerializeField] private GameObject countdownGameObject;
+    [SerializeField] private TextMeshProUGUI countdownText;
+    [SerializeField] private int countdownTimeSeconds = 5;
+    
 
     private void OnEnable() {
         inputControllerManagerAnchor.OnAnchorProvided += InputControllerManagerProvided;
@@ -122,6 +129,28 @@ public class PlayerSelectMenuHandler : MonoBehaviour {
             characterCard.characterIndex--;
         }
         characterCard.Preset = _characterCardPresets[characterCard.characterIndex];
+    }
+
+    public void CheckPlayersReady() {
+        foreach (var player in _playerInputToUI) {
+            if (!player.Value.isReady) {
+                if (_countdownCoroutine != null) {
+                    StopCoroutine(_countdownCoroutine);
+                    _countdownCoroutine = null;
+                }
+                break;
+            }
+        }
+        
+        _countdownCoroutine = StartCoroutine(Countdown());
+    }
+    
+    private IEnumerator Countdown() {
+        countdownGameObject.SetActive(true);
+        for (int i = countdownTimeSeconds; i > 0; i--) {
+            countdownText.text = i.ToString();
+            yield return new WaitForSeconds(1);
+        }
     }
     
     private void InputControllerManagerProvided() {
