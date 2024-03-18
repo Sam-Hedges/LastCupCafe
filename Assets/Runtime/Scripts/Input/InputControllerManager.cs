@@ -84,7 +84,9 @@ public class InputControllerManager : MonoBehaviour {
 		playerControllerPool.SetParent(parent);
 		
 		foreach (var player in _players) {
-			player.transform.SetParent(parent);
+            player.transform.position = parent.position;
+            player.transform.SetParent(parent);
+            
 		}
 	}
 	
