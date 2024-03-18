@@ -45,7 +45,8 @@ public class InputController : MonoBehaviour, UserActions.IGameplayActions, User
     }
 
     private void Start() {
-        
+
+        userActions.UI.Disable();
     }
 
     private void OnDestroy() {
@@ -110,13 +111,20 @@ public class InputController : MonoBehaviour, UserActions.IGameplayActions, User
     public event UnityAction EmoteEvent = delegate { };
     public event UnityAction<Vector2> MoveEvent = delegate { };
     public event UnityAction<Vector2> MinigameMoveEvent = delegate { };
+    public event UnityAction<float> PressureEvent = delegate { };
 
     public void OnMovement(InputAction.CallbackContext context) {
         MoveEvent?.Invoke(context.ReadValue<Vector2>());
     }
+
     public void OnMinigameMovement(InputAction.CallbackContext context)
     {
         MinigameMoveEvent?.Invoke(context.ReadValue<Vector2>());
+    }
+
+    public void OnPressureEvent(InputAction.CallbackContext context)
+    {
+        PressureEvent?.Invoke(context.ReadValue<float>());
     }
 
     public void OnStationInteract(InputAction.CallbackContext context) {

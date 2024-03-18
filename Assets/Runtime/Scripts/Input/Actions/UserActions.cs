@@ -89,6 +89,15 @@ public partial class @UserActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""PressureEvent"",
+                    ""type"": ""Value"",
+                    ""id"": ""11e0805e-dd6b-42c8-bb76-59c409111f99"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -333,6 +342,28 @@ public partial class @UserActions: IInputActionCollection2, IDisposable
                     ""action"": ""MinigameMovement"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3a751203-5c6f-4386-a9e9-9576c04a9299"",
+                    ""path"": ""<Gamepad>/leftTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""PressureEvent"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""12c5ed19-adc3-4d0a-b52a-55e7deb3c14e"",
+                    ""path"": ""<Gamepad>/rightTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""PressureEvent"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -857,6 +888,7 @@ public partial class @UserActions: IInputActionCollection2, IDisposable
         m_Gameplay_Pause = m_Gameplay.FindAction("Pause", throwIfNotFound: true);
         m_Gameplay_ItemInteract = m_Gameplay.FindAction("ItemInteract", throwIfNotFound: true);
         m_Gameplay_Emote = m_Gameplay.FindAction("Emote", throwIfNotFound: true);
+        m_Gameplay_PressureEvent = m_Gameplay.FindAction("PressureEvent", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -935,6 +967,7 @@ public partial class @UserActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Gameplay_Pause;
     private readonly InputAction m_Gameplay_ItemInteract;
     private readonly InputAction m_Gameplay_Emote;
+    private readonly InputAction m_Gameplay_PressureEvent;
     public struct GameplayActions
     {
         private @UserActions m_Wrapper;
@@ -946,6 +979,7 @@ public partial class @UserActions: IInputActionCollection2, IDisposable
         public InputAction @Pause => m_Wrapper.m_Gameplay_Pause;
         public InputAction @ItemInteract => m_Wrapper.m_Gameplay_ItemInteract;
         public InputAction @Emote => m_Wrapper.m_Gameplay_Emote;
+        public InputAction @PressureEvent => m_Wrapper.m_Gameplay_PressureEvent;
         public InputActionMap Get() { return m_Wrapper.m_Gameplay; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -976,6 +1010,9 @@ public partial class @UserActions: IInputActionCollection2, IDisposable
             @Emote.started += instance.OnEmote;
             @Emote.performed += instance.OnEmote;
             @Emote.canceled += instance.OnEmote;
+            @PressureEvent.started += instance.OnPressureEvent;
+            @PressureEvent.performed += instance.OnPressureEvent;
+            @PressureEvent.canceled += instance.OnPressureEvent;
         }
 
         private void UnregisterCallbacks(IGameplayActions instance)
@@ -1001,6 +1038,9 @@ public partial class @UserActions: IInputActionCollection2, IDisposable
             @Emote.started -= instance.OnEmote;
             @Emote.performed -= instance.OnEmote;
             @Emote.canceled -= instance.OnEmote;
+            @PressureEvent.started -= instance.OnPressureEvent;
+            @PressureEvent.performed -= instance.OnPressureEvent;
+            @PressureEvent.canceled -= instance.OnPressureEvent;
         }
 
         public void RemoveCallbacks(IGameplayActions instance)
@@ -1147,6 +1187,7 @@ public partial class @UserActions: IInputActionCollection2, IDisposable
         void OnPause(InputAction.CallbackContext context);
         void OnItemInteract(InputAction.CallbackContext context);
         void OnEmote(InputAction.CallbackContext context);
+        void OnPressureEvent(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

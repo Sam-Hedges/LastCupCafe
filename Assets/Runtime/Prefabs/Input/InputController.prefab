@@ -191,6 +191,38 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 5c92bad2-f0f7-4469-8cd9-facb2c9fe232
     m_ActionName: Gameplay/Emote[/XInputControllerWindows/buttonNorth,/Keyboard/g]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1366427878097147130}
+        m_TargetAssemblyTypeName: InputController, Assembly-CSharp
+        m_MethodName: OnMinigameMovement
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 7c58fcea-79b6-4246-ba85-d80d7cdc68e4
+    m_ActionName: Gameplay/MinigameMovement[/XInputControllerWindows/rightStick,/Keyboard/upArrow,/Keyboard/downArrow,/Keyboard/leftArrow,/Keyboard/rightArrow]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1366427878097147130}
+        m_TargetAssemblyTypeName: InputController, Assembly-CSharp
+        m_MethodName: OnPressureEvent
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 11e0805e-dd6b-42c8-bb76-59c409111f99
+    m_ActionName: Gameplay/PressureEvent[/XInputControllerWindows/leftTrigger,/XInputControllerWindows/rightTrigger]
   m_NeverAutoSwitchControlSchemes: 1
   m_DefaultControlScheme: Gamepad
   m_DefaultActionMap: Gameplay
@@ -212,6 +244,10 @@ MonoBehaviour:
     type: 2}
   _InputControllerDestroyedChannel: {fileID: 11400000, guid: ed038767a1dd9fd43b23b5e9e67ed8ea,
     type: 2}
+  parentPlayerController: {fileID: 0}
+  playerInput: {fileID: 0}
+  uiModule: {fileID: 0}
+  eventSystem: {fileID: 0}
 --- !u!114 &-5006564826599535944
 MonoBehaviour:
   m_ObjectHideFlags: 0

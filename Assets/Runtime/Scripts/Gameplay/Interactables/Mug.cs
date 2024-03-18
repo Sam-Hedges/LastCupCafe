@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 
 public class Mug : Item {
-    private List<string> ingredients = new List<string>();
+    public List<string> ingredients = new List<string>();
     public bool IsDirty { get; private set; } = true;
 
     public void AddIngredient(string ingredient) {
