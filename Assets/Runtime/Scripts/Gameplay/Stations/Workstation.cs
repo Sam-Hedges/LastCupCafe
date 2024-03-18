@@ -11,7 +11,8 @@ public enum WorkstationType {
     SyrupCrate,
     ChocolateCreate,
     Grinder,
-    KitchenSink
+    KitchenSink,
+    Kettle
 }
 
 public class Workstation : MonoBehaviour, IInteractable
@@ -81,6 +82,7 @@ public class Workstation : MonoBehaviour, IInteractable
         if (currentlyStoredItem == null) return; // TODO: Implement not going to work without newItem sound
         
         
+        
     }
 
     public void GameUI(bool active)
@@ -98,5 +100,18 @@ public class Workstation : MonoBehaviour, IInteractable
             Debug.Log("Left Station");
         }
 
+    }
+
+    public virtual void MinigameButton(GameObject heldItem)
+    {
+        Debug.Log("Workstation active");
+    }
+    public virtual void MinigameTrigger(float input, GameObject heldItem)
+    {
+        Debug.Log("Workstation active");
+    }
+    public virtual void MinigameStick(Vector2 input, GameObject heldItem)
+    {
+        Debug.Log("Workstation active");
     }
 }

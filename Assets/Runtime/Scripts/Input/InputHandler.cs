@@ -63,6 +63,7 @@ public class InputHandler : SerializableScriptableObject, UserActions.IGameplayA
     public event UnityAction ResetActionButtonEvent = delegate { };
     public event UnityAction<Vector2> MoveEvent = delegate { };
     public event UnityAction<Vector2> MinigameMoveEvent = delegate { };
+    public event UnityAction<double> PressureEvent = delegate { };
     public event UnityAction<Vector2> LookEvent = delegate { };
 
     public void OnMovement(InputAction.CallbackContext context) {
@@ -111,10 +112,12 @@ public class InputHandler : SerializableScriptableObject, UserActions.IGameplayA
 
     public void OnMinigameMovement(InputAction.CallbackContext context)
     {
-        if (context.phase == InputActionPhase.Performed)
-        {
-            MinigameMoveEvent?.Invoke(context.ReadValue<Vector2>());
-        }
+        MinigameMoveEvent.Invoke(context.ReadValue<Vector2>());
+    }
+
+    public void OnPressureEvent(InputAction.CallbackContext context)
+    {
+        PressureEvent.Invoke(context.ReadValue<double>());
     }
 
     #endregion
