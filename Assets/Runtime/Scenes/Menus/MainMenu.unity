@@ -28103,7 +28103,7 @@ Camera:
   field of view: 60
   orthographic: 1
   orthographic size: 100
-  m_Depth: -1
+  m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -30629,6 +30629,9 @@ MonoBehaviour:
     type: 2}
   inputControllerDestroyedChannel: {fileID: 11400000, guid: ed038767a1dd9fd43b23b5e9e67ed8ea,
     type: 2}
+  loadGameplaySceneChannel: {fileID: 11400000, guid: 173f9db63e651a94bbee65b61f1a612e,
+    type: 2}
+  gameplayScene: {fileID: 11400000, guid: e392da137a4586d43b943a39640c9d3d, type: 2}
   inputControllerManagerAnchor: {fileID: 11400000, guid: 9b6aad5fb193bc54880e3690b978c49b,
     type: 2}
   countdownGameObject: {fileID: 92673907}
@@ -30801,7 +30804,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &369027169291196415
 RectTransform:
   m_ObjectHideFlags: 0
@@ -34684,7 +34687,7 @@ PrefabInstance:
     - target: {fileID: 3892636229888216091, guid: 79354985341bfde42ab587a3ec25adb9,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3892636229888216091, guid: 79354985341bfde42ab587a3ec25adb9,
         type: 3}
@@ -34694,7 +34697,7 @@ PrefabInstance:
     - target: {fileID: 3892636229888216091, guid: 79354985341bfde42ab587a3ec25adb9,
         type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3892636229888216091, guid: 79354985341bfde42ab587a3ec25adb9,
         type: 3}
@@ -34744,12 +34747,12 @@ PrefabInstance:
     - target: {fileID: 3892636229888216091, guid: 79354985341bfde42ab587a3ec25adb9,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 1917.6305
       objectReference: {fileID: 0}
     - target: {fileID: 3892636229888216091, guid: 79354985341bfde42ab587a3ec25adb9,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -370.65802
       objectReference: {fileID: 0}
     - target: {fileID: 3892636229888216091, guid: 79354985341bfde42ab587a3ec25adb9,
         type: 3}

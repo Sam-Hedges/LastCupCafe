@@ -39,7 +39,7 @@ public class SceneLoader : MonoBehaviour
 
 	private void OnEnable()
 	{
-		_loadLevel.OnLoadingRequested += LoadLocation;
+		_loadLevel.OnLoadingRequested += LoadLevel;
 		_loadMenu.OnLoadingRequested += LoadMenu;
 #if UNITY_EDITOR
 		_coldStartupLocation.OnLoadingRequested += LocationColdStartup;
@@ -48,7 +48,7 @@ public class SceneLoader : MonoBehaviour
 
 	private void OnDisable()
 	{
-		_loadLevel.OnLoadingRequested -= LoadLocation;
+		_loadLevel.OnLoadingRequested -= LoadLevel;
 		_loadMenu.OnLoadingRequested -= LoadMenu;
 #if UNITY_EDITOR
 		_coldStartupLocation.OnLoadingRequested -= LocationColdStartup;
@@ -78,12 +78,12 @@ public class SceneLoader : MonoBehaviour
 	/// <summary>
 	/// This function loads the location scenes passed as array parameter
 	/// </summary>
-	private void LoadLocation(GameSceneSO locationToLoad, bool showLoadingScreen, bool fadeScreen)
+	private void LoadLevel(GameSceneSO levelToLoad, bool showLoadingScreen, bool fadeScreen)
 	{
 		if (_isLoading)
 			return;
 
-		_sceneToLoad = locationToLoad;
+		_sceneToLoad = levelToLoad;
 		_showLoadingScreen = showLoadingScreen;
 		_isLoading = true;
 
@@ -135,8 +135,14 @@ public class SceneLoader : MonoBehaviour
 	{
 		_inputHandler.DisableAllInput();
 		_fadeRequestChannel.FadeOut(_fadeDuration);
+		
+		if (_showLoadingScreen)
+		{
+			_toggleLoadingScreen.RaiseEvent(true);
+		}
 
-		yield return new WaitForSeconds(_fadeDuration);
+		yield return new WaitForSeconds(_fadeDuration + 5f);
+		
 
 		if (_currentlyLoadedScene != null) //would be null if the game was started in Initialisation
 		{
@@ -164,10 +170,7 @@ public class SceneLoader : MonoBehaviour
 	/// </summary>
 	private void LoadNewScene()
 	{
-		if (_showLoadingScreen)
-		{
-			_toggleLoadingScreen.RaiseEvent(true);
-		}
+		
 
 		_loadingOperationHandle = _sceneToLoad.sceneReference.LoadSceneAsync(LoadSceneMode.Additive, true, 0);
 		_loadingOperationHandle.Completed += OnNewSceneLoaded;

@@ -19,15 +19,16 @@ public class PlayerSelectMenuHandler : MonoBehaviour {
     [SerializeField] private Sprite gamepadIcon;
     [SerializeField] private Sprite keyboardIcon;
 
-
     [Header("Listening on Channels")]
     [Tooltip("Receives a reference of an Input Controller when it is spawned")]
     [SerializeField]
     private GameObjectEventChannelSO inputControllerInstancedChannel;
-
     [Tooltip("Receives a reference of an Input Controller when it is destroyed")] [SerializeField]
     private GameObjectEventChannelSO inputControllerDestroyedChannel;
-
+    
+    [Header("Broadcasting on Channels")]
+    [SerializeField] private LoadEventChannelSO loadGameplaySceneChannel;
+    [SerializeField] private GameSceneSO gameplayScene;
 
     [Header("Runtime Anchors")] [Tooltip("")] [SerializeField]
     private InputControllerManagerAnchor inputControllerManagerAnchor;
@@ -133,24 +134,31 @@ public class PlayerSelectMenuHandler : MonoBehaviour {
 
     public void CheckPlayersReady() {
         foreach (var player in _playerInputToUI) {
-            if (!player.Value.isReady) {
+            if (player.Value.isReady == false) {
                 if (_countdownCoroutine != null) {
                     StopCoroutine(_countdownCoroutine);
+                    countdownGameObject.SetActive(false);
                     _countdownCoroutine = null;
                 }
                 break;
             }
         }
-        
-        _countdownCoroutine = StartCoroutine(Countdown());
+       
+        if (_countdownCoroutine == null) {
+            _countdownCoroutine = StartCoroutine(Countdown());
+        }
     }
     
     private IEnumerator Countdown() {
         countdownGameObject.SetActive(true);
+        countdownText.text = countdownTimeSeconds.ToString();
+        
         for (int i = countdownTimeSeconds; i > 0; i--) {
             countdownText.text = i.ToString();
             yield return new WaitForSeconds(1);
         }
+        
+        loadGameplaySceneChannel.RaiseEvent(gameplayScene, true, true);
     }
     
     private void InputControllerManagerProvided() {

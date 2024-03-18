@@ -22,7 +22,7 @@ public class FadeChannelSO : SerializableScriptableObject
 	/// <param name="duration">How long it takes to the image to fade out.</param>
 	public void FadeOut(float duration)
 	{
-		Fade(false, duration, Color.black);
+		Fade(false, duration, Color.grey);
 	}
 
 	/// <summary>
