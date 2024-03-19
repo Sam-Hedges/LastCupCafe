@@ -16,15 +16,20 @@ public class HandleLocalPlayersUI : MonoBehaviour {
     [Tooltip("Receives a reference of an Input Controller when it is spawned")]
     [SerializeField]
     private GameObjectEventChannelSO inputControllerInstancedChannel;
+    [Tooltip("Receives a reference of an Input Controller when it is destroyed")]
+    [SerializeField]
+    private GameObjectEventChannelSO inputControllerDestroyedChannel;
     
     private Dictionary<PlayerInput, GameObject> _playerInputToUI = new Dictionary<PlayerInput, GameObject>();
 
     private void OnEnable() {
         inputControllerInstancedChannel.OnEventRaised += AddLocalPlayerUI;
+        inputControllerDestroyedChannel.OnEventRaised += RemoveLocalPlayerUI;
     }
 
     private void OnDisable() {
         inputControllerInstancedChannel.OnEventRaised -= AddLocalPlayerUI;
+        inputControllerDestroyedChannel.OnEventRaised -= RemoveLocalPlayerUI;
     }
     
     private void RemoveLocalPlayerUI(PlayerInput playerInput) {
@@ -53,5 +58,13 @@ public class HandleLocalPlayersUI : MonoBehaviour {
         }
 
         newLocalPlayerUI.GetComponentInChildren<TextMeshProUGUI>().text = "Player " + transform.childCount;
+    }
+    
+    private void RemoveLocalPlayerUI(GameObject go) {
+        PlayerInput playerInput = go.GetComponent<PlayerInput>();
+        if (_playerInputToUI.TryGetValue(playerInput, out GameObject localPlayerUI)) {
+            Destroy(localPlayerUI);
+            _playerInputToUI.Remove(playerInput);
+        }
     }
 }

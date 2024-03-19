@@ -150,7 +150,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c691d74840d4efda323130d5c543f82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  highlightMaterial: {fileID: 0}
+  highlightMaterial: {fileID: 2100000, guid: 0e1abc942e44ad54ab19f0f0bf6f5d64, type: 2}
+  hasBeenThrown: 0
+  ingredients: []
 --- !u!64 &6091136608586052221
 MeshCollider:
   m_ObjectHideFlags: 0

@@ -1163,6 +1163,8 @@ MonoBehaviour:
   keyboardIcon: {fileID: 21300000, guid: 45f94fceceaa742b883a6642d606953f, type: 3}
   inputControllerInstancedChannel: {fileID: 11400000, guid: 91574c04e1e8b624fb8cd6da3ff422a5,
     type: 2}
+  inputControllerDestroyedChannel: {fileID: 11400000, guid: ed038767a1dd9fd43b23b5e9e67ed8ea,
+    type: 2}
 --- !u!114 &9017061086239854535
 MonoBehaviour:
   m_ObjectHideFlags: 0

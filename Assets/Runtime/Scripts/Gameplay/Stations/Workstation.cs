@@ -87,8 +87,8 @@ public class Workstation : MonoBehaviour, IInteractable
 
     public void GameUI(bool active)
     {
-        minigameCanvas = this.gameObject.transform.GetChild(0).gameObject;
-        if (active == true)
+        minigameCanvas = gameObject.transform.GetChild(0).gameObject;
+        if (active)
         {
             minigameCanvas.SetActive(true);
             Debug.Log("Activated Station");
@@ -106,7 +106,7 @@ public class Workstation : MonoBehaviour, IInteractable
     {
         Debug.Log("Workstation active");
     }
-    public virtual void MinigameTrigger(float input, GameObject heldItem)
+    public virtual void MinigameTrigger(float delta, GameObject heldItem)
     {
         Debug.Log("Workstation active");
     }

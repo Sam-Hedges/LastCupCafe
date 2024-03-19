@@ -82,6 +82,10 @@ public class PlayerController : MonoBehaviour {
     [HideInInspector] public FloatAnchor playerMotionBlendStateAnchor;
     [HideInInspector] public VoidEventChannelSO playerPickupItemEventChannel;
     [HideInInspector] public VoidEventChannelSO playerDropItemEventChannel;
+    
+    // Minigame interaction variables
+    private bool inMinigame;
+    private Workstation activeStation;
 
     public void SetPlayerInput(InputController newInputController) {
         _playerInputAnchor.Provide(newInputController);
@@ -168,9 +172,6 @@ public class PlayerController : MonoBehaviour {
         _inputController.ThrowEvent -= OnThrow;
     }
 
-    //Minigame interaction variables
-    private bool inMinigame = false;
-    private Workstation activeStation;
 
     //Station Interact
     private void OnStationInteract() {
@@ -184,7 +185,7 @@ public class PlayerController : MonoBehaviour {
         }
 
         //Presume active station and deactivate - used as backup for edge cases where player has activated a station but object has blocked interaction
-        if (inMinigame == true)
+        if (inMinigame)
         {
             activeStation = null;
             _inputController.MoveEvent += OnMovement;
@@ -193,55 +194,51 @@ public class PlayerController : MonoBehaviour {
             _inputController.PressureEvent -= OnPressureEvent;
             _inputController.ItemInteractEvent += OnItemInteract;
             inMinigame = false;
+            return;
         }
 
-        else
-        {
+        Collider hitCollider = default;
+        bool hit = CastForInteractable(ref hitCollider);
 
-            Collider hitCollider = default;
-            bool hit = CastForInteractable(ref hitCollider);
+        if (!hit) return;
 
-            if (!hit) return;
-
-            if (hitCollider.TryGetComponent(out Workstation station))
+        if (hitCollider.TryGetComponent(out Workstation station)) {
+            // Check if station can produce an Item
+            if (station.TryGetComponent(out IProduceItem produceItem))
             {
-                //Check if station can produce an Item
-                if (station.TryGetComponent(out IProduceItem produceItem))
+                PickupItem(produceItem.ProduceItem());
+                return;
+            }
+            // Check if Station has a Minigame interactable
+            // Warning: An error is produced if a station has *both* a Minigame interface AND a ProduceItem interface at the same time (see: Kettle.cs)
+
+            if (station.TryGetComponent(out IMinigameInteract minigameInteract))
+            {
+                if (inMinigame == false)
                 {
-                    PickupItem(produceItem.ProduceItem());
-                    return;
+                    _inputController.MoveEvent -= OnMovement;
+                    //Disable Item pickup/placement, enable Minigame interactions
+                    _inputController.ItemInteractEvent -= OnItemInteract;
+                    _inputController.ItemInteractEvent += OnGameInteract;
+                    _inputController.MinigameMoveEvent += OnMinigameMovement;
+                    _inputController.PressureEvent += OnPressureEvent;
+                    inMinigame = true;
+                    minigameInteract.GameUI(true);
+                    activeStation = station;
                 }
-                //Check if Station has a Minigame interactable
-                //Warning: An error is produced if a station has *both* a Minigame interface AND a ProduceItem interface at the same time (see: Kettle.cs)
-                else if (station.TryGetComponent(out IMinigameInteract minigameInteract))
+                else
                 {
-                    if (inMinigame == false)
-                    {
-                        _inputController.MoveEvent -= OnMovement;
-                        //Disable Item pickup/placement, enable Minigame interactions
-                        _inputController.ItemInteractEvent -= OnItemInteract;
-                        _inputController.ItemInteractEvent += OnGameInteract;
-                        _inputController.MinigameMoveEvent += OnMinigameMovement;
-                        _inputController.PressureEvent += OnPressureEvent;
-                        inMinigame = true;
-                        minigameInteract.GameUI(true);
-                        activeStation = station;
-                    }
-                    else
-                    {
-                        activeStation = null;
-                        _inputController.MoveEvent += OnMovement;
-                        _inputController.ItemInteractEvent -= OnGameInteract;
-                        _inputController.MinigameMoveEvent -= OnMinigameMovement;
-                        _inputController.PressureEvent -= OnPressureEvent;
-                        _inputController.ItemInteractEvent += OnItemInteract;
-                        inMinigame = false;
-                        minigameInteract.GameUI(false);
-                    }
+                    activeStation = null;
+                    _inputController.MoveEvent += OnMovement;
+                    _inputController.ItemInteractEvent -= OnGameInteract;
+                    _inputController.MinigameMoveEvent -= OnMinigameMovement;
+                    _inputController.PressureEvent -= OnPressureEvent;
+                    _inputController.ItemInteractEvent += OnItemInteract;
+                    inMinigame = false;
+                    minigameInteract.GameUI(false);
                 }
             }
         }
-
     }
 
     //Interact button press for Minigame

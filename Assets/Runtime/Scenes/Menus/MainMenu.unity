@@ -30631,7 +30631,7 @@ MonoBehaviour:
     type: 2}
   loadGameplaySceneChannel: {fileID: 11400000, guid: 173f9db63e651a94bbee65b61f1a612e,
     type: 2}
-  gameplayScene: {fileID: 11400000, guid: e392da137a4586d43b943a39640c9d3d, type: 2}
+  gameplayScene: {fileID: 11400000, guid: 721e3764613d84344a34110cddc5747b, type: 2}
   inputControllerManagerAnchor: {fileID: 11400000, guid: 9b6aad5fb193bc54880e3690b978c49b,
     type: 2}
   countdownGameObject: {fileID: 92673907}

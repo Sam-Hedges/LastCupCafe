@@ -442,7 +442,8 @@ MonoBehaviour:
   currentlyStoredItem: {fileID: 0}
   highlightMaterial: {fileID: 2100000, guid: 0e1abc942e44ad54ab19f0f0bf6f5d64, type: 2}
   maxHealth: 10
-  coffeeBeansPrefab: {fileID: 0}
+  coffeeBeansPrefab: {fileID: 1246992022243421976, guid: e47afb37fc9e3b740a23279b0287474f,
+    type: 3}
   regenerationRate: 5
   healthSlider: {fileID: 3968052455653826043}
   highHealthColor: {r: 0.42352942, g: 0.8666667, b: 0.43529412, a: 1}

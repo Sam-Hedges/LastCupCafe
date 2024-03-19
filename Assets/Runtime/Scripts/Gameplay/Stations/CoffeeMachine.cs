@@ -20,10 +20,12 @@ public class CoffeeMachine : Workstation, IMinigameInteract
     //TThe Target pressure player should be reaching
     public float pressureTarget;
 
-    //The error value (how much lower/higher the input can be and still give a correct output)
+    //The error value (how much lower/higher the delta can be and still give a correct output)
     public float pressureVariance;
 
     private bool _canComplete;
+    private float savedInput;
+    private float delta;
 
 
     public override void MinigameButton(GameObject heldItem)
@@ -37,12 +39,20 @@ public class CoffeeMachine : Workstation, IMinigameInteract
             Debug.Log("Failed");
         }
     }
+    
+    private void FixedUpdate() {
+        if (savedInput > 0) {
+            delta += 0.01f;
+        }
+        else {
+            delta -= 0.01f;
+        }
 
-    public override void MinigameTrigger(float input, GameObject heldItem)
-    {
-        PressureOutput(input);
+        delta = Mathf.Clamp(delta, 0, 1);
+        
+        PressureOutput(delta);
 
-        if (input >= pressureTarget - pressureVariance && input <= pressureTarget + pressureVariance)
+        if (delta >= pressureTarget - pressureVariance && delta <= pressureTarget + pressureVariance)
         {
             pressureBar.color = goodColor;
             _canComplete = true;
@@ -52,6 +62,11 @@ public class CoffeeMachine : Workstation, IMinigameInteract
             pressureBar.color = badColor;
             _canComplete = false;
         }
+    }
+
+    public override void MinigameTrigger(float input, GameObject heldItem) {
+        
+        savedInput = input;
     }
 
     //Used for setting pressure value for UI
