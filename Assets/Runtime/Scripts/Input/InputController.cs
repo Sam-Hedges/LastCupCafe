@@ -25,6 +25,7 @@ public class InputController : MonoBehaviour, UserActions.IGameplayActions, User
     private PlayerInput _playerInput;
 
     public PlayerController PlayerController { get; set; }
+    [HideInInspector] public int PlayerModelIndex { get; private set; } = 1;
 
     private void Awake() {
         // Player Input
@@ -58,6 +59,10 @@ public class InputController : MonoBehaviour, UserActions.IGameplayActions, User
 
     public void EnableMenuInput() {
         _playerInput.SwitchCurrentActionMap("UI");
+    }
+    
+    public void SetPlayerModelIndex(int index) {
+        PlayerModelIndex = index;
     }
 
     #region Gameplay

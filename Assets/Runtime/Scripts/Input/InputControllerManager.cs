@@ -55,7 +55,7 @@ public class InputControllerManager : MonoBehaviour {
     private void OnEnable() {
         inputControllerInstancedChannel.OnEventRaised += InputControllerInstanced;
         inputControllerDestroyedChannel.OnEventRaised += InputControllerDestroyed;
-        spawnPlayerControllerChannel.OnEventRaised += SpawnPlayer;
+        spawnPlayerControllerChannel.OnEventRaised += SpawnPlayers;
         despawnPlayerControllerChannel.OnEventRaised += DespawnPlayer;
         setPlayerControllerParentChannel.OnEventRaised += SetPlayersParent;
     }
@@ -63,7 +63,7 @@ public class InputControllerManager : MonoBehaviour {
     private void OnDisable() {
         inputControllerInstancedChannel.OnEventRaised -= InputControllerInstanced;
         inputControllerDestroyedChannel.OnEventRaised -= InputControllerDestroyed;
-        spawnPlayerControllerChannel.OnEventRaised -= SpawnPlayer;
+        spawnPlayerControllerChannel.OnEventRaised -= SpawnPlayers;
         despawnPlayerControllerChannel.OnEventRaised -= DespawnPlayer;
         setPlayerControllerParentChannel.OnEventRaised -= SetPlayersParent;
     }
@@ -94,6 +94,7 @@ public class InputControllerManager : MonoBehaviour {
 		playerControllerPool.SetParent(parent);
 		
 		foreach (var player in players) {
+            player.transform.position = parent.position;
 			player.transform.SetParent(parent);
 		}
 	}
@@ -108,6 +109,8 @@ public class InputControllerManager : MonoBehaviour {
                 
                 inputController.PlayerController = playerController;
                 playerController.SetPlayerInput(inputController);
+                
+                inputController.EnableGameplayInput();
             }
         } 
 	}

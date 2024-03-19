@@ -105,7 +105,7 @@ public class PlayerSelectMenuHandler : MonoBehaviour {
     }
     
     private void UpdateAddPlayerCard() {
-        if (_playerInputToUI.Count < 2) {
+        if (_playerInputToUI.Count < 6) {
             addPlayerCard.SetActive(true);
         } else {
             addPlayerCard.SetActive(false);
@@ -120,6 +120,7 @@ public class PlayerSelectMenuHandler : MonoBehaviour {
             characterCard.characterIndex++;
         }
         characterCard.Preset = _characterCardPresets[characterCard.characterIndex];
+        characterCard.InputController.SetPlayerModelIndex(characterCard.characterIndex);
     }
 
     public void DecrementPreset(CharacterCardController characterCard) {
@@ -130,6 +131,7 @@ public class PlayerSelectMenuHandler : MonoBehaviour {
             characterCard.characterIndex--;
         }
         characterCard.Preset = _characterCardPresets[characterCard.characterIndex];
+        characterCard.InputController.SetPlayerModelIndex(characterCard.characterIndex);
     }
 
     public void CheckPlayersReady() {
@@ -140,7 +142,7 @@ public class PlayerSelectMenuHandler : MonoBehaviour {
                     countdownGameObject.SetActive(false);
                     _countdownCoroutine = null;
                 }
-                break;
+                return;
             }
         }
        
@@ -157,7 +159,7 @@ public class PlayerSelectMenuHandler : MonoBehaviour {
             countdownText.text = i.ToString();
             yield return new WaitForSeconds(1);
         }
-        
+
         loadGameplaySceneChannel.RaiseEvent(gameplayScene, true, true);
     }
     
