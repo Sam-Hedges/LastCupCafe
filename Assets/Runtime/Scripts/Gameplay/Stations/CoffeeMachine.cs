@@ -23,14 +23,14 @@ public class CoffeeMachine : Workstation, IMinigameInteract
     //The error value (how much lower/higher the input can be and still give a correct output)
     public float pressureVariance;
 
-    bool canComplete;
+    private bool _canComplete;
 
 
     public override void MinigameButton(GameObject heldItem)
     {
-        if (canComplete == true && currentlyStoredItem.name == "Mug")
+        if (_canComplete && currentlyStoredItem.name == "Mug")
         {
-            currentlyStoredItem.GetComponent <Mug>().AddIngredient("Coffee");
+            currentlyStoredItem.GetComponent<Mug>().AddIngredient("Coffee");
         }
         else
         {
@@ -40,24 +40,24 @@ public class CoffeeMachine : Workstation, IMinigameInteract
 
     public override void MinigameTrigger(float input, GameObject heldItem)
     {
-        pressureOutput(input);
+        PressureOutput(input);
 
-        if (input >= (pressureTarget-pressureVariance) && input <=(pressureTarget+pressureVariance))
+        if (input >= pressureTarget - pressureVariance && input <= pressureTarget + pressureVariance)
         {
             pressureBar.color = goodColor;
-            canComplete = true;
+            _canComplete = true;
         }
         else
         {
             pressureBar.color = badColor;
-            canComplete = false;
+            _canComplete = false;
         }
     }
 
     //Used for setting pressure value for UI
-    private void pressureOutput(float input)
+    private void PressureOutput(float input)
     {
-        float outputValue = (input * 0.75f);
+        float outputValue = input * 0.75f;
         pressureBar.fillAmount = outputValue;
     }
 }

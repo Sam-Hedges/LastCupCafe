@@ -58,7 +58,7 @@ public class Kettle : Workstation, /*IProduceItem,*/ IMinigameInteract {
             targetTime = 0.0f;
         }
 
-        if (currentlyStoredItem.name == "Mug" && isActive == true)
+        if (currentlyStoredItem != null && currentlyStoredItem.name == "Mug" && isActive == true)
         {
             currentlyStoredItem.GetComponent<Mug>().AddIngredient("Water");
         }

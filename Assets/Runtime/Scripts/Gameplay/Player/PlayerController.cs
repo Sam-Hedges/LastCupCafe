@@ -150,7 +150,7 @@ public class PlayerController : MonoBehaviour {
                 Quaternion.LookRotation(clampLookDirection), Time.fixedDeltaTime * 25f);
         }
         
-        playerMotionBlendStateAnchor.Provide(clampLookDirection.magnitude);
+        playerMotionBlendStateAnchor.Provide(0f);
     }
     
     private void OnEmote() {
