@@ -38,7 +38,7 @@ namespace TMPro.Examples
 
             if (m_isHoveringObject)
             {
-                #region Example of CharacterCard Selection
+                #region Example of CharacterCardController Selection
                 int charIndex = TMP_TextUtilities.FindIntersectingCharacter(m_TextMeshPro, Input.mousePosition, Camera.main, true);
                 if (charIndex != -1 && charIndex != m_lastCharIndex && (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift)))
                 {

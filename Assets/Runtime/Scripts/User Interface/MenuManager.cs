@@ -14,20 +14,20 @@ public class MenuManager : MonoBehaviour
          //levelManager = gameObject.AddComponent<LevelManager>();
     }
     
-    private void OnEnable() {
-        inputController.EnableMenuInput();
-        inputController.StartGameEvent += LoadMenu;
-    }
-    
-    private void OnDisable() {
-        inputController.DisableAllInput();
-        inputController.StartGameEvent -= LoadMenu;
-    }
-    
-    internal void LoadMenu() {
-        startGameEvent.Invoke();
-        inputController.StartGameEvent -= LoadMenu;
-    }
+    // private void OnEnable() {
+    //     inputController.EnableMenuInput();
+    //     inputController.AnyInputEvent += LoadMenu;
+    // }
+    //
+    // private void OnDisable() {
+    //     inputController.DisableAllInput();
+    //     inputController.AnyInputEvent -= LoadMenu;
+    // }
+    //
+    // internal void LoadMenu() {
+    //     startGameEvent.Invoke();
+    //     inputController.AnyInputEvent -= LoadMenu;
+    // }
 
     public void ExitApplicatation() {
         Application.Quit();

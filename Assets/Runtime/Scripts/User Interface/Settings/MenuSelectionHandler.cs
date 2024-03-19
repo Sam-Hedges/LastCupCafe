@@ -48,7 +48,7 @@ public class MenuSelectionHandler : MonoBehaviour
 	}
 
 	/// <summary>
-	/// Fired by keyboard and gamepad inputs. Current selected UI element will be the ui Element that was selected
+	/// Fired by keyboard and gamepad inputControllers. Current selected UI element will be the ui Element that was selected
 	/// when the event was fired. The _currentSelection is updated later on, after the EventSystem moves to the
 	/// desired UI element, the UI element will call into UpdateSelection()
 	/// </summary>
@@ -102,7 +102,7 @@ public class MenuSelectionHandler : MonoBehaviour
 	}
 
 	/// <summary>
-	/// Fired by gamepad or keyboard navigation inputs
+	/// Fired by gamepad or keyboard navigation inputControllers
 	/// </summary>
 	/// <param name="uiElement"></param>
 	public void UpdateSelection(GameObject uiElement)

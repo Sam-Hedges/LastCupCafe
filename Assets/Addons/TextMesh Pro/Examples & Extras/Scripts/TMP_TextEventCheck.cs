@@ -41,7 +41,7 @@ namespace TMPro.Examples
 
         void OnCharacterSelection(char c, int index)
         {
-            Debug.Log("CharacterCard [" + c + "] at Index: " + index + " has been selected.");
+            Debug.Log("CharacterCardController [" + c + "] at Index: " + index + " has been selected.");
         }
 
         void OnSpriteSelection(char c, int index)

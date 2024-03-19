@@ -351,12 +351,12 @@
             "actions": [
                 {
                     "name": "Navigate",
-                    "type": "PassThrough",
+                    "type": "Value",
                     "id": "7df36041-ebb1-4b21-8b6d-96cd51d40cf2",
                     "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": true
                 },
                 {
                     "name": "Submit",
@@ -416,6 +416,15 @@
                     "name": "RightClick",
                     "type": "PassThrough",
                     "id": "ea16f3d4-af94-4478-b182-8c2bc7c6ba61",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "AnyInput",
+                    "type": "Button",
+                    "id": "e33f231f-1289-4d00-8d33-4f0246b6de08",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -693,7 +702,7 @@
                     "path": "*/{Submit}",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Keyboard&Mouse;Touch;Joystick;XR",
+                    "groups": "Keyboard&Mouse;Touch;Joystick;XR;Gamepad",
                     "action": "Submit",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -704,7 +713,7 @@
                     "path": "*/{Cancel}",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Keyboard&Mouse;Touch;Joystick;XR",
+                    "groups": "Keyboard&Mouse;Touch;Joystick;XR;Gamepad",
                     "action": "Cancel",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -816,6 +825,28 @@
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
                     "action": "RightClick",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1a52abae-92dd-4a71-bd04-a2e70a98e6d5",
+                    "path": "<Gamepad>/*",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "AnyInput",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "07b26d3d-eb8e-4c90-8066-d2ad77fe3f9e",
+                    "path": "<Keyboard>/anyKey",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "AnyInput",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
