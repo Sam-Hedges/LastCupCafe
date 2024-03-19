@@ -1,8 +1,15 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/UI Work/Scripts/MenuManager.asset.meta
+guid: ec0fd736132f32e4ebd894d97fbf3af4
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+========
 guid: 9c20f215af6a84358874d19ece3f974a
 NativeFormatImporter:
   externalObjects: {}
   mainObjectFileID: 0
+>>>>>>>> Staging:Assets/External/GUI Kit Casual Game/ResourcesData/Animatons/Loading.anim.meta
   userData: 
   assetBundleName: 
   assetBundleVariant: 

@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/UI Work/Scripts.meta
+guid: 5581c943798572747b3f5833bd3a7a72
+========
 guid: 590e7e63261fa4e31950471a670404eb
+>>>>>>>> Staging:Assets/External/GUI Kit Casual Game/Extensions.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}

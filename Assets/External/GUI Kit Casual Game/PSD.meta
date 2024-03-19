@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/External/GUI Kit Casual Game/PSD.meta
 guid: 418c0b2fa23bf4efd938e449ec17a343
+========
+guid: 0fdc59cab3620b84aa60e7a59ce57765
+>>>>>>>> origin/Design/Greybox-Charlie:Assets/Runtime/Art/Textures/Kitchen_Floor.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}

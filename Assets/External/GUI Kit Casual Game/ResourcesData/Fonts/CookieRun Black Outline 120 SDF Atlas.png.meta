@@ -1,9 +1,17 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/UI Work/LastCupCafe.png.meta
+guid: 0140fa5fd939a2e439b7687321d2fca4
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 12
+========
 guid: f4318018eb26b46dd83e7f4c0bfb4a9a
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
   serializedVersion: 11
+>>>>>>>> Staging:Assets/External/GUI Kit Casual Game/ResourcesData/Fonts/CookieRun Black Outline 120 SDF Atlas.png.meta
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -20,9 +28,15 @@ TextureImporter:
     externalNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
+    flipGreenChannel: 0
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
+<<<<<<<< HEAD:Assets/UI Work/LastCupCafe.png.meta
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+========
+>>>>>>>> Staging:Assets/External/GUI Kit Casual Game/ResourcesData/Fonts/CookieRun Black Outline 120 SDF Atlas.png.meta
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -31,12 +45,21 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
+<<<<<<<< HEAD:Assets/UI Work/LastCupCafe.png.meta
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 0
+========
     filterMode: -1
     aniso: -1
     mipBias: -100
     wrapU: 1
     wrapV: 1
     wrapW: 1
+>>>>>>>> Staging:Assets/External/GUI Kit Casual Game/ResourcesData/Fonts/CookieRun Black Outline 120 SDF Atlas.png.meta
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
@@ -54,10 +77,22 @@ TextureImporter:
   textureType: 8
   textureShape: 1
   singleChannelComponent: 0
+<<<<<<<< HEAD:Assets/UI Work/LastCupCafe.png.meta
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+========
   maxTextureSizeSet: 0
   compressionQualitySet: 0
   textureFormatSet: 0
   applyGammaDecoding: 0
+>>>>>>>> Staging:Assets/External/GUI Kit Casual Game/ResourcesData/Fonts/CookieRun Black Outline 120 SDF Atlas.png.meta
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -69,6 +104,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -81,9 +117,13 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
+<<<<<<<< HEAD:Assets/UI Work/LastCupCafe.png.meta
+    buildTarget: Server
+========
     buildTarget: iPhone
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -97,6 +137,7 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: Android
+>>>>>>>> Staging:Assets/External/GUI Kit Casual Game/ResourcesData/Fonts/CookieRun Black Outline 120 SDF Atlas.png.meta
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -105,8 +146,11 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+<<<<<<<< HEAD:Assets/UI Work/LastCupCafe.png.meta
+========
   - serializedVersion: 3
     buildTarget: WebGL
     maxTextureSize: 2048
@@ -119,6 +163,7 @@ TextureImporter:
     overridden: 1
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+>>>>>>>> Staging:Assets/External/GUI Kit Casual Game/ResourcesData/Fonts/CookieRun Black Outline 120 SDF Atlas.png.meta
   spriteSheet:
     serializedVersion: 2
     sprites: []
@@ -132,9 +177,15 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+<<<<<<<< HEAD:Assets/UI Work/LastCupCafe.png.meta
+    nameFileIdTable: {}
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+========
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
+>>>>>>>> Staging:Assets/External/GUI Kit Casual Game/ResourcesData/Fonts/CookieRun Black Outline 120 SDF Atlas.png.meta
   userData: 
   assetBundleName: 
   assetBundleVariant: 

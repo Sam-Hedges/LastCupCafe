@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Runtime/Art/VFX.meta
 guid: 667fd5859c61deb47b8fb78e397a1685
+========
+guid: 53dbe34e50f9b334ba79b86c6c8efe3e
+>>>>>>>> origin/Design/Greybox-Charlie:Assets/Runtime/Art/Textures.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}

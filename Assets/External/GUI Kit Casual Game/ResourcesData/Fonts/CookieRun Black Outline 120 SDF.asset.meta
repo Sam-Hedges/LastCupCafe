@@ -1,8 +1,15 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/UI Work/Scripts/PauseMenuManager.asset.meta
+guid: f8eeebd653f45b0499d722f8ff2e18b1
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+========
 guid: 7659f6d6ec9b642db8be29bc45fe97cc
 NativeFormatImporter:
   externalObjects: {}
   mainObjectFileID: 0
+>>>>>>>> Staging:Assets/External/GUI Kit Casual Game/ResourcesData/Fonts/CookieRun Black Outline 120 SDF.asset.meta
   userData: 
   assetBundleName: 
   assetBundleVariant: 
