@@ -21,10 +21,12 @@ MonoBehaviour:
     m_Address: Assets/Runtime/Scenes/Menus/MainMenu.unity
     m_ReadOnly: 0
     m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 50e6844e2c97c514db4cc7e1c02e2c55
     m_Address: Assets/Runtime/Scenes/Menus
     m_ReadOnly: 0
     m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 54c7e0748d018c343a2006e40061e606, type: 2}
   m_SchemaSet:
