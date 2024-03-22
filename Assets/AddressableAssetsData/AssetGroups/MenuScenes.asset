@@ -27,6 +27,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f1f933a5e3130924bbc1b07d1101943f
+    m_Address: Assets/Runtime/Scenes/Menus/DiegeticMainMenu.unity
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 54c7e0748d018c343a2006e40061e606, type: 2}
   m_SchemaSet:

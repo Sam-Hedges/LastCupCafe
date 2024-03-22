@@ -9,7 +9,7 @@ EditorBuildSettings:
     path: Assets/Runtime/Scenes/Initialization.unity
     guid: a2d206408e081974b8f42343863e20e7
   - enabled: 0
-    path: Assets/Runtime/Scenes/Menus/TestMainMenu.unity
+    path: Assets/Runtime/Scenes/Menus/DiegeticMainMenu.unity
     guid: f1f933a5e3130924bbc1b07d1101943f
   - enabled: 0
     path: Assets/Runtime/Scenes/Menus/UIScene.unity
