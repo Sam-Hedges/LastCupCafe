@@ -20,7 +20,7 @@ public class Workstation : MonoBehaviour, IInteractable
     GameObject minigameCanvas;
 
     public WorkstationType workstationType;
-    public GameObject currentlyStoredItem;
+    public Item currentlyStoredItem;
     [SerializeField] private Material highlightMaterial;
     private MeshRenderer _meshRenderer;
     private Material[] _defaultMaterials;
@@ -60,20 +60,22 @@ public class Workstation : MonoBehaviour, IInteractable
         _playerController = null;
     }
 
-    public void OnPlaceItem(GameObject newItem) {
+    public void OnPlaceItem(Item newItem) {
         if (currentlyStoredItem != null) return; 
         
         currentlyStoredItem = newItem;
+        
         currentlyStoredItem.transform.position = transform.position;
         currentlyStoredItem.transform.rotation = transform.rotation;
+        
         currentlyStoredItem.transform.SetParent(transform);
         currentlyStoredItem.transform.localPosition = Vector3.up;
     }
     
-    public GameObject OnRemoveItem() {
+    public Item OnRemoveItem() {
         if (currentlyStoredItem == null) return null;
         
-        GameObject temp = currentlyStoredItem;
+        Item temp = currentlyStoredItem;
         currentlyStoredItem = null;
         return temp;
     }
@@ -102,15 +104,15 @@ public class Workstation : MonoBehaviour, IInteractable
 
     }
 
-    public virtual void MinigameButton(GameObject heldItem)
+    public virtual void MinigameButton()
     {
         Debug.Log("Workstation active");
     }
-    public virtual void MinigameTrigger(float delta, GameObject heldItem)
+    public virtual void MinigameTrigger(float delta)
     {
         Debug.Log("Workstation active");
     }
-    public virtual void MinigameStick(Vector2 input, GameObject heldItem)
+    public virtual void MinigameStick(Vector2 input)
     {
         Debug.Log("Workstation active");
     }

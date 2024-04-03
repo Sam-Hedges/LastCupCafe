@@ -40,10 +40,10 @@ public class CoffeePlant : Workstation, IProduceItem {
         if (_currentHealth > maxHealth) _currentHealth = maxHealth;
     }
 
-    public GameObject ProduceItem() {
+    public Item ProduceItem() {
         if (_currentHealth <= 0) return null;
         _currentHealth -= 1;
         UpdateHealthSlider();
-        return Instantiate(coffeeBeansPrefab, transform.position + Vector3.up, Quaternion.identity);
+        return Instantiate(coffeeBeansPrefab, transform.position + Vector3.up, Quaternion.identity).GetComponent<Item>();
     }
 }

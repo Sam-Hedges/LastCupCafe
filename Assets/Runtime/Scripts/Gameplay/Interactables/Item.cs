@@ -6,6 +6,7 @@ using UnityEngine;
 public class Item : MonoBehaviour, IInteractable
 {
     [SerializeField] private Material highlightMaterial;
+    public Sprite iconSprite;
     private MeshRenderer _meshRenderer;
     private Material[] _defaultMaterials;
     private Material[] _highlightMaterials;
@@ -25,7 +26,7 @@ public class Item : MonoBehaviour, IInteractable
     private void OnCollisionEnter(Collision col) {
         if (col.gameObject.TryGetComponent(out Workstation workstation) && hasBeenThrown) {
             if (workstation.currentlyStoredItem != null) return;
-            workstation.currentlyStoredItem = gameObject;
+            workstation.currentlyStoredItem = this;
             transform.SetParent(workstation.transform);
             transform.localPosition = Vector3.up;
             transform.localRotation = Quaternion.identity;

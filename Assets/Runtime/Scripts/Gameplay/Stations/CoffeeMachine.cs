@@ -3,15 +3,24 @@ using UnityEngine.UI;
 
 public class CoffeeMachine : Workstation, IMinigameInteract
 {
+    [SerializeField] private WorkstationStateEventChannelSO workstationStateUpdateChannel;
     [SerializeField] private GameObject coffeeGroundsPrefab;
     private int charges = 0;
     private const int maxCharges = 3;
+    
+    private void Update()
+    {
+        workstationStateUpdateChannel.RaiseEvent(this);
+    }
 
     public bool CanProcessItem(GameObject item) {
         return item.GetComponent<CoffeeBeans>() != null && charges < maxCharges;
     }
 
-    public Image pressureBar;
+    [SerializeField] private Image pressureBar;
+    [SerializeField] private Image progressBar;
+    [SerializeField] private RectTransform needleTransform;
+    [SerializeField] private RectTransform sweetZoneTransform;
 
     //Colour values to be used later
     public Color badColor;
@@ -19,16 +28,16 @@ public class CoffeeMachine : Workstation, IMinigameInteract
 
     //TThe Target pressure player should be reaching
     public float pressureTarget;
-
     //The error value (how much lower/higher the delta can be and still give a correct output)
     public float pressureVariance;
 
     private bool _canComplete;
     private float savedInput;
     private float delta;
+    private float progressDelta;
 
 
-    public override void MinigameButton(GameObject heldItem)
+    public override void MinigameButton()
     {
         if (_canComplete && currentlyStoredItem.name == "Mug")
         {
@@ -41,38 +50,43 @@ public class CoffeeMachine : Workstation, IMinigameInteract
     }
     
     private void FixedUpdate() {
-        if (savedInput > 0) {
-            delta += 0.01f;
-        }
-        else {
-            delta -= 0.01f;
+        
+        switch (savedInput) {
+            case 0:
+                delta -= 0.01f;
+                break;
+            case 1:
+                delta += 0.01f;
+                break;
+            default:
+                // Lerp to smooth out jittery trigger input
+                delta = Mathf.Lerp(delta, savedInput, Time.fixedDeltaTime * 10);
+                break;
         }
 
+        // Clamp delta between 0 and 1
         delta = Mathf.Clamp(delta, 0, 1);
         
-        PressureOutput(delta);
+        // Update pressure bar
+        needleTransform.localEulerAngles = new Vector3(0, 0, delta * -240 + 120);
 
         if (delta >= pressureTarget - pressureVariance && delta <= pressureTarget + pressureVariance)
         {
             pressureBar.color = goodColor;
-            _canComplete = true;
+            progressDelta += 0.01f;
         }
         else
         {
             pressureBar.color = badColor;
-            _canComplete = false;
+            progressDelta -= 0.01f;
         }
-    }
-
-    public override void MinigameTrigger(float input, GameObject heldItem) {
         
-        savedInput = input;
+        progressDelta = Mathf.Clamp(progressDelta, 0, 0.25f);
+        
+        progressBar.fillAmount = progressDelta;
     }
 
-    //Used for setting pressure value for UI
-    private void PressureOutput(float input)
-    {
-        float outputValue = input * 0.75f;
-        pressureBar.fillAmount = outputValue;
+    public override void MinigameTrigger(float input) {
+        savedInput = input;
     }
 }

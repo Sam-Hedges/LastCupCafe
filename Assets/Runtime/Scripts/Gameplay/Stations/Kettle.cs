@@ -17,7 +17,7 @@ public class Kettle : Workstation, /*IProduceItem,*/ IMinigameInteract {
     }*/
 
     //Scrollbar UI object
-    public Scrollbar scrollBar;
+    public Image scrollBar;
 
     public Color filledCol;
     public Color warningCol;
@@ -33,24 +33,16 @@ public class Kettle : Workstation, /*IProduceItem,*/ IMinigameInteract {
 
     void Update()
     {
-        ColorBlock cb = scrollBar.colors;
-
         targetTime -= Time.deltaTime;
-        scrollBar.size = (targetTime / startTime);
-        if (targetTime > (startTime*0.7f))
-        {
-            cb.disabledColor = filledCol;
-            scrollBar.colors = cb;
+        scrollBar.fillAmount = (targetTime / startTime);
+        if (targetTime > (startTime*0.7f)) {
+            scrollBar.color = filledCol;
         }
-        else if (targetTime > (startTime*0.2f))
-        {
-            cb.disabledColor = warningCol;
-            scrollBar.colors = cb;
+        else if (targetTime > (startTime*0.2f)) {
+            scrollBar.color = warningCol;
         }
-        else if (targetTime < (startTime * 0.2f))
-        {
-            cb.disabledColor = emptyCol;
-            scrollBar.colors = cb;
+        else if (targetTime < (startTime * 0.2f)) {
+            scrollBar.color = emptyCol;
         }
         else if (targetTime <= 0.0f)
         {
@@ -65,7 +57,7 @@ public class Kettle : Workstation, /*IProduceItem,*/ IMinigameInteract {
 
     }
 
-    public override void MinigameButton(GameObject heldItem)
+    public override void MinigameButton()
     {
         targetTime = startTime;
         Debug.Log("Kettle Active");

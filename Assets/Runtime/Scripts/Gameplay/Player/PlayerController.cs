@@ -75,7 +75,7 @@ public class PlayerController : MonoBehaviour {
     [Header("Interaction")] [Space]
     [SerializeField] private LayerMask interactionLayerMask;
     [SerializeField] private Vector3 interactionBoxSize = new(1, 2, 1);
-    private GameObject _currentlyHeldItem;
+    private Item _currentlyHeldItem;
     [HideInInspector] public GameObject recentlyCastInteractable;
 
     // ANIMATION
@@ -244,18 +244,18 @@ public class PlayerController : MonoBehaviour {
     //Interact button press for Minigame
     public void OnGameInteract()
     {
-        activeStation.MinigameButton(_currentlyHeldItem);
+        activeStation.MinigameButton();
     }
 
     internal void OnMinigameMovement(Vector2 input)
     {
         Vector2 inputValue = new Vector2(input.x, input.y);
-        activeStation.MinigameStick(inputValue, _currentlyHeldItem);
+        activeStation.MinigameStick(inputValue);
     }
 
     internal void OnPressureEvent(float input)
     {
-        activeStation.MinigameTrigger(input, _currentlyHeldItem);
+        activeStation.MinigameTrigger(input);
     }
 
     private void OnItemInteract() {
@@ -282,7 +282,7 @@ public class PlayerController : MonoBehaviour {
             return;
         }
         if (hitCollider.TryGetComponent(out Item item)) {
-            PickupItem(item.gameObject);
+            PickupItem(item);
         }
     }
 
@@ -337,7 +337,7 @@ public class PlayerController : MonoBehaviour {
         return true; // Collider found
     }
     
-    private void ToggleItemCollisionAndPhysics(GameObject item, bool enable) {
+    private void ToggleItemCollisionAndPhysics(Item item, bool enable) {
         Rigidbody itemRigidbody = item.GetComponent<Rigidbody>();
         Collider itemCollider = item.GetComponent<Collider>();
         
@@ -351,7 +351,7 @@ public class PlayerController : MonoBehaviour {
         itemCollider.enabled = false;
     } 
 
-    private void PickupItem(GameObject item) {
+    private void PickupItem(Item item) {
         if (_currentlyHeldItem != null) return;
 
         _currentlyHeldItem = item;

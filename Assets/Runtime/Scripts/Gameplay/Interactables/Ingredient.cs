@@ -2,12 +2,12 @@ using System;
 using UnityEngine;
 
 public enum IngredientType {
-    Mug,
     Milk,
     CoffeeBeans,
     CoffeeGrounds,
     ChocolatePowder,
     CaramelSyrup,
+    Water
 }
 public class Ingredient : Item {
     

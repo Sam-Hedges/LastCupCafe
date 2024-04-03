@@ -3,8 +3,8 @@ using UnityEngine;
 public interface IMinigameInteract
 
 {
-    void MinigameButton(GameObject heldItem);
-    void MinigameTrigger(float delta, GameObject heldItem);
-    void MinigameStick(Vector2 input, GameObject heldItem);
+    void MinigameButton();
+    void MinigameTrigger(float delta);
+    void MinigameStick(Vector2 input);
     void GameUI(bool active);
 }

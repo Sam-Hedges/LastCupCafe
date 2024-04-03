@@ -5,11 +5,11 @@ public class CoffeeGrinder : Workstation, IProcessItem, IMinigameInteract
     private int charges = 0;
     private const int maxCharges = 3;
 
-    public bool CanProcessItem(GameObject item) {
+    public bool CanProcessItem(Item item) {
         return item.GetComponent<CoffeeBeans>() != null && charges < maxCharges;
     }
 
-    public void ProcessItem(GameObject item) {
+    public void ProcessItem(Item item) {
         if (!CanProcessItem(item)) return;
         Destroy(item);
         charges++;
@@ -17,10 +17,10 @@ public class CoffeeGrinder : Workstation, IProcessItem, IMinigameInteract
     }
 
     // Method to retrieve coffee grounds
-    public GameObject RetrieveGrounds() {
+    public Item RetrieveGrounds() {
         if (charges > 0) {
             charges--;
-            return Instantiate(coffeeGroundsPrefab, transform.position + Vector3.up, Quaternion.identity);
+            return Instantiate(coffeeGroundsPrefab, transform.position + Vector3.up, Quaternion.identity).GetComponent<Item>();
         }
         return null;
     }
