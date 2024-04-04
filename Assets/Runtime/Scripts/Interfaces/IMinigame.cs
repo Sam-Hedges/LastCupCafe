@@ -1,10 +1,8 @@
 using UnityEngine;
 
-public interface IMinigameInteract
-
+public interface IMinigame
 {
     void MinigameButton();
     void MinigameTrigger(float delta);
     void MinigameStick(Vector2 input);
-    void GameUI(bool active);
 }

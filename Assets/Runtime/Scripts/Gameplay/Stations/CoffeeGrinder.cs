@@ -1,5 +1,5 @@
 using UnityEngine;
-public class CoffeeGrinder : Workstation, IProcessItem, IMinigameInteract
+public class CoffeeGrinder : Workstation, IProcessItem, IMinigame
 {
     [SerializeField] private GameObject coffeeGroundsPrefab;
     private int charges = 0;

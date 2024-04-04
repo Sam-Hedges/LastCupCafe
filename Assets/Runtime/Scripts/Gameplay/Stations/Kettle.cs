@@ -1,66 +1,99 @@
+using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Kettle : Workstation, /*IProduceItem,*/ IMinigameInteract {
-
-    //---ProduceItem has been disabled to allow Minigame interactions - errors are thrown when both ProduceItem and Minigame are present at once
-    //---ProduceItem also doesn't appear to be properly implemented? Unsure how it's meant to work
-    /*public GameObject ProduceItem() {
-        // Simulate filling a mug with water, ideally with a minigame for stopping at the right moment
-        return null;
-    }
-
-    public override void OnInteract()
-    {
-        base.OnInteract();
-        ProduceItem();
-    }*/
-
+public class Kettle : Workstation, IMinigame {
     //Scrollbar UI object
-    public Image scrollBar;
+    [SerializeField] private LiquidUI temperatureGauge;
+    [SerializeField] private Image progressMeter;
+    [SerializeField] private Color filledCol;
+    [SerializeField] private Color warningCol;
+    [SerializeField] private Color emptyCol;
+    [SerializeField] private float startTime = 45.0f;
 
-    public Color filledCol;
-    public Color warningCol;
-    public Color emptyCol;
+    // Timer functions
+    private float _currentTime = 0.0f;
+    private bool _isActive;
+    private bool _isOnCooldown;
+    private Mug _lastFilledMug;
+    private Coroutine _cooldownRoutine;
 
-    //Timer functions
-    float targetTime = 0.0f;
-    public float startTime = 20.0f;
-
-    //If true water can be taken, if false kettle must be re-boiled before water can be taken
-    //Should be used alongside ProduceItem I think?
-    bool isActive = true;
-
-    void Update()
-    {
-        targetTime -= Time.deltaTime;
-        scrollBar.fillAmount = (targetTime / startTime);
-        if (targetTime > (startTime*0.7f)) {
-            scrollBar.color = filledCol;
-        }
-        else if (targetTime > (startTime*0.2f)) {
-            scrollBar.color = warningCol;
-        }
-        else if (targetTime < (startTime * 0.2f)) {
-            scrollBar.color = emptyCol;
-        }
-        else if (targetTime <= 0.0f)
-        {
-            isActive = false;
-            targetTime = 0.0f;
-        }
-
-        if (currentlyStoredItem != null && currentlyStoredItem.name == "Mug" && isActive == true)
-        {
-            currentlyStoredItem.GetComponent<Mug>().AddIngredient("Water");
-        }
-
+    private void Start() {
+        progressMeter.color = filledCol;
     }
 
-    public override void MinigameButton()
-    {
-        targetTime = startTime;
-        Debug.Log("Kettle Active");
-        isActive = true;
+    private void FixedUpdate() {
+        if (_isOnCooldown) return;
+        if (!_isActive) return;
+
+        _currentTime -= Time.fixedDeltaTime;
+        float progress = _currentTime / startTime;
+        temperatureGauge.targetFillAmount = progress;
+
+        if (progress < 0.7f) {
+            temperatureGauge.targetForegroundColor = filledCol;
+        }
+        else if (progress < 0.5f) {
+            temperatureGauge.targetForegroundColor = warningCol;
+        }
+        else if (progress <  0.3f) {
+            temperatureGauge.targetForegroundColor = emptyCol;
+        }
+        else if (progress <= 0) {
+            _currentTime = 0;
+            _cooldownRoutine = StartCoroutine(KettleCooldown(10));
+            return;
+        }
+
+        FillMug();
+    }
+
+    private void FillMug() {
+        if (currentlyStoredItem &&
+            currentlyStoredItem.TryGetComponent(out Mug mug) != _lastFilledMug) {
+            progressMeter.fillAmount += 0.01f;
+            progressMeter.fillAmount = Mathf.Clamp(progressMeter.fillAmount, 0, 0.25f);
+            if (progressMeter.fillAmount == 0.25f) {
+                mug.AddIngredient(IngredientType.Water);
+                progressMeter.fillAmount = 0;
+                _lastFilledMug = mug;
+            }
+        }
+    }
+
+    private IEnumerator KettleCooldown(float seconds) {
+        _isOnCooldown = true;
+        float counter = 0;
+
+        progressMeter.fillAmount = 0.25f;
+        progressMeter.color = emptyCol;
+
+        while (true) {
+            if (counter >= seconds) break;
+            yield return new WaitForSeconds(1);
+            counter++;
+
+            float progressDelta = -Mathf.Clamp(counter / seconds * 0.25f, 0, 0.25f);
+            progressMeter.fillAmount = progressDelta;
+        }
+
+        _isOnCooldown = false;
+        _cooldownRoutine = null;
+        progressMeter.color = filledCol;
+        progressMeter.fillAmount = 0f;
+        yield return null;
+    }
+
+    public override void MinigameButton() {
+        if (_isOnCooldown) {
+            // TODO: Play can't do SFX
+            
+        }
+        else {
+            _currentTime = startTime;
+            _isActive = true;
+            Debug.Log("Kettle Active");
+        }
     }
 }

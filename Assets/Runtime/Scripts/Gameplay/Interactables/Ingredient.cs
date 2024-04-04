@@ -12,5 +12,6 @@ public enum IngredientType {
 public class Ingredient : Item {
     
     public IngredientType IngredientType { get; private set; }
-    
+    public Sprite Icon;
+
 }

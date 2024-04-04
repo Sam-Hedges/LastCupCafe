@@ -16,64 +16,67 @@ public class PlayerController : MonoBehaviour {
     private Vector3 MovementOutputVector =>
         ScaleCameraTransform(_mainCamera.transform.forward) * _movementInputVector.y +
         CameraTransformRight * _movementInputVector.x;
+
     private Vector2 _movementInputVector;
     private Vector2 _lookInputVector;
     private Vector3 _lookOutputVector;
     private Vector3 CameraTransformForward => ScaleCameraTransform(_mainCamera.transform.forward);
     private Vector3 CameraTransformRight => ScaleCameraTransform(_mainCamera.transform.right);
+
     private Vector3 ScaleCameraTransform(Vector3 cameraTransform) {
         cameraTransform.y = 0.0f;
         cameraTransform.Normalize();
         return cameraTransform;
     }
 
-    [Header("Movement"), Space] 
-    [Tooltip("The speed of the player when moving")]
-    [SerializeField] private float maxSpeed = 5f;
-    
-    [Tooltip("How fast the player reaches max speed")]
-    [SerializeField] private float acceleration = 200f;
-    
-    [Tooltip("Limits the maximum force that can be applied whilst accelerating")]
-    [SerializeField] private float maxAcceleration = 150;
-    
+    [Header("Movement"), Space] [Tooltip("The speed of the player when moving")] [SerializeField]
+    private float maxSpeed = 5f;
+
+    [Tooltip("How fast the player reaches max speed")] [SerializeField]
+    private float acceleration = 200f;
+
+    [Tooltip("Limits the maximum force that can be applied whilst accelerating")] [SerializeField]
+    private float maxAcceleration = 150;
+
     [Tooltip("Adjusts the acceleration based on how close the current velocity is to the goal velocity. " +
              "By default, this is set to ramp up the acceleration when changing direction, and keep it the same when in the same direction.")]
-    [SerializeField] private AnimationCurve accelerationFactor;
-    
+    [SerializeField]
+    private AnimationCurve accelerationFactor;
+
     [Tooltip("Adjusts the maximum acceleration based on how close the current velocity is to the goal velocity. " +
              "By default, this is set to ramp up the maximum acceleration when changing direction, and keep it the same when in the same direction.")]
-    [SerializeField] private AnimationCurve maxAccelerationFactor;
-    
-    [Tooltip("Used to change which axis the force is applied to.")]
-    [SerializeField] private Vector3 forceScale;
-    
-    [Tooltip("The speed of the player when dashing")]
-    [SerializeField] private float dashSpeed = 8f;
+    [SerializeField]
+    private AnimationCurve maxAccelerationFactor;
 
-    
-    [Header("RigidBody Ride"), Space] 
-    [Tooltip("How high the player should ride above the ground")]
-    [SerializeField] private float rideHeight = 1.2f;
-    
-    [Tooltip("The strength of the spring force that maintains the ride height")]
-    [SerializeField] private float rideSpringStrength = 2000f;
-    
-    [Tooltip("The damping force that reduces the spring force over time")]
-    [SerializeField] private float rideSpringDamper = 100f;
-    
-    [Tooltip("The layer mask used to determine what is considered ground")]
-    [SerializeField] private LayerMask groundMask;
-    
-    [Tooltip("The origin of the ray used to check for ground")]
-    [SerializeField] private Transform groundCheckOrigin;
+    [Tooltip("Used to change which axis the force is applied to.")] [SerializeField]
+    private Vector3 forceScale;
+
+    [Tooltip("The speed of the player when dashing")] [SerializeField]
+    private float dashSpeed = 8f;
+
+
+    [Header("RigidBody Ride"), Space] [Tooltip("How high the player should ride above the ground")] [SerializeField]
+    private float rideHeight = 1.2f;
+
+    [Tooltip("The strength of the spring force that maintains the ride height")] [SerializeField]
+    private float rideSpringStrength = 2000f;
+
+    [Tooltip("The damping force that reduces the spring force over time")] [SerializeField]
+    private float rideSpringDamper = 100f;
+
+    [Tooltip("The layer mask used to determine what is considered ground")] [SerializeField]
+    private LayerMask groundMask;
+
+    [Tooltip("The origin of the ray used to check for ground")] [SerializeField]
+    private Transform groundCheckOrigin;
 
     private Vector3 _unitGoal;
     private Vector3 _goalVel;
     private bool _isDashing;
 
-    [Header("Interaction")] [Space]
-    [SerializeField] private LayerMask interactionLayerMask;
+    [Header("Interaction")] [Space] [SerializeField]
+    private LayerMask interactionLayerMask;
+
     [SerializeField] private Vector3 interactionBoxSize = new(1, 2, 1);
     private Item _currentlyHeldItem;
     [HideInInspector] public GameObject recentlyCastInteractable;
@@ -82,7 +85,7 @@ public class PlayerController : MonoBehaviour {
     [HideInInspector] public FloatAnchor playerMotionBlendStateAnchor;
     [HideInInspector] public VoidEventChannelSO playerPickupItemEventChannel;
     [HideInInspector] public VoidEventChannelSO playerDropItemEventChannel;
-    
+
     // Minigame interaction variables
     private bool inMinigame;
     private Workstation activeStation;
@@ -137,13 +140,13 @@ public class PlayerController : MonoBehaviour {
         // Broadcast the motion blend state to the animation controller
         playerMotionBlendStateAnchor.Provide(_movementInputVector.magnitude);
     }
-    
+
     private void OnAim(Vector2 input) {
         Vector2 inputValue = new Vector2(input.x, input.y);
-        
+
         Vector3 lookDirection = ScaleCameraTransform(_mainCamera.transform.forward) * inputValue.y +
-        CameraTransformRight * inputValue.x;
-        
+                                CameraTransformRight * inputValue.x;
+
         // Clamp the magnitude of the movement output vector to 1 to ensure the direction doesn't exceed a unit vector.
         Vector3 clampLookDirection = Vector3.ClampMagnitude(lookDirection, 1f);
 
@@ -153,10 +156,10 @@ public class PlayerController : MonoBehaviour {
             transform.rotation = Quaternion.Slerp(transform.rotation,
                 Quaternion.LookRotation(clampLookDirection), Time.fixedDeltaTime * 25f);
         }
-        
+
         playerMotionBlendStateAnchor.Provide(0f);
     }
-    
+
     private void OnEmote() {
         throw new System.NotImplementedException();
     }
@@ -164,19 +167,19 @@ public class PlayerController : MonoBehaviour {
     private void OnPause() {
         throw new System.NotImplementedException();
     }
-    
+
     private void OnThrow() {
-        _inputController.MoveEvent -= OnAim;
         _inputController.MoveEvent += OnMovement;
         ThrowItem();
+
+        _inputController.MoveEvent -= OnAim;
         _inputController.ThrowEvent -= OnThrow;
     }
 
 
     //Station Interact
     private void OnStationInteract() {
-        if (_currentlyHeldItem != null)
-        {
+        if (_currentlyHeldItem != null) {
             _inputController.ThrowEvent += OnThrow;
             _inputController.MoveEvent -= OnMovement;
             _inputController.MoveEvent += OnAim;
@@ -185,8 +188,7 @@ public class PlayerController : MonoBehaviour {
         }
 
         //Presume active station and deactivate - used as backup for edge cases where player has activated a station but object has blocked interaction
-        if (inMinigame)
-        {
+        if (inMinigame) {
             activeStation = null;
             _inputController.MoveEvent += OnMovement;
             _inputController.ItemInteractEvent -= OnGameInteract;
@@ -200,73 +202,70 @@ public class PlayerController : MonoBehaviour {
         Collider hitCollider = default;
         bool hit = CastForInteractable(ref hitCollider);
 
-        if (!hit) return;
+        if (!hit || !hitCollider.TryGetComponent(out Workstation station)) return;
 
-        if (hitCollider.TryGetComponent(out Workstation station)) {
-            // Check if station can produce an Item
-            if (station.TryGetComponent(out IProduceItem produceItem))
-            {
-                PickupItem(produceItem.ProduceItem());
-                return;
-            }
-            // Check if Station has a Minigame interactable
-            // Warning: An error is produced if a station has *both* a Minigame interface AND a ProduceItem interface at the same time (see: Kettle.cs)
+        // Check if station is a Producer
+        if (station.TryGetComponent(out IProduceItem produceItem)) {
+            PickupItem(produceItem.ProduceItem());
+            return;
+        }
 
-            if (station.TryGetComponent(out IMinigameInteract minigameInteract))
-            {
-                if (inMinigame == false)
-                {
-                    _inputController.MoveEvent -= OnMovement;
-                    //Disable Item pickup/placement, enable Minigame interactions
-                    _inputController.ItemInteractEvent -= OnItemInteract;
-                    _inputController.ItemInteractEvent += OnGameInteract;
-                    _inputController.MinigameMoveEvent += OnMinigameMovement;
-                    _inputController.PressureEvent += OnPressureEvent;
-                    inMinigame = true;
-                    minigameInteract.GameUI(true);
+        // Check if Station is a modifier
+        if (station.TryGetComponent(out IMinigame minigame)) {
+            switch (station) {
+                case Kettle:
                     activeStation = station;
-                }
-                else
-                {
-                    activeStation = null;
-                    _inputController.MoveEvent += OnMovement;
-                    _inputController.ItemInteractEvent -= OnGameInteract;
-                    _inputController.MinigameMoveEvent -= OnMinigameMovement;
-                    _inputController.PressureEvent -= OnPressureEvent;
-                    _inputController.ItemInteractEvent += OnItemInteract;
-                    inMinigame = false;
-                    minigameInteract.GameUI(false);
-                }
+                    OnGameInteract();
+                    return;
+                default:
+                    if (inMinigame == false) {
+                        //Disable Item pickup/placement, enable Minigame interactions
+                        _inputController.MoveEvent -= OnMovement;
+                        _inputController.ItemInteractEvent -= OnItemInteract;
+                        _inputController.ItemInteractEvent += OnGameInteract;
+                        _inputController.MinigameMoveEvent += OnMinigameMovement;
+                        _inputController.PressureEvent += OnPressureEvent;
+                        inMinigame = true;
+                        activeStation = station;
+                    }
+                    else {
+                        activeStation = null;
+                        _inputController.MoveEvent += OnMovement;
+                        _inputController.ItemInteractEvent -= OnGameInteract;
+                        _inputController.MinigameMoveEvent -= OnMinigameMovement;
+                        _inputController.PressureEvent -= OnPressureEvent;
+                        _inputController.ItemInteractEvent += OnItemInteract;
+                        inMinigame = false;
+                    }
+
+                    break;
             }
         }
     }
 
     //Interact button press for Minigame
-    public void OnGameInteract()
-    {
+    public void OnGameInteract() {
         activeStation.MinigameButton();
     }
 
-    internal void OnMinigameMovement(Vector2 input)
-    {
+    internal void OnMinigameMovement(Vector2 input) {
         Vector2 inputValue = new Vector2(input.x, input.y);
         activeStation.MinigameStick(inputValue);
     }
 
-    internal void OnPressureEvent(float input)
-    {
+    internal void OnPressureEvent(float input) {
         activeStation.MinigameTrigger(input);
     }
 
     private void OnItemInteract() {
         Collider hitCollider = default;
-        Workstation station;
         bool hit = CastForInteractable(ref hitCollider);
+        Workstation station;
 
         // Put Down Logic
         if (_currentlyHeldItem != null) {
             // If the player is holding an currentlyStoredItem and the hit collider is a workstation, place the currentlyStoredItem
-            if (hit && hitCollider.TryGetComponent(out station) && station.currentlyStoredItem == null) { 
+            if (hit && hitCollider.TryGetComponent(out station) && station.currentlyStoredItem == null) {
                 PlaceItem(station);
                 return;
             }
@@ -274,13 +273,14 @@ public class PlayerController : MonoBehaviour {
             DropItem();
             return;
         }
-        
+
         // Pick Up Logic
         if (!hit) return;
         if (hitCollider.TryGetComponent(out station)) {
             PickupItem(station);
             return;
         }
+
         if (hitCollider.TryGetComponent(out Item item)) {
             PickupItem(item);
         }
@@ -293,14 +293,14 @@ public class PlayerController : MonoBehaviour {
     private void FixedUpdate() {
         RigidBodyRide();
         RotateToUpright();
-        
+
         if (!_isDashing) {
             Movement(maxSpeed);
         }
         else {
             Movement(dashSpeed);
         }
-        
+
         QueryInteractables();
     }
 
@@ -312,16 +312,17 @@ public class PlayerController : MonoBehaviour {
         Transform tform = transform;
         // Calculate the center of the box
         Vector3 boxCenter = tform.position + tform.forward;
-    
+
         // Use Physics.OverlapBox to find colliders within the specified box
-        Collider[] hitColliders = Physics.OverlapBox(boxCenter, interactionBoxSize, tform.rotation, interactionLayerMask);
-    
+        Collider[] hitColliders =
+            Physics.OverlapBox(boxCenter, interactionBoxSize, tform.rotation, interactionLayerMask);
+
         // Check if we found any colliders
         if (hitColliders.Length == 0) {
             hitCollider = null;
             return false; // No colliders found
         }
-    
+
         // Find the closest collider
         Collider closestCollider = hitColliders[0];
         float closestDistance = Vector3.Distance(tform.position, closestCollider.transform.position);
@@ -336,11 +337,11 @@ public class PlayerController : MonoBehaviour {
         hitCollider = closestCollider;
         return true; // Collider found
     }
-    
+
     private void ToggleItemCollisionAndPhysics(Item item, bool enable) {
         Rigidbody itemRigidbody = item.GetComponent<Rigidbody>();
         Collider itemCollider = item.GetComponent<Collider>();
-        
+
         if (enable) {
             itemRigidbody.isKinematic = false;
             itemCollider.enabled = true;
@@ -349,7 +350,7 @@ public class PlayerController : MonoBehaviour {
 
         itemRigidbody.isKinematic = true;
         itemCollider.enabled = false;
-    } 
+    }
 
     private void PickupItem(Item item) {
         if (_currentlyHeldItem != null) return;
@@ -360,10 +361,10 @@ public class PlayerController : MonoBehaviour {
         _currentlyHeldItem.transform.localRotation = Quaternion.Euler(0, 0, 0);
 
         ToggleItemCollisionAndPhysics(_currentlyHeldItem, false);
-        
+
         playerPickupItemEventChannel.RaiseEvent();
     }
-    
+
     private void PickupItem(Workstation station) {
         if (station.currentlyStoredItem == null || _currentlyHeldItem != null) return;
 
@@ -373,13 +374,13 @@ public class PlayerController : MonoBehaviour {
         _currentlyHeldItem.transform.localRotation = Quaternion.Euler(0, 0, 0);
 
         ToggleItemCollisionAndPhysics(_currentlyHeldItem, false);
-        
+
         playerPickupItemEventChannel.RaiseEvent();
     }
 
     private void DropItem() {
         if (_currentlyHeldItem == null) return;
-        
+
         ToggleItemCollisionAndPhysics(_currentlyHeldItem, true);
 
         _currentlyHeldItem.transform.SetParent(null);
@@ -390,34 +391,34 @@ public class PlayerController : MonoBehaviour {
 
     private void PlaceItem(Workstation station) {
         if (station.currentlyStoredItem != null || _currentlyHeldItem == null) return;
-        
+
         ToggleItemCollisionAndPhysics(_currentlyHeldItem, false);
-        
+
         _currentlyHeldItem.transform.SetParent(null);
         station.OnPlaceItem(_currentlyHeldItem);
         _currentlyHeldItem = null;
-        
+
         playerDropItemEventChannel.RaiseEvent();
-        
     }
-    
+
     private void ThrowItem() {
         if (_currentlyHeldItem == null) return;
-        
+
         ToggleItemCollisionAndPhysics(_currentlyHeldItem, true);
-        
+
         _currentlyHeldItem.transform.position += transform.forward;
         _currentlyHeldItem.transform.SetParent(null);
         _currentlyHeldItem.GetComponent<Item>().hasBeenThrown = true;
-        
+
         Rigidbody itemRigidbody = _currentlyHeldItem.GetComponent<Rigidbody>();
         itemRigidbody.AddForce(transform.forward * 100, ForceMode.Impulse);
-        itemRigidbody.AddTorque(new Vector3(Random.Range(0, 1), Random.Range(0, 1), Random.Range(0, 1)) * 10, ForceMode.Impulse);
+        itemRigidbody.AddTorque(new Vector3(Random.Range(0, 1), Random.Range(0, 1), Random.Range(0, 1)) * 10,
+            ForceMode.Impulse);
         _currentlyHeldItem = null;
-        
+
         playerDropItemEventChannel.RaiseEvent();
     }
-    
+
     private void QueryInteractables() {
         Collider hitCollider = default;
         bool hit = CastForInteractable(ref hitCollider);
@@ -426,7 +427,7 @@ public class PlayerController : MonoBehaviour {
             recentlyCastInteractable = null;
             return;
         }
-        
+
         recentlyCastInteractable = hitCollider.gameObject;
         if (hitCollider.TryGetComponent(out Workstation station)) station.AddHighlight(this);
         if (hitCollider.TryGetComponent(out Item item)) item.AddHighlight(this);
@@ -443,6 +444,7 @@ public class PlayerController : MonoBehaviour {
             timeElapsed += Time.fixedDeltaTime;
             yield return new WaitForFixedUpdate();
         }
+
         _isDashing = false;
     }
 
@@ -550,18 +552,19 @@ public class PlayerController : MonoBehaviour {
     void OnDrawGizmos() {
         Transform tform = transform;
         Vector3 boxCenter = tform.position + tform.forward;
-    
+
         // Temporarily store the collider hit by the CastForInteractable method
         Collider hitCollider = null;
         // Check if something was hit and set the Gizmo color accordingly
         bool hitDetected = CastForInteractable(ref hitCollider);
-    
+
         // Set Gizmo color based on whether an interactable was hit
         Gizmos.color = hitDetected ? Color.green : Color.red;
-    
+
         // Draw the box Gizmo
         // Note: Unity's Gizmos.DrawCube expects the world space position (center of the cube) and its size
-        Gizmos.matrix = Matrix4x4.TRS(boxCenter, tform.rotation, Vector3.one); // Align Gizmo with the transform's orientation
+        Gizmos.matrix =
+            Matrix4x4.TRS(boxCenter, tform.rotation, Vector3.one); // Align Gizmo with the transform's orientation
         Gizmos.DrawWireCube(Vector3.zero, interactionBoxSize * 2); // DrawWireCube draws in local space of the matrix
     }
 }

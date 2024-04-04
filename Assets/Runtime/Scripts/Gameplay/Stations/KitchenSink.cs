@@ -1,5 +1,5 @@
 using UnityEngine;
-public class KitchenSink : Workstation, IProcessItem, IMinigameInteract
+public class KitchenSink : Workstation, IProcessItem, IMinigame
 {
 
     public bool CanProcessItem(Item item)

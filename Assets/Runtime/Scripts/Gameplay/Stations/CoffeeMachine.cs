@@ -1,22 +1,11 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class CoffeeMachine : Workstation, IMinigameInteract
+public class CoffeeMachine : Workstation, IMinigame
 {
     [SerializeField] private WorkstationStateEventChannelSO workstationStateUpdateChannel;
     [SerializeField] private GameObject coffeeGroundsPrefab;
-    private int charges = 0;
-    private const int maxCharges = 3;
     
-    private void Update()
-    {
-        workstationStateUpdateChannel.RaiseEvent(this);
-    }
-
-    public bool CanProcessItem(GameObject item) {
-        return item.GetComponent<CoffeeBeans>() != null && charges < maxCharges;
-    }
-
     [SerializeField] private Image pressureBar;
     [SerializeField] private Image progressBar;
     [SerializeField] private RectTransform needleTransform;
@@ -36,12 +25,23 @@ public class CoffeeMachine : Workstation, IMinigameInteract
     private float delta;
     private float progressDelta;
 
+    private int charges = 0;
+    private const int maxCharges = 3;
+    
+    private void Update()
+    {
+        workstationStateUpdateChannel.RaiseEvent(this);
+    }
+
+    public bool CanProcessItem(GameObject item) {
+        return item.GetComponent<CoffeeBeans>() != null && charges < maxCharges;
+    }
+
 
     public override void MinigameButton()
     {
-        if (_canComplete && currentlyStoredItem.name == "Mug")
-        {
-            currentlyStoredItem.GetComponent<Mug>().AddIngredient("Coffee");
+        if (currentlyStoredItem.TryGetComponent(out Mug mug) && _canComplete) {
+            mug.AddIngredient(IngredientType.CoffeeGrounds);
         }
         else
         {
