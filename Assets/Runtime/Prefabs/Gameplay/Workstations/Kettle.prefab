@@ -1462,7 +1462,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9880bc8ccf855c44b9be0e895efddaac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  automaticTransitionEffect: 1
+  automaticTransitionEffect: 0
   targetFillAmount: 0
   smoothness: 10
   targetForegroundColor: {r: 0.8584906, g: 0.30196092, b: 0.29696208, a: 1}

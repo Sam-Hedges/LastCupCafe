@@ -4919,12 +4919,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Editor Initializer
       objectReference: {fileID: 0}
-    - target: {fileID: 7233986299214802163, guid: 6fbbb480148449c4291bf1778fbfac5a,
-        type: 3}
-      propertyPath: _thisSceneSO
-      value: 
-      objectReference: {fileID: 11400000, guid: e392da137a4586d43b943a39640c9d3d,
-        type: 2}
     - target: {fileID: 8240499276114829178, guid: 6fbbb480148449c4291bf1778fbfac5a,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -9687,6 +9681,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6341497469831673082, guid: c67b4b281387cf148910273b605efbcf,
+        type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7424921329003050090, guid: c67b4b281387cf148910273b605efbcf,
         type: 3}

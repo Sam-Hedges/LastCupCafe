@@ -28,7 +28,7 @@ public class CoffeeMachine : Workstation, IMinigame
     private int charges = 0;
     private const int maxCharges = 3;
     
-    private void Update()
+    private void Start()
     {
         workstationStateUpdateChannel.RaiseEvent(this);
     }

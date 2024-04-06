@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.ResourceManagement.ResourceProviders;
@@ -14,13 +16,33 @@ public class EditorColdStartup : MonoBehaviour
 	[SerializeField] private GameSceneSO _persistentManagersSO = default;
 	[SerializeField] private AssetReference _notifyColdStartupChannel = default;
 	[SerializeField] private VoidEventChannelSO _onSceneReadyChannel = default;
+	[SerializeField] private WorkstationStateEventChannelSO _workstationStateUpdateChannel;
+	[SerializeField] private GameObjectEventChannelSO _iconCanvasReadyChannel;
 
+	private List<Workstation> _uninitialisedWorkstationIcons;
 	private bool isColdStart = false;
 	private void Awake()
 	{
 		if (!SceneManager.GetSceneByName(_persistentManagersSO.sceneReference.editorAsset.name).isLoaded)
 		{
 			isColdStart = true;
+		}
+
+		_workstationStateUpdateChannel.OnEventRaised += AddWorkstationIcon;
+		_iconCanvasReadyChannel.OnEventRaised += InitialiseGameplayIconManager;
+		_uninitialisedWorkstationIcons = new List<Workstation>();
+	}
+
+	private void AddWorkstationIcon(Workstation workstation) {
+		_uninitialisedWorkstationIcons.Add(workstation);
+	}
+
+	private void InitialiseGameplayIconManager(GameObject go) {
+		if (go.TryGetComponent(out GameplayIconManager manager)) {
+			foreach (var workstation in _uninitialisedWorkstationIcons) {
+				manager.UpdateIcon(gameObject);
+			}
+			_uninitialisedWorkstationIcons.Clear();
 		}
 	}
 
@@ -50,6 +72,10 @@ public class EditorColdStartup : MonoBehaviour
 		}
 	}
 
+	private void OnDestroy() {
+		_workstationStateUpdateChannel.OnEventRaised -= AddWorkstationIcon;
+		_iconCanvasReadyChannel.OnEventRaised -= InitialiseGameplayIconManager;
+	}
 
-#endif
+	#endif
 }

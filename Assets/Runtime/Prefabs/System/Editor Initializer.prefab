@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1400118ec107bf04a9f83bc01398a851, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _thisSceneSO: {fileID: 11400000, guid: 80dbb020a7a14db439246fbc788d3b81, type: 2}
+  _thisSceneSO: {fileID: 11400000, guid: e392da137a4586d43b943a39640c9d3d, type: 2}
   _persistentManagersSO: {fileID: 11400000, guid: 7e0620509dd15024f82b2ad1ca7b8a9d,
     type: 2}
   _notifyColdStartupChannel:
@@ -53,4 +53,8 @@ MonoBehaviour:
     m_SubObjectType: 
     m_EditorAssetChanged: 0
   _onSceneReadyChannel: {fileID: 11400000, guid: e0362bb60c575754d97d578dd4d244fe,
+    type: 2}
+  _workstationStateUpdateChannel: {fileID: 11400000, guid: b27808ab1cc48974298a97bc0047a1ce,
+    type: 2}
+  _iconCanvasReadyChannel: {fileID: 11400000, guid: 093fc982ce3a76144b8e6bd7565d6ddc,
     type: 2}

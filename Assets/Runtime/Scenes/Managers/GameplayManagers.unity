@@ -239,6 +239,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _workstationStateUpdateChannel: {fileID: 11400000, guid: b27808ab1cc48974298a97bc0047a1ce,
     type: 2}
+  _iconCanvasReadyChannel: {fileID: 11400000, guid: 093fc982ce3a76144b8e6bd7565d6ddc,
+    type: 2}
   iconHeight: 1.75
   iconScale: 1.25
   iconPrefab: {fileID: 2815615446394483877, guid: bf84352dda27e674d950f4d66cac6014,
