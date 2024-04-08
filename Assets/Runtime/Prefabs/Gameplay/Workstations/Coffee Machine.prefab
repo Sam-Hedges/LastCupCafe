@@ -312,7 +312,7 @@ GameObject:
   - component: {fileID: 6246441419280776276}
   - component: {fileID: 3728050441464611512}
   m_Layer: 5
-  m_Name: SpinningIndicator
+  m_Name: ProgressIndicator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -461,8 +461,9 @@ GameObject:
   - component: {fileID: 8465927189298437825}
   - component: {fileID: 4316946203367254106}
   - component: {fileID: 4274528543170297581}
+  - component: {fileID: 924637232550831489}
   m_Layer: 5
-  m_Name: Gauge
+  m_Name: PressureGauge
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -532,6 +533,24 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &924637232550831489
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 843723258432444460}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a6ed0abad816d74ca0b71320eb33492, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pressureBar: {fileID: 4332198836334220379}
+  progressBar: {fileID: 3728050441464611512}
+  needleTransform: {fileID: 3504935543052213358}
+  sweetZoneTransform: {fileID: 4094880470788018078}
+  badColor: {r: 0.18039216, g: 0.8, b: 0.44313726, a: 1}
+  goodColor: {r: 0.90588236, g: 0.29803923, b: 0.23529412, a: 1}
 --- !u!1 &984782251617565352
 GameObject:
   m_ObjectHideFlags: 0
@@ -845,7 +864,7 @@ GameObject:
   - component: {fileID: 804902373493707874}
   - component: {fileID: 4520714921355495557}
   m_Layer: 5
-  m_Name: ProgressIndicator
+  m_Name: ProgressParent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1121,7 +1140,7 @@ GameObject:
   - component: {fileID: 2568258029575397127}
   - component: {fileID: 8039676182814399419}
   m_Layer: 5
-  m_Name: SweetZoneIndicator
+  m_Name: SweetZoneParent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1436,7 +1455,7 @@ GameObject:
   - component: {fileID: 4012020156968872089}
   - component: {fileID: 4332198836334220379}
   m_Layer: 5
-  m_Name: SpinningIndicator
+  m_Name: SweetZoneIndicator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2053,7 +2072,7 @@ Transform:
   m_GameObject: {fileID: 5548622822984851444}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 11.25, y: 0.5, z: 14.5}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3148,7 +3167,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &3248603506572835879
 RectTransform:
   m_ObjectHideFlags: 0

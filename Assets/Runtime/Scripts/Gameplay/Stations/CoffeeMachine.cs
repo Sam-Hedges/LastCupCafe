@@ -3,8 +3,9 @@ using UnityEngine.UI;
 
 public class CoffeeMachine : Workstation, IMinigame
 {
-    [SerializeField] private WorkstationStateEventChannelSO workstationStateUpdateChannel;
+    [SerializeField] private GameObjectEventChannelSO workstationStateUpdateChannel;
     [SerializeField] private GameObject coffeeGroundsPrefab;
+    private PressureGaugeMG _gauge;
     
     [SerializeField] private Image pressureBar;
     [SerializeField] private Image progressBar;
@@ -30,7 +31,7 @@ public class CoffeeMachine : Workstation, IMinigame
     
     private void Start()
     {
-        workstationStateUpdateChannel.RaiseEvent(this);
+        workstationStateUpdateChannel.RaiseEvent(gameObject);
     }
 
     public bool CanProcessItem(GameObject item) {

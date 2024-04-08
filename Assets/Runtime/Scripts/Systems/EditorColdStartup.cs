@@ -16,10 +16,10 @@ public class EditorColdStartup : MonoBehaviour
 	[SerializeField] private GameSceneSO _persistentManagersSO = default;
 	[SerializeField] private AssetReference _notifyColdStartupChannel = default;
 	[SerializeField] private VoidEventChannelSO _onSceneReadyChannel = default;
-	[SerializeField] private WorkstationStateEventChannelSO _workstationStateUpdateChannel;
+	[SerializeField] private GameObjectEventChannelSO _gameObjectStateUpdateChannel;
 	[SerializeField] private GameObjectEventChannelSO _iconCanvasReadyChannel;
 
-	private List<Workstation> _uninitialisedWorkstationIcons;
+	private List<GameObject> _uninitialisedWorkstationIcons;
 	private bool isColdStart = false;
 	private void Awake()
 	{
@@ -28,19 +28,19 @@ public class EditorColdStartup : MonoBehaviour
 			isColdStart = true;
 		}
 
-		_workstationStateUpdateChannel.OnEventRaised += AddWorkstationIcon;
+		_gameObjectStateUpdateChannel.OnEventRaised += AddGameObjectIcon;
 		_iconCanvasReadyChannel.OnEventRaised += InitialiseGameplayIconManager;
-		_uninitialisedWorkstationIcons = new List<Workstation>();
+		_uninitialisedWorkstationIcons = new List<GameObject>();
 	}
 
-	private void AddWorkstationIcon(Workstation workstation) {
-		_uninitialisedWorkstationIcons.Add(workstation);
+	private void AddGameObjectIcon(GameObject go) {
+		_uninitialisedWorkstationIcons.Add(go);
 	}
 
 	private void InitialiseGameplayIconManager(GameObject go) {
 		if (go.TryGetComponent(out GameplayIconManager manager)) {
-			foreach (var workstation in _uninitialisedWorkstationIcons) {
-				manager.UpdateIcon(gameObject);
+			foreach (var gObj in _uninitialisedWorkstationIcons) {
+				manager.AddIcon(gObj);
 			}
 			_uninitialisedWorkstationIcons.Clear();
 		}
@@ -73,7 +73,7 @@ public class EditorColdStartup : MonoBehaviour
 	}
 
 	private void OnDestroy() {
-		_workstationStateUpdateChannel.OnEventRaised -= AddWorkstationIcon;
+		_gameObjectStateUpdateChannel.OnEventRaised -= AddGameObjectIcon;
 		_iconCanvasReadyChannel.OnEventRaised -= InitialiseGameplayIconManager;
 	}
 
