@@ -149,5 +149,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timeRemaining: 0.5
   fail: 0
-  Destroyable: 1
+  mainTimer: 0
   timeText: {fileID: 1168089793213755404}
+  ui: {fileID: 0}
+  timer: 0
