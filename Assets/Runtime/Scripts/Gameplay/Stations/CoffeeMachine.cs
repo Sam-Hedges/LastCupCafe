@@ -6,15 +6,6 @@ public class CoffeeMachine : Workstation, IMinigame
     [SerializeField] private GameObjectEventChannelSO workstationStateUpdateChannel;
     [SerializeField] private GameObject coffeeGroundsPrefab;
     private PressureGaugeMG _gauge;
-    
-    [SerializeField] private Image pressureBar;
-    [SerializeField] private Image progressBar;
-    [SerializeField] private RectTransform needleTransform;
-    [SerializeField] private RectTransform sweetZoneTransform;
-
-    //Colour values to be used later
-    public Color badColor;
-    public Color goodColor;
 
     //TThe Target pressure player should be reaching
     public float pressureTarget;
@@ -69,22 +60,22 @@ public class CoffeeMachine : Workstation, IMinigame
         delta = Mathf.Clamp(delta, 0, 1);
         
         // Update pressure bar
-        needleTransform.localEulerAngles = new Vector3(0, 0, delta * -240 + 120);
+        _gauge.needleTransform.localEulerAngles = new Vector3(0, 0, delta * -240 + 120);
 
         if (delta >= pressureTarget - pressureVariance && delta <= pressureTarget + pressureVariance)
         {
-            pressureBar.color = goodColor;
+            _gauge.pressureBar.color = _gauge.goodColor;
             progressDelta += 0.01f;
         }
         else
         {
-            pressureBar.color = badColor;
+            _gauge.pressureBar.color = _gauge.badColor;
             progressDelta -= 0.01f;
         }
         
         progressDelta = Mathf.Clamp(progressDelta, 0, 0.25f);
         
-        progressBar.fillAmount = progressDelta;
+        _gauge.progressBar.fillAmount = progressDelta;
     }
 
     public override void MinigameTrigger(float input) {
