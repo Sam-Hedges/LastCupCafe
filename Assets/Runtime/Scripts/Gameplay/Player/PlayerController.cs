@@ -217,6 +217,10 @@ public class PlayerController : MonoBehaviour {
                     activeStation = station;
                     OnGameInteract();
                     return;
+                case CashRegister:
+                    activeStation = station;
+                    OnGameInteract();
+                    return;
                 default:
                     if (inMinigame == false) {
                         //Disable Item pickup/placement, enable Minigame interactions
