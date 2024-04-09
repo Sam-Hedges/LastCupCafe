@@ -241,6 +241,24 @@ MonoBehaviour:
     type: 2}
   _iconCanvasReadyChannel: {fileID: 11400000, guid: 093fc982ce3a76144b8e6bd7565d6ddc,
     type: 2}
+  defaultBaseIcon: {fileID: 2815615446394483877, guid: bf84352dda27e674d950f4d66cac6014,
+    type: 3}
+  countBaseIcon: {fileID: 2815615446394483877, guid: e8966e8f20aca9043b09144142ddae93,
+    type: 3}
+  healthBaseIcon: {fileID: 2815615446394483877, guid: b4c473ceefff6c4429dc544797f1ce37,
+    type: 3}
+  coffeeMachineUI: {fileID: 4059802904751724412, guid: 82d193628d26c2f429b528ad44e78a26,
+    type: 3}
+  milkIcon: {fileID: 2748305381658218109, guid: 0443d1a9f65a70148ac7c6d70da049f2,
+    type: 3}
+  coffeeBeansIcon: {fileID: 7002010137247906190, guid: de36159fbd13fb641a65d64793dfcb08,
+    type: 3}
+  coffeeGroundsIcon: {fileID: 8099654072892077970, guid: 1c41777881a271e4d8d9022d2aa92f52,
+    type: 3}
+  chocolateIcon: {fileID: 8436358027852453865, guid: bf730102bc899d94c940efa66ffaff7d,
+    type: 3}
+  caramelIcon: {fileID: 139222814053469653, guid: 73a94e91dba2e314abdad6eeea36c2d0,
+    type: 3}
   iconHeight: 1.75
   iconScale: 1.25
   iconPrefab: {fileID: 2815615446394483877, guid: bf84352dda27e674d950f4d66cac6014,

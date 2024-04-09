@@ -1,3 +1,4 @@
+using Mono.CSharp;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -5,6 +6,7 @@ public class CoffeeMachine : Workstation, IMinigame
 {
     [SerializeField] private GameObjectEventChannelSO workstationStateUpdateChannel;
     [SerializeField] private GameObject coffeeGroundsPrefab;
+    private CoffeeMachineMG _icons;
     private PressureGaugeMG _gauge;
 
     //TThe Target pressure player should be reaching
@@ -16,20 +18,40 @@ public class CoffeeMachine : Workstation, IMinigame
     private float savedInput;
     private float delta;
     private float progressDelta;
-
-    private int charges = 0;
-    private const int maxCharges = 3;
+    private bool charged;
     
     private void Start()
     {
         workstationStateUpdateChannel.RaiseEvent(gameObject);
     }
 
-    public bool CanProcessItem(GameObject item) {
-        return item.GetComponent<CoffeeBeans>() != null && charges < maxCharges;
+    public void InitUI(CoffeeMachineMG cm) {
+        _icons = cm;
+        _gauge = cm.Gauge;
     }
 
+    public override void InitWorkstation() {
+        
+    }
 
+    public override void OnPlaceItem(Item newItem) {
+        
+        if (newItem.GetType() == typeof(CoffeeGrounds)) {
+            charged = true;
+            Destroy(newItem.gameObject);
+        }
+        
+        if (currentlyStoredItem != null) return; 
+        
+        currentlyStoredItem = newItem;
+        
+        currentlyStoredItem.transform.position = transform.position;
+        currentlyStoredItem.transform.rotation = transform.rotation;
+        
+        currentlyStoredItem.transform.SetParent(transform);
+        currentlyStoredItem.transform.localPosition = Vector3.up;
+    }
+    
     public override void MinigameButton()
     {
         if (currentlyStoredItem.TryGetComponent(out Mug mug) && _canComplete) {

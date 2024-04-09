@@ -3,16 +3,31 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class GameplayIconManager : MonoBehaviour {
+public class GameplayIconManager : MonoBehaviour
+{
     [Header("Listening on Channels")] [SerializeField]
     private GameObjectEventChannelSO _gameobjectStateUpdateChannel;
 
     [Header("Broadcasting on Channels")] [SerializeField]
     private GameObjectEventChannelSO _iconCanvasReadyChannel;
 
+    [Header("Base UI Prefabs")] [SerializeField]
+    private GameObject defaultBaseIcon;
+    [SerializeField] private GameObject countBaseIcon;
+    [SerializeField] private GameObject healthBaseIcon;
+
+    [Header("Workstation UI Prefabs")] [SerializeField]
+    private GameObject coffeeMachineUI;
+
+    [Header("Ingredient UI Prefabs")] [SerializeField]
+    private GameObject milkIcon;
+    [SerializeField] private GameObject coffeeBeansIcon;
+    [SerializeField] private GameObject coffeeGroundsIcon;
+    [SerializeField] private GameObject chocolateIcon;
+    [SerializeField] private GameObject caramelIcon;
+    
     [Header("Icon Settings")] [SerializeField]
     private float iconHeight = 1;
-
     [SerializeField] private float iconScale = 1;
     [SerializeField] private GameObject iconPrefab;
     [SerializeField] private Sprite emptySlotIcon;
@@ -29,32 +44,11 @@ public class GameplayIconManager : MonoBehaviour {
 
     private void Update() {
         foreach (var keyValuePair in _gameplayIcons) {
-            if (keyValuePair.Key.TryGetComponent(out Workstation workstation)) {
-                switch (workstation) {
-                    case Kettle:
-                        break;
-                    case CoffeeMachine:
-                        break;
-                    default:
-                        break;
-                }
-
-                continue;
-            }
-
-            if (keyValuePair.Key.TryGetComponent(out Item item)) {
-                switch (item) {
-                    case Mug:
-                        break;
-                    default:
-                        break;
-                }
-            }
+            UpdateIconPosition(keyValuePair.Key);
         }
     }
 
     private void UpdateIconPosition(GameObject origin) {
-        
         if (_gameplayIcons.TryGetValue(origin, out GameObject icon)) {
             Vector2 screenPoint =
                 Camera.main.WorldToScreenPoint(origin.transform.position + new Vector3(0, iconHeight, 0.25f));
@@ -108,6 +102,20 @@ public class GameplayIconManager : MonoBehaviour {
         }
 
         if (go.TryGetComponent(out Workstation workstation)) {
+            
+            switch (workstation) {
+                case Kettle:
+                    break;
+                case CoffeeMachine:
+                    CheckForIcon(go, coffeeMachineUI);
+                    UpdateIconPosition(workstation.gameObject);
+                    // Disgusting Code
+                    (CoffeeMachine)workstation.InitUI(_gameplayIcons[workstation.gameObject].GetComponent<CoffeeMachineMG>());
+                    break;
+                default:
+                    break;
+            }
+
             // Check if the workstation already has an icon
             CheckForIcon(go, iconPrefab);
 

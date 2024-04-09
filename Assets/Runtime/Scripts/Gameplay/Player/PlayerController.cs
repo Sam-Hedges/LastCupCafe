@@ -161,7 +161,7 @@ public class PlayerController : MonoBehaviour {
     }
 
     private void OnEmote() {
-        throw new System.NotImplementedException();
+        Debug.LogWarning("Emote Not Implemented Yet");
     }
 
     private void OnPause() {
@@ -217,6 +217,10 @@ public class PlayerController : MonoBehaviour {
                     activeStation = station;
                     OnGameInteract();
                     return;
+                case CoffeeMachine:
+                    activeStation = station;
+                    OnGameInteract();
+                    return;
                 default:
                     if (inMinigame == false) {
                         //Disable Item pickup/placement, enable Minigame interactions
@@ -244,7 +248,7 @@ public class PlayerController : MonoBehaviour {
     }
 
     //Interact button press for Minigame
-    public void OnGameInteract() {
+    private void OnGameInteract() {
         activeStation.MinigameButton();
     }
 
