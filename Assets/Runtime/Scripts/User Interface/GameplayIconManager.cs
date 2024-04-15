@@ -110,7 +110,7 @@ public class GameplayIconManager : MonoBehaviour
                     CheckForIcon(go, coffeeMachineUI);
                     UpdateIconPosition(workstation.gameObject);
                     // Disgusting Code
-                    (CoffeeMachine)workstation.InitUI(_gameplayIcons[workstation.gameObject].GetComponent<CoffeeMachineMG>());
+                    workstation.GetComponent<CoffeeMachine>().InitUI(_gameplayIcons[workstation.gameObject].GetComponent<CoffeeMachineMG>());
                     break;
                 default:
                     break;
