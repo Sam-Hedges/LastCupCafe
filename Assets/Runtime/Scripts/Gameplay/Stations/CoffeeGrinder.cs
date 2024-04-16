@@ -1,9 +1,12 @@
+using QFSW.QC.Actions;
 using UnityEngine;
-public class CoffeeGrinder : Workstation, IProcessItem, IMinigame
+public class CoffeeGrinder : Workstation, IProcessItem, IMinigame, IProduceItem
 {
     [SerializeField] private GameObject coffeeGroundsPrefab;
-    private int charges = 0;
+    public int charges = 0;
     private const int maxCharges = 3;
+    private float grindProgress;
+    public bool isFull;
 
     public bool CanProcessItem(Item item) {
         return item.GetComponent<CoffeeBeans>() != null && charges < maxCharges;
@@ -11,30 +14,39 @@ public class CoffeeGrinder : Workstation, IProcessItem, IMinigame
 
     public void ProcessItem(Item item) {
         if (!CanProcessItem(item)) return;
-        Destroy(item);
-        charges++;
-        // Assume there's a minigame mechanism here
-    }
-
-    // Method to retrieve coffee grounds
-    public Item RetrieveGrounds() {
-        if (charges > 0) {
-            charges--;
-            return Instantiate(coffeeGroundsPrefab, transform.position + Vector3.up, Quaternion.identity).GetComponent<Item>();
-        }
-        return null;
-    }
-
-    public override void OnInteract() {
-        base.OnInteract();
-        // Assuming the interaction retrieves grounds if available
-        if (currentlyStoredItem == null && charges > 0) {
-            OnPlaceItem(RetrieveGrounds());
+        else if (charges < maxCharges)
+        {
+            Destroy(item.gameObject);
+            charges = maxCharges;
         }
     }
 
-    public void Minigame(bool active, GameObject heldItem)
+    Vector2 storedValue;
+    public override void MinigameStick(Vector2 input)
     {
+        if (!currentlyStoredItem.GetComponent<CoffeeBeans>()) return;
 
+        if (storedValue != input && (input.x + input.y >= 0.9f || input.x - input.y <= -0.9f))
+        {
+            storedValue = input;
+            grindProgress += 0.005f;
+            Debug.Log(grindProgress);
+        }
+        if (grindProgress >= 1.0f && currentlyStoredItem != null)
+        {
+            grindProgress = 0.0f;
+            ProcessItem(currentlyStoredItem);
+            isFull = true;
+        }
+    }
+
+    Item IProduceItem.ProduceItem()
+    {
+        charges--;
+        if(charges <= 0)
+        {
+            isFull = false;
+        }
+        return Instantiate(coffeeGroundsPrefab, transform.position + Vector3.up, Quaternion.identity).GetComponent<Item>();
     }
 }

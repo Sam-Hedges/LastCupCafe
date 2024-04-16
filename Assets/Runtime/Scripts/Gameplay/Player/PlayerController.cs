@@ -204,12 +204,6 @@ public class PlayerController : MonoBehaviour {
 
         if (!hit || !hitCollider.TryGetComponent(out Workstation station)) return;
 
-        // Check if station is a Producer
-        if (station.TryGetComponent(out IProduceItem produceItem)) {
-            PickupItem(produceItem.ProduceItem());
-            return;
-        }
-
         // Check if Station is a modifier
         if (station.TryGetComponent(out IMinigame minigame)) {
             switch (station) {
@@ -221,8 +215,36 @@ public class PlayerController : MonoBehaviour {
                     activeStation = station;
                     OnGameInteract();
                     return;
+                case CoffeeGrinder:
+                    if (station.GetComponent<CoffeeGrinder>().isFull)
+                    {
+                        PickupItem(station.GetComponent<IProduceItem>().ProduceItem());
+                        return;
+                    }
+                    if (!inMinigame)
+                    {
+                        //Disable Item pickup/placement, enable Minigame interactions
+                        _inputController.MoveEvent -= OnMovement;
+                        _inputController.ItemInteractEvent -= OnItemInteract;
+                        _inputController.ItemInteractEvent += OnGameInteract;
+                        _inputController.MinigameMoveEvent += OnMinigameMovement;
+                        _inputController.PressureEvent += OnPressureEvent;
+                        inMinigame = true;
+                        activeStation = station;
+                    }
+                    else
+                    {
+                        activeStation = null;
+                        _inputController.MoveEvent += OnMovement;
+                        _inputController.ItemInteractEvent -= OnGameInteract;
+                        _inputController.MinigameMoveEvent -= OnMinigameMovement;
+                        _inputController.PressureEvent -= OnPressureEvent;
+                        _inputController.ItemInteractEvent += OnItemInteract;
+                        inMinigame = false;
+                    }
+                    return;
                 default:
-                    if (inMinigame == false) {
+                    if (!inMinigame) {
                         //Disable Item pickup/placement, enable Minigame interactions
                         _inputController.MoveEvent -= OnMovement;
                         _inputController.ItemInteractEvent -= OnItemInteract;
@@ -241,10 +263,17 @@ public class PlayerController : MonoBehaviour {
                         _inputController.ItemInteractEvent += OnItemInteract;
                         inMinigame = false;
                     }
-
-                    break;
+                    return;
             }
         }
+
+        // Check if station is a Producer
+        if (station.TryGetComponent(out IProduceItem produceItem))
+        {
+            PickupItem(produceItem.ProduceItem());
+            return;
+        }
+
     }
 
     //Interact button press for Minigame
