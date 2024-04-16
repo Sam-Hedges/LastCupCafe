@@ -909,6 +909,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302d48c30d0e8f54680bec4372966049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minigameCanvas: {fileID: 0}
   workstationType: 0
   currentlyStoredItem: {fileID: 0}
   highlightMaterial: {fileID: 2100000, guid: 0e1abc942e44ad54ab19f0f0bf6f5d64, type: 2}
@@ -1686,13 +1687,28 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: e507de36cf9be8c47ad0f9a92fa9fa52,
         type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.77019
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: e507de36cf9be8c47ad0f9a92fa9fa52,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.77019
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: e507de36cf9be8c47ad0f9a92fa9fa52,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.77019
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: e507de36cf9be8c47ad0f9a92fa9fa52,
+        type: 3}
       propertyPath: m_LocalPosition.x
       value: -2.6930017
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e507de36cf9be8c47ad0f9a92fa9fa52,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.96000004
+      value: 0.98332
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e507de36cf9be8c47ad0f9a92fa9fa52,
         type: 3}
@@ -1882,6 +1898,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302d48c30d0e8f54680bec4372966049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minigameCanvas: {fileID: 0}
   workstationType: 0
   currentlyStoredItem: {fileID: 0}
   highlightMaterial: {fileID: -876546973899608171, guid: 0529211e118674a4487bbc89a910257a,
@@ -1931,6 +1948,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302d48c30d0e8f54680bec4372966049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minigameCanvas: {fileID: 0}
   workstationType: 0
   currentlyStoredItem: {fileID: 0}
   highlightMaterial: {fileID: -876546973899608171, guid: 0529211e118674a4487bbc89a910257a,
@@ -2085,6 +2103,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302d48c30d0e8f54680bec4372966049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minigameCanvas: {fileID: 0}
   workstationType: 0
   currentlyStoredItem: {fileID: 0}
   highlightMaterial: {fileID: -876546973899608171, guid: 0529211e118674a4487bbc89a910257a,
@@ -2283,6 +2302,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302d48c30d0e8f54680bec4372966049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minigameCanvas: {fileID: 0}
   workstationType: 0
   currentlyStoredItem: {fileID: 0}
   highlightMaterial: {fileID: 2100000, guid: 0e1abc942e44ad54ab19f0f0bf6f5d64, type: 2}
@@ -3293,6 +3313,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302d48c30d0e8f54680bec4372966049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minigameCanvas: {fileID: 0}
   workstationType: 0
   currentlyStoredItem: {fileID: 0}
   highlightMaterial: {fileID: 2100000, guid: 0e1abc942e44ad54ab19f0f0bf6f5d64, type: 2}
@@ -3676,6 +3697,74 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 238410293}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1001 &240525703
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: f665b66459d42f34a86dfc04769055c5,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -8.396
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: f665b66459d42f34a86dfc04769055c5,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.99
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: f665b66459d42f34a86dfc04769055c5,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 3.792
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: f665b66459d42f34a86dfc04769055c5,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: f665b66459d42f34a86dfc04769055c5,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: f665b66459d42f34a86dfc04769055c5,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: f665b66459d42f34a86dfc04769055c5,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: f665b66459d42f34a86dfc04769055c5,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: f665b66459d42f34a86dfc04769055c5,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: f665b66459d42f34a86dfc04769055c5,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: f665b66459d42f34a86dfc04769055c5,
+        type: 3}
+      propertyPath: m_Name
+      value: Cake_Sliced
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: f665b66459d42f34a86dfc04769055c5, type: 3}
 --- !u!1 &240807579
 GameObject:
   m_ObjectHideFlags: 0
@@ -3794,6 +3883,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302d48c30d0e8f54680bec4372966049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minigameCanvas: {fileID: 0}
   workstationType: 0
   currentlyStoredItem: {fileID: 0}
   highlightMaterial: {fileID: 2100000, guid: 0e1abc942e44ad54ab19f0f0bf6f5d64, type: 2}
@@ -4097,6 +4187,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302d48c30d0e8f54680bec4372966049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minigameCanvas: {fileID: 0}
   workstationType: 0
   currentlyStoredItem: {fileID: 0}
   highlightMaterial: {fileID: 2100000, guid: 0e1abc942e44ad54ab19f0f0bf6f5d64, type: 2}
@@ -4213,6 +4304,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302d48c30d0e8f54680bec4372966049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minigameCanvas: {fileID: 0}
   workstationType: 0
   currentlyStoredItem: {fileID: 0}
   highlightMaterial: {fileID: -876546973899608171, guid: 0529211e118674a4487bbc89a910257a,
@@ -4422,6 +4514,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302d48c30d0e8f54680bec4372966049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minigameCanvas: {fileID: 0}
   workstationType: 0
   currentlyStoredItem: {fileID: 0}
   highlightMaterial: {fileID: -876546973899608171, guid: 0529211e118674a4487bbc89a910257a,
@@ -4690,7 +4783,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 974d5fca12331ad41aaa57d3fa73ae2f, type: 2}
+      objectReference: {fileID: 2100000, guid: ecf622072791bbf478912013103cfb5e, type: 2}
     - target: {fileID: 919132149155446097, guid: e93612a5c79ce524c8a4572e881a0324,
         type: 3}
       propertyPath: m_Name
@@ -4830,6 +4923,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302d48c30d0e8f54680bec4372966049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minigameCanvas: {fileID: 0}
   workstationType: 0
   currentlyStoredItem: {fileID: 0}
   highlightMaterial: {fileID: -876546973899608171, guid: 0529211e118674a4487bbc89a910257a,
@@ -5437,6 +5531,74 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 610381472e9acab44afd092eaba3ceb5, type: 3}
+--- !u!1001 &317418131
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 2b8873ea495627c47a7f1521effcebb8,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -9.296543
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 2b8873ea495627c47a7f1521effcebb8,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.1400001
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 2b8873ea495627c47a7f1521effcebb8,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 3.753964
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 2b8873ea495627c47a7f1521effcebb8,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 2b8873ea495627c47a7f1521effcebb8,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 2b8873ea495627c47a7f1521effcebb8,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 2b8873ea495627c47a7f1521effcebb8,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 2b8873ea495627c47a7f1521effcebb8,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 2b8873ea495627c47a7f1521effcebb8,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 2b8873ea495627c47a7f1521effcebb8,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 2b8873ea495627c47a7f1521effcebb8,
+        type: 3}
+      propertyPath: m_Name
+      value: CoffeeBeanBag01
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 2b8873ea495627c47a7f1521effcebb8, type: 3}
 --- !u!1001 &324955891
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5686,6 +5848,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302d48c30d0e8f54680bec4372966049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minigameCanvas: {fileID: 0}
   workstationType: 0
   currentlyStoredItem: {fileID: 0}
   highlightMaterial: {fileID: -876546973899608171, guid: 0529211e118674a4487bbc89a910257a,
@@ -6037,6 +6200,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302d48c30d0e8f54680bec4372966049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minigameCanvas: {fileID: 0}
   workstationType: 0
   currentlyStoredItem: {fileID: 0}
   highlightMaterial: {fileID: 2100000, guid: 0e1abc942e44ad54ab19f0f0bf6f5d64, type: 2}
@@ -6135,7 +6299,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 587896fae09f5e24eb94f2fe822d249f, type: 2}
+      objectReference: {fileID: 2100000, guid: 170134537cb3b1b4e994c003ad49b063, type: 2}
     - target: {fileID: 919132149155446097, guid: e00fc6cbb600a3b4abf372d27eeafe48,
         type: 3}
       propertyPath: m_Name
@@ -6264,6 +6428,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302d48c30d0e8f54680bec4372966049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minigameCanvas: {fileID: 0}
   workstationType: 0
   currentlyStoredItem: {fileID: 0}
   highlightMaterial: {fileID: 2100000, guid: 0e1abc942e44ad54ab19f0f0bf6f5d64, type: 2}
@@ -6415,6 +6580,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302d48c30d0e8f54680bec4372966049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minigameCanvas: {fileID: 0}
   workstationType: 0
   currentlyStoredItem: {fileID: 0}
   highlightMaterial: {fileID: -876546973899608171, guid: 0529211e118674a4487bbc89a910257a,
@@ -6537,6 +6703,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302d48c30d0e8f54680bec4372966049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minigameCanvas: {fileID: 0}
   workstationType: 0
   currentlyStoredItem: {fileID: 0}
   highlightMaterial: {fileID: 2100000, guid: 0e1abc942e44ad54ab19f0f0bf6f5d64, type: 2}
@@ -6602,7 +6769,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 587896fae09f5e24eb94f2fe822d249f, type: 2}
+      objectReference: {fileID: 2100000, guid: 170134537cb3b1b4e994c003ad49b063, type: 2}
     - target: {fileID: 919132149155446097, guid: e00fc6cbb600a3b4abf372d27eeafe48,
         type: 3}
       propertyPath: m_Name
@@ -6737,6 +6904,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302d48c30d0e8f54680bec4372966049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minigameCanvas: {fileID: 0}
   workstationType: 0
   currentlyStoredItem: {fileID: 0}
   highlightMaterial: {fileID: 2100000, guid: 0e1abc942e44ad54ab19f0f0bf6f5d64, type: 2}
@@ -7181,6 +7349,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302d48c30d0e8f54680bec4372966049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minigameCanvas: {fileID: 0}
   workstationType: 0
   currentlyStoredItem: {fileID: 0}
   highlightMaterial: {fileID: 2100000, guid: 0e1abc942e44ad54ab19f0f0bf6f5d64, type: 2}
@@ -7381,6 +7550,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302d48c30d0e8f54680bec4372966049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minigameCanvas: {fileID: 0}
   workstationType: 0
   currentlyStoredItem: {fileID: 0}
   highlightMaterial: {fileID: 2100000, guid: 0e1abc942e44ad54ab19f0f0bf6f5d64, type: 2}
@@ -7607,6 +7777,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302d48c30d0e8f54680bec4372966049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minigameCanvas: {fileID: 0}
   workstationType: 0
   currentlyStoredItem: {fileID: 0}
   highlightMaterial: {fileID: 2100000, guid: 0e1abc942e44ad54ab19f0f0bf6f5d64, type: 2}
@@ -7655,6 +7826,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302d48c30d0e8f54680bec4372966049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minigameCanvas: {fileID: 0}
   workstationType: 0
   currentlyStoredItem: {fileID: 0}
   highlightMaterial: {fileID: -876546973899608171, guid: 0529211e118674a4487bbc89a910257a,
@@ -8380,6 +8552,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302d48c30d0e8f54680bec4372966049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minigameCanvas: {fileID: 0}
   workstationType: 0
   currentlyStoredItem: {fileID: 0}
   highlightMaterial: {fileID: -876546973899608171, guid: 0529211e118674a4487bbc89a910257a,
@@ -8922,6 +9095,74 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 655063177}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1001 &656400873
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: ffd443ec794b35242875fc9040bf2307,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -6.77364
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: ffd443ec794b35242875fc9040bf2307,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.99053544
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: ffd443ec794b35242875fc9040bf2307,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 4.0214543
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: ffd443ec794b35242875fc9040bf2307,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: ffd443ec794b35242875fc9040bf2307,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: ffd443ec794b35242875fc9040bf2307,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: ffd443ec794b35242875fc9040bf2307,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: ffd443ec794b35242875fc9040bf2307,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: ffd443ec794b35242875fc9040bf2307,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: ffd443ec794b35242875fc9040bf2307,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: ffd443ec794b35242875fc9040bf2307,
+        type: 3}
+      propertyPath: m_Name
+      value: Muffin
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: ffd443ec794b35242875fc9040bf2307, type: 3}
 --- !u!1 &662404494
 GameObject:
   m_ObjectHideFlags: 0
@@ -9040,6 +9281,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302d48c30d0e8f54680bec4372966049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minigameCanvas: {fileID: 0}
   workstationType: 0
   currentlyStoredItem: {fileID: 0}
   highlightMaterial: {fileID: 2100000, guid: 0e1abc942e44ad54ab19f0f0bf6f5d64, type: 2}
@@ -9554,6 +9796,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302d48c30d0e8f54680bec4372966049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minigameCanvas: {fileID: 0}
   workstationType: 0
   currentlyStoredItem: {fileID: 0}
   highlightMaterial: {fileID: 2100000, guid: 0e1abc942e44ad54ab19f0f0bf6f5d64, type: 2}
@@ -9678,6 +9921,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302d48c30d0e8f54680bec4372966049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minigameCanvas: {fileID: 0}
   workstationType: 0
   currentlyStoredItem: {fileID: 0}
   highlightMaterial: {fileID: -876546973899608171, guid: 0529211e118674a4487bbc89a910257a,
@@ -9727,6 +9971,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302d48c30d0e8f54680bec4372966049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minigameCanvas: {fileID: 0}
   workstationType: 0
   currentlyStoredItem: {fileID: 0}
   highlightMaterial: {fileID: -876546973899608171, guid: 0529211e118674a4487bbc89a910257a,
@@ -10269,6 +10514,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302d48c30d0e8f54680bec4372966049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minigameCanvas: {fileID: 0}
   workstationType: 0
   currentlyStoredItem: {fileID: 0}
   highlightMaterial: {fileID: 2100000, guid: 0e1abc942e44ad54ab19f0f0bf6f5d64, type: 2}
@@ -10756,6 +11002,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302d48c30d0e8f54680bec4372966049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minigameCanvas: {fileID: 0}
   workstationType: 0
   currentlyStoredItem: {fileID: 0}
   highlightMaterial: {fileID: 2100000, guid: 0e1abc942e44ad54ab19f0f0bf6f5d64, type: 2}
@@ -11363,6 +11610,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302d48c30d0e8f54680bec4372966049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minigameCanvas: {fileID: 0}
   workstationType: 0
   currentlyStoredItem: {fileID: 0}
   highlightMaterial: {fileID: -876546973899608171, guid: 0529211e118674a4487bbc89a910257a,
@@ -11726,6 +11974,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7245ebf659ba4d5cb5cc7f86e957e813, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minigameCanvas: {fileID: 0}
   workstationType: 0
   currentlyStoredItem: {fileID: 0}
   highlightMaterial: {fileID: -876546973899608171, guid: 0529211e118674a4487bbc89a910257a,
@@ -11881,6 +12130,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7245ebf659ba4d5cb5cc7f86e957e813, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minigameCanvas: {fileID: 0}
   workstationType: 0
   currentlyStoredItem: {fileID: 0}
   highlightMaterial: {fileID: -876546973899608171, guid: 0529211e118674a4487bbc89a910257a,
@@ -12044,10 +12294,79 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302d48c30d0e8f54680bec4372966049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minigameCanvas: {fileID: 0}
   workstationType: 0
   currentlyStoredItem: {fileID: 0}
   highlightMaterial: {fileID: -876546973899608171, guid: 0529211e118674a4487bbc89a910257a,
     type: 3}
+--- !u!1001 &902877527
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: ea156619c041da8468e90a4164610713,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -9.775858
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: ea156619c041da8468e90a4164610713,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.0245626
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: ea156619c041da8468e90a4164610713,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 3.7381063
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: ea156619c041da8468e90a4164610713,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: ea156619c041da8468e90a4164610713,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: ea156619c041da8468e90a4164610713,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: ea156619c041da8468e90a4164610713,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: ea156619c041da8468e90a4164610713,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: ea156619c041da8468e90a4164610713,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: ea156619c041da8468e90a4164610713,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: ea156619c041da8468e90a4164610713,
+        type: 3}
+      propertyPath: m_Name
+      value: Croissant
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: ea156619c041da8468e90a4164610713, type: 3}
 --- !u!1 &908142369 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 543936864281337835, guid: 15dc3c2ea0bafa34fa1301034c81ef34,
@@ -12621,6 +12940,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302d48c30d0e8f54680bec4372966049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minigameCanvas: {fileID: 0}
   workstationType: 0
   currentlyStoredItem: {fileID: 0}
   highlightMaterial: {fileID: 2100000, guid: 0e1abc942e44ad54ab19f0f0bf6f5d64, type: 2}
@@ -12840,6 +13160,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302d48c30d0e8f54680bec4372966049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minigameCanvas: {fileID: 0}
   workstationType: 0
   currentlyStoredItem: {fileID: 0}
   highlightMaterial: {fileID: -876546973899608171, guid: 0529211e118674a4487bbc89a910257a,
@@ -13127,6 +13448,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302d48c30d0e8f54680bec4372966049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minigameCanvas: {fileID: 0}
   workstationType: 0
   currentlyStoredItem: {fileID: 0}
   highlightMaterial: {fileID: -876546973899608171, guid: 0529211e118674a4487bbc89a910257a,
@@ -14070,6 +14392,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302d48c30d0e8f54680bec4372966049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minigameCanvas: {fileID: 0}
   workstationType: 0
   currentlyStoredItem: {fileID: 0}
   highlightMaterial: {fileID: -876546973899608171, guid: 0529211e118674a4487bbc89a910257a,
@@ -14605,6 +14928,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302d48c30d0e8f54680bec4372966049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minigameCanvas: {fileID: 0}
   workstationType: 0
   currentlyStoredItem: {fileID: 0}
   highlightMaterial: {fileID: 2100000, guid: 0e1abc942e44ad54ab19f0f0bf6f5d64, type: 2}
@@ -14690,6 +15014,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   highlightMaterial: {fileID: 2100000, guid: 0e1abc942e44ad54ab19f0f0bf6f5d64, type: 2}
+  iconSprite: {fileID: 0}
   hasBeenThrown: 0
 --- !u!23 &1072878207
 MeshRenderer:
@@ -15147,6 +15472,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302d48c30d0e8f54680bec4372966049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minigameCanvas: {fileID: 0}
   workstationType: 0
   currentlyStoredItem: {fileID: 0}
   highlightMaterial: {fileID: 2100000, guid: 0e1abc942e44ad54ab19f0f0bf6f5d64, type: 2}
@@ -15222,6 +15548,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302d48c30d0e8f54680bec4372966049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minigameCanvas: {fileID: 0}
   workstationType: 0
   currentlyStoredItem: {fileID: 0}
   highlightMaterial: {fileID: -876546973899608171, guid: 0529211e118674a4487bbc89a910257a,
@@ -15271,6 +15598,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302d48c30d0e8f54680bec4372966049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minigameCanvas: {fileID: 0}
   workstationType: 0
   currentlyStoredItem: {fileID: 0}
   highlightMaterial: {fileID: -876546973899608171, guid: 0529211e118674a4487bbc89a910257a,
@@ -15495,6 +15823,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302d48c30d0e8f54680bec4372966049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minigameCanvas: {fileID: 0}
   workstationType: 0
   currentlyStoredItem: {fileID: 0}
   highlightMaterial: {fileID: -876546973899608171, guid: 0529211e118674a4487bbc89a910257a,
@@ -15544,6 +15873,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302d48c30d0e8f54680bec4372966049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minigameCanvas: {fileID: 0}
   workstationType: 0
   currentlyStoredItem: {fileID: 0}
   highlightMaterial: {fileID: -876546973899608171, guid: 0529211e118674a4487bbc89a910257a,
@@ -15666,6 +15996,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302d48c30d0e8f54680bec4372966049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minigameCanvas: {fileID: 0}
   workstationType: 0
   currentlyStoredItem: {fileID: 0}
   highlightMaterial: {fileID: 2100000, guid: 0e1abc942e44ad54ab19f0f0bf6f5d64, type: 2}
@@ -15794,6 +16125,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302d48c30d0e8f54680bec4372966049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minigameCanvas: {fileID: 0}
   workstationType: 0
   currentlyStoredItem: {fileID: 0}
   highlightMaterial: {fileID: -876546973899608171, guid: 0529211e118674a4487bbc89a910257a,
@@ -16027,6 +16359,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302d48c30d0e8f54680bec4372966049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minigameCanvas: {fileID: 0}
   workstationType: 0
   currentlyStoredItem: {fileID: 0}
   highlightMaterial: {fileID: 2100000, guid: 0e1abc942e44ad54ab19f0f0bf6f5d64, type: 2}
@@ -16426,6 +16759,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302d48c30d0e8f54680bec4372966049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minigameCanvas: {fileID: 0}
   workstationType: 0
   currentlyStoredItem: {fileID: 0}
   highlightMaterial: {fileID: -876546973899608171, guid: 0529211e118674a4487bbc89a910257a,
@@ -16596,6 +16930,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302d48c30d0e8f54680bec4372966049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minigameCanvas: {fileID: 0}
   workstationType: 0
   currentlyStoredItem: {fileID: 0}
   highlightMaterial: {fileID: 2100000, guid: 0e1abc942e44ad54ab19f0f0bf6f5d64, type: 2}
@@ -16822,6 +17157,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302d48c30d0e8f54680bec4372966049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minigameCanvas: {fileID: 0}
   workstationType: 0
   currentlyStoredItem: {fileID: 0}
   highlightMaterial: {fileID: 2100000, guid: 0e1abc942e44ad54ab19f0f0bf6f5d64, type: 2}
@@ -17199,6 +17535,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302d48c30d0e8f54680bec4372966049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minigameCanvas: {fileID: 0}
   workstationType: 0
   currentlyStoredItem: {fileID: 0}
   highlightMaterial: {fileID: -876546973899608171, guid: 0529211e118674a4487bbc89a910257a,
@@ -17432,6 +17769,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302d48c30d0e8f54680bec4372966049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minigameCanvas: {fileID: 0}
   workstationType: 0
   currentlyStoredItem: {fileID: 0}
   highlightMaterial: {fileID: 2100000, guid: 0e1abc942e44ad54ab19f0f0bf6f5d64, type: 2}
@@ -17480,6 +17818,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302d48c30d0e8f54680bec4372966049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minigameCanvas: {fileID: 0}
   workstationType: 0
   currentlyStoredItem: {fileID: 0}
   highlightMaterial: {fileID: -876546973899608171, guid: 0529211e118674a4487bbc89a910257a,
@@ -18092,6 +18431,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302d48c30d0e8f54680bec4372966049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minigameCanvas: {fileID: 0}
   workstationType: 0
   currentlyStoredItem: {fileID: 0}
   highlightMaterial: {fileID: 2100000, guid: 0e1abc942e44ad54ab19f0f0bf6f5d64, type: 2}
@@ -18245,6 +18585,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302d48c30d0e8f54680bec4372966049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minigameCanvas: {fileID: 0}
   workstationType: 0
   currentlyStoredItem: {fileID: 0}
   highlightMaterial: {fileID: -876546973899608171, guid: 0529211e118674a4487bbc89a910257a,
@@ -18534,6 +18875,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302d48c30d0e8f54680bec4372966049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minigameCanvas: {fileID: 0}
   workstationType: 0
   currentlyStoredItem: {fileID: 0}
   highlightMaterial: {fileID: -876546973899608171, guid: 0529211e118674a4487bbc89a910257a,
@@ -18583,6 +18925,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302d48c30d0e8f54680bec4372966049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minigameCanvas: {fileID: 0}
   workstationType: 0
   currentlyStoredItem: {fileID: 0}
   highlightMaterial: {fileID: -876546973899608171, guid: 0529211e118674a4487bbc89a910257a,
@@ -18645,6 +18988,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 5a3bf6810930264469f56556688edcd4,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: ff863cf60d04c864baac56f7f73f4c1e, type: 2}
     - target: {fileID: 919132149155446097, guid: 5a3bf6810930264469f56556688edcd4,
         type: 3}
       propertyPath: m_Name
@@ -18787,6 +19135,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   highlightMaterial: {fileID: 2100000, guid: 0e1abc942e44ad54ab19f0f0bf6f5d64, type: 2}
+  iconSprite: {fileID: 0}
   hasBeenThrown: 0
 --- !u!23 &1361624620
 MeshRenderer:
@@ -18913,6 +19262,74 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1211039233}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1368192568
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 6a6eaefedb2132444ae644b4e5974563,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -7.873263
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 6a6eaefedb2132444ae644b4e5974563,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.99
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 6a6eaefedb2132444ae644b4e5974563,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 3.9745245
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 6a6eaefedb2132444ae644b4e5974563,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 6a6eaefedb2132444ae644b4e5974563,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 6a6eaefedb2132444ae644b4e5974563,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 6a6eaefedb2132444ae644b4e5974563,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 6a6eaefedb2132444ae644b4e5974563,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 6a6eaefedb2132444ae644b4e5974563,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 6a6eaefedb2132444ae644b4e5974563,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 6a6eaefedb2132444ae644b4e5974563,
+        type: 3}
+      propertyPath: m_Name
+      value: Bread01
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 6a6eaefedb2132444ae644b4e5974563, type: 3}
 --- !u!1 &1375477475 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -5693353119061886181, guid: 9758fe246afa4844eb5ac3e91aff9ab9,
@@ -19248,6 +19665,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302d48c30d0e8f54680bec4372966049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minigameCanvas: {fileID: 0}
   workstationType: 0
   currentlyStoredItem: {fileID: 0}
   highlightMaterial: {fileID: -876546973899608171, guid: 0529211e118674a4487bbc89a910257a,
@@ -19397,6 +19815,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302d48c30d0e8f54680bec4372966049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minigameCanvas: {fileID: 0}
   workstationType: 0
   currentlyStoredItem: {fileID: 0}
   highlightMaterial: {fileID: -876546973899608171, guid: 0529211e118674a4487bbc89a910257a,
@@ -19446,6 +19865,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302d48c30d0e8f54680bec4372966049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minigameCanvas: {fileID: 0}
   workstationType: 0
   currentlyStoredItem: {fileID: 0}
   highlightMaterial: {fileID: -876546973899608171, guid: 0529211e118674a4487bbc89a910257a,
@@ -19495,6 +19915,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302d48c30d0e8f54680bec4372966049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minigameCanvas: {fileID: 0}
   workstationType: 0
   currentlyStoredItem: {fileID: 0}
   highlightMaterial: {fileID: -876546973899608171, guid: 0529211e118674a4487bbc89a910257a,
@@ -19926,6 +20347,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302d48c30d0e8f54680bec4372966049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minigameCanvas: {fileID: 0}
   workstationType: 0
   currentlyStoredItem: {fileID: 0}
   highlightMaterial: {fileID: -876546973899608171, guid: 0529211e118674a4487bbc89a910257a,
@@ -20088,6 +20510,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   highlightMaterial: {fileID: 2100000, guid: 0e1abc942e44ad54ab19f0f0bf6f5d64, type: 2}
+  iconSprite: {fileID: 0}
   hasBeenThrown: 0
 --- !u!23 &1477809973
 MeshRenderer:
@@ -20272,6 +20695,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302d48c30d0e8f54680bec4372966049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minigameCanvas: {fileID: 0}
   workstationType: 0
   currentlyStoredItem: {fileID: 0}
   highlightMaterial: {fileID: 2100000, guid: 0e1abc942e44ad54ab19f0f0bf6f5d64, type: 2}
@@ -20803,6 +21227,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302d48c30d0e8f54680bec4372966049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minigameCanvas: {fileID: 0}
   workstationType: 0
   currentlyStoredItem: {fileID: 0}
   highlightMaterial: {fileID: -876546973899608171, guid: 0529211e118674a4487bbc89a910257a,
@@ -20852,6 +21277,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302d48c30d0e8f54680bec4372966049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minigameCanvas: {fileID: 0}
   workstationType: 0
   currentlyStoredItem: {fileID: 0}
   highlightMaterial: {fileID: -876546973899608171, guid: 0529211e118674a4487bbc89a910257a,
@@ -20895,6 +21321,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302d48c30d0e8f54680bec4372966049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minigameCanvas: {fileID: 0}
   workstationType: 0
   currentlyStoredItem: {fileID: 0}
   highlightMaterial: {fileID: -876546973899608171, guid: 0529211e118674a4487bbc89a910257a,
@@ -21085,6 +21512,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302d48c30d0e8f54680bec4372966049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minigameCanvas: {fileID: 0}
   workstationType: 0
   currentlyStoredItem: {fileID: 0}
   highlightMaterial: {fileID: 2100000, guid: 0e1abc942e44ad54ab19f0f0bf6f5d64, type: 2}
@@ -21206,6 +21634,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302d48c30d0e8f54680bec4372966049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minigameCanvas: {fileID: 0}
   workstationType: 0
   currentlyStoredItem: {fileID: 0}
   highlightMaterial: {fileID: 2100000, guid: 0e1abc942e44ad54ab19f0f0bf6f5d64, type: 2}
@@ -21478,6 +21907,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302d48c30d0e8f54680bec4372966049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minigameCanvas: {fileID: 0}
   workstationType: 0
   currentlyStoredItem: {fileID: 0}
   highlightMaterial: {fileID: -876546973899608171, guid: 0529211e118674a4487bbc89a910257a,
@@ -22461,6 +22891,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302d48c30d0e8f54680bec4372966049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minigameCanvas: {fileID: 0}
   workstationType: 0
   currentlyStoredItem: {fileID: 0}
   highlightMaterial: {fileID: 2100000, guid: 0e1abc942e44ad54ab19f0f0bf6f5d64, type: 2}
@@ -22571,6 +23002,74 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1643105521}
   m_Mesh: {fileID: -9088695878779348318, guid: d0a9bfb4b5f28174884e89dd76563ae8, type: 3}
+--- !u!1001 &1650839351
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 14ad11e3e07688b498dffc51f3af74fa,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -8.932
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 14ad11e3e07688b498dffc51f3af74fa,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.99000025
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 14ad11e3e07688b498dffc51f3af74fa,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 4.0200996
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 14ad11e3e07688b498dffc51f3af74fa,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 14ad11e3e07688b498dffc51f3af74fa,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 14ad11e3e07688b498dffc51f3af74fa,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 14ad11e3e07688b498dffc51f3af74fa,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 14ad11e3e07688b498dffc51f3af74fa,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 14ad11e3e07688b498dffc51f3af74fa,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 14ad11e3e07688b498dffc51f3af74fa,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 14ad11e3e07688b498dffc51f3af74fa,
+        type: 3}
+      propertyPath: m_Name
+      value: Cake
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 14ad11e3e07688b498dffc51f3af74fa, type: 3}
 --- !u!1 &1664100943
 GameObject:
   m_ObjectHideFlags: 0
@@ -23022,6 +23521,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302d48c30d0e8f54680bec4372966049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minigameCanvas: {fileID: 0}
   workstationType: 0
   currentlyStoredItem: {fileID: 0}
   highlightMaterial: {fileID: -876546973899608171, guid: 0529211e118674a4487bbc89a910257a,
@@ -23232,7 +23732,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 974d5fca12331ad41aaa57d3fa73ae2f, type: 2}
+      objectReference: {fileID: 2100000, guid: ecf622072791bbf478912013103cfb5e, type: 2}
     - target: {fileID: 919132149155446097, guid: e93612a5c79ce524c8a4572e881a0324,
         type: 3}
       propertyPath: m_Name
@@ -23367,6 +23867,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302d48c30d0e8f54680bec4372966049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minigameCanvas: {fileID: 0}
   workstationType: 0
   currentlyStoredItem: {fileID: 0}
   highlightMaterial: {fileID: 2100000, guid: 0e1abc942e44ad54ab19f0f0bf6f5d64, type: 2}
@@ -23661,6 +24162,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302d48c30d0e8f54680bec4372966049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minigameCanvas: {fileID: 0}
   workstationType: 0
   currentlyStoredItem: {fileID: 0}
   highlightMaterial: {fileID: 2100000, guid: 0e1abc942e44ad54ab19f0f0bf6f5d64, type: 2}
@@ -23988,6 +24490,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302d48c30d0e8f54680bec4372966049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minigameCanvas: {fileID: 0}
   workstationType: 0
   currentlyStoredItem: {fileID: 0}
   highlightMaterial: {fileID: -876546973899608171, guid: 0529211e118674a4487bbc89a910257a,
@@ -24110,6 +24613,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302d48c30d0e8f54680bec4372966049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minigameCanvas: {fileID: 0}
   workstationType: 0
   currentlyStoredItem: {fileID: 0}
   highlightMaterial: {fileID: 2100000, guid: 0e1abc942e44ad54ab19f0f0bf6f5d64, type: 2}
@@ -24630,6 +25134,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302d48c30d0e8f54680bec4372966049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minigameCanvas: {fileID: 0}
   workstationType: 0
   currentlyStoredItem: {fileID: 0}
   highlightMaterial: {fileID: 2100000, guid: 0e1abc942e44ad54ab19f0f0bf6f5d64, type: 2}
@@ -24751,6 +25256,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302d48c30d0e8f54680bec4372966049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minigameCanvas: {fileID: 0}
   workstationType: 0
   currentlyStoredItem: {fileID: 0}
   highlightMaterial: {fileID: 2100000, guid: 0e1abc942e44ad54ab19f0f0bf6f5d64, type: 2}
@@ -24964,6 +25470,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302d48c30d0e8f54680bec4372966049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minigameCanvas: {fileID: 0}
   workstationType: 0
   currentlyStoredItem: {fileID: 0}
   highlightMaterial: {fileID: 2100000, guid: 0e1abc942e44ad54ab19f0f0bf6f5d64, type: 2}
@@ -25269,6 +25776,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302d48c30d0e8f54680bec4372966049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minigameCanvas: {fileID: 0}
   workstationType: 0
   currentlyStoredItem: {fileID: 0}
   highlightMaterial: {fileID: -876546973899608171, guid: 0529211e118674a4487bbc89a910257a,
@@ -25402,6 +25910,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302d48c30d0e8f54680bec4372966049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minigameCanvas: {fileID: 0}
   workstationType: 0
   currentlyStoredItem: {fileID: 0}
   highlightMaterial: {fileID: -876546973899608171, guid: 0529211e118674a4487bbc89a910257a,
@@ -25643,6 +26152,74 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.5000001, y: 0.11893259, z: 1}
   m_Center: {x: -0.24999976, y: -0.059466295, z: -0.5}
+--- !u!1001 &1852418155
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 0427337e3c78eb743b4dee2731db626f,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -7.3493967
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 0427337e3c78eb743b4dee2731db626f,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.9900001
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 0427337e3c78eb743b4dee2731db626f,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 3.867742
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 0427337e3c78eb743b4dee2731db626f,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 0427337e3c78eb743b4dee2731db626f,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 0427337e3c78eb743b4dee2731db626f,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 0427337e3c78eb743b4dee2731db626f,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 0427337e3c78eb743b4dee2731db626f,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 0427337e3c78eb743b4dee2731db626f,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 0427337e3c78eb743b4dee2731db626f,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 0427337e3c78eb743b4dee2731db626f,
+        type: 3}
+      propertyPath: m_Name
+      value: BeanJar
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 0427337e3c78eb743b4dee2731db626f, type: 3}
 --- !u!1001 &1865583025
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -26020,6 +26597,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302d48c30d0e8f54680bec4372966049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minigameCanvas: {fileID: 0}
   workstationType: 0
   currentlyStoredItem: {fileID: 0}
   highlightMaterial: {fileID: -876546973899608171, guid: 0529211e118674a4487bbc89a910257a,
@@ -26253,6 +26831,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302d48c30d0e8f54680bec4372966049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minigameCanvas: {fileID: 0}
   workstationType: 0
   currentlyStoredItem: {fileID: 0}
   highlightMaterial: {fileID: 2100000, guid: 0e1abc942e44ad54ab19f0f0bf6f5d64, type: 2}
@@ -26694,6 +27273,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7245ebf659ba4d5cb5cc7f86e957e813, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minigameCanvas: {fileID: 0}
   workstationType: 0
   currentlyStoredItem: {fileID: 0}
   highlightMaterial: {fileID: 2100000, guid: 0e1abc942e44ad54ab19f0f0bf6f5d64, type: 2}
@@ -26930,6 +27510,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302d48c30d0e8f54680bec4372966049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minigameCanvas: {fileID: 0}
   workstationType: 0
   currentlyStoredItem: {fileID: 0}
   highlightMaterial: {fileID: 2100000, guid: 0e1abc942e44ad54ab19f0f0bf6f5d64, type: 2}
@@ -27057,6 +27638,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302d48c30d0e8f54680bec4372966049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minigameCanvas: {fileID: 0}
   workstationType: 0
   currentlyStoredItem: {fileID: 0}
   highlightMaterial: {fileID: 2100000, guid: 0e1abc942e44ad54ab19f0f0bf6f5d64, type: 2}
@@ -27296,6 +27878,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302d48c30d0e8f54680bec4372966049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minigameCanvas: {fileID: 0}
   workstationType: 0
   currentlyStoredItem: {fileID: 0}
   highlightMaterial: {fileID: 2100000, guid: 0e1abc942e44ad54ab19f0f0bf6f5d64, type: 2}
@@ -27492,6 +28075,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302d48c30d0e8f54680bec4372966049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minigameCanvas: {fileID: 0}
   workstationType: 0
   currentlyStoredItem: {fileID: 0}
   highlightMaterial: {fileID: -876546973899608171, guid: 0529211e118674a4487bbc89a910257a,
@@ -28129,6 +28713,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302d48c30d0e8f54680bec4372966049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minigameCanvas: {fileID: 0}
   workstationType: 0
   currentlyStoredItem: {fileID: 0}
   highlightMaterial: {fileID: -876546973899608171, guid: 0529211e118674a4487bbc89a910257a,
@@ -28573,11 +29158,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09ef311d159b6a047a60451af3eac195, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minigameCanvas: {fileID: 0}
   workstationType: 0
   currentlyStoredItem: {fileID: 0}
   highlightMaterial: {fileID: -876546973899608171, guid: 0529211e118674a4487bbc89a910257a,
     type: 3}
+  workstationStateUpdateChannel: {fileID: 0}
   coffeeGroundsPrefab: {fileID: 134753485}
+  pressureTarget: 0
+  pressureVariance: 0
 --- !u!1 &2106249157
 GameObject:
   m_ObjectHideFlags: 0
@@ -28660,6 +29249,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   highlightMaterial: {fileID: 2100000, guid: 0e1abc942e44ad54ab19f0f0bf6f5d64, type: 2}
+  iconSprite: {fileID: 0}
   hasBeenThrown: 0
 --- !u!23 &2106249161
 MeshRenderer:
@@ -29203,6 +29793,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302d48c30d0e8f54680bec4372966049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minigameCanvas: {fileID: 0}
   workstationType: 0
   currentlyStoredItem: {fileID: 0}
   highlightMaterial: {fileID: 2100000, guid: 0e1abc942e44ad54ab19f0f0bf6f5d64, type: 2}
@@ -29230,6 +29821,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302d48c30d0e8f54680bec4372966049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minigameCanvas: {fileID: 0}
   workstationType: 0
   currentlyStoredItem: {fileID: 0}
   highlightMaterial: {fileID: -876546973899608171, guid: 0529211e118674a4487bbc89a910257a,
@@ -29317,7 +29909,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 974d5fca12331ad41aaa57d3fa73ae2f, type: 2}
+      objectReference: {fileID: 2100000, guid: ecf622072791bbf478912013103cfb5e, type: 2}
     - target: {fileID: 919132149155446097, guid: e93612a5c79ce524c8a4572e881a0324,
         type: 3}
       propertyPath: m_Name
@@ -29453,6 +30045,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302d48c30d0e8f54680bec4372966049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minigameCanvas: {fileID: 0}
   workstationType: 0
   currentlyStoredItem: {fileID: 0}
   highlightMaterial: {fileID: -876546973899608171, guid: 0529211e118674a4487bbc89a910257a,
@@ -30122,6 +30715,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae1a79dc95b34c86b5e32302c5c16a3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minigameCanvas: {fileID: 0}
   workstationType: 0
   currentlyStoredItem: {fileID: 0}
   highlightMaterial: {fileID: -876546973899608171, guid: 0529211e118674a4487bbc89a910257a,
@@ -30843,3 +31437,10 @@ SceneRoots:
   - {fileID: 1489735005}
   - {fileID: 1026938822}
   - {fileID: 948820113}
+  - {fileID: 1650839351}
+  - {fileID: 1368192568}
+  - {fileID: 1852418155}
+  - {fileID: 656400873}
+  - {fileID: 902877527}
+  - {fileID: 240525703}
+  - {fileID: 317418131}
