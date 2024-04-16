@@ -17,8 +17,7 @@ public enum WorkstationType {
 
 public class Workstation : MonoBehaviour, IInteractable
 {
-    GameObject minigameCanvas;
-
+    [HideInInspector] public GameObject minigameCanvas;
     public WorkstationType workstationType;
     public Item currentlyStoredItem;
     [SerializeField] private Material highlightMaterial;
@@ -60,7 +59,7 @@ public class Workstation : MonoBehaviour, IInteractable
         _playerController = null;
     }
 
-    public void OnPlaceItem(Item newItem) {
+    public virtual void OnPlaceItem(Item newItem) {
         if (currentlyStoredItem != null) return; 
         
         currentlyStoredItem = newItem;
@@ -87,23 +86,6 @@ public class Workstation : MonoBehaviour, IInteractable
         
     }
 
-    public void GameUI(bool active)
-    {
-        minigameCanvas = gameObject.transform.GetChild(0).gameObject;
-        if (active)
-        {
-            minigameCanvas.SetActive(true);
-            Debug.Log("Activated Station");
-
-        }
-        else
-        {
-            minigameCanvas.SetActive(false);
-            Debug.Log("Left Station");
-        }
-
-    }
-
     public virtual void MinigameButton()
     {
         Debug.Log("Workstation active");
@@ -115,5 +97,8 @@ public class Workstation : MonoBehaviour, IInteractable
     public virtual void MinigameStick(Vector2 input)
     {
         Debug.Log("Workstation active");
+    }
+    public virtual void InitWorkstation() {
+        
     }
 }
