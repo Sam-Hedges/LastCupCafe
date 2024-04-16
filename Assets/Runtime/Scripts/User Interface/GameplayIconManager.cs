@@ -43,8 +43,19 @@ public class GameplayIconManager : MonoBehaviour
     }
 
     private void Update() {
+        var deleteQueue = new List<KeyValuePair<GameObject, GameObject>>();
         foreach (var keyValuePair in _gameplayIcons) {
             UpdateIconPosition(keyValuePair.Key);
+            if (keyValuePair.Key == null) deleteQueue.Add(keyValuePair);
+            if (keyValuePair.Key.activeSelf != keyValuePair.Value.activeSelf) {
+                keyValuePair.Value.SetActive(keyValuePair.Key.activeSelf);
+            }
+        }
+
+        foreach (var keyValuePair in deleteQueue) {
+            _gameplayIcons.Remove(keyValuePair.Key);
+            Destroy(keyValuePair.Value);
+            Destroy(keyValuePair.Key);
         }
     }
 
@@ -74,31 +85,34 @@ public class GameplayIconManager : MonoBehaviour
         if (go.TryGetComponent(out Ingredient ingredient)) {
             switch (ingredient.IngredientType) {
                 case IngredientType.Milk:
-                    CheckForIcon(go, iconPrefab);
+                    CheckForIcon(go, defaultBaseIcon);
                     UpdateIconPosition(ingredient.gameObject);
-                    break;
+                    Instantiate(milkIcon, _gameplayIcons[go].transform, false);
+                    return;
                 case IngredientType.CoffeeBeans:
-                    CheckForIcon(go, iconPrefab);
+                    CheckForIcon(go, defaultBaseIcon);
                     UpdateIconPosition(ingredient.gameObject);
-                    break;
+                    Instantiate(coffeeBeansIcon, _gameplayIcons[go].transform, false);
+                    return;
                 case IngredientType.CoffeeGrounds:
-                    CheckForIcon(go, iconPrefab);
-                    UpdateIconPosition(ingredient.gameObject);
-                    break;
+                    CheckForIcon(go, defaultBaseIcon);
+                    UpdateIconPosition(ingredient.gameObject); 
+                    Instantiate(coffeeGroundsIcon, _gameplayIcons[go].transform, false);
+                    return;
                 case IngredientType.ChocolatePowder:
-                    CheckForIcon(go, iconPrefab);
+                    CheckForIcon(go, defaultBaseIcon);
                     UpdateIconPosition(ingredient.gameObject);
-                    break;
+                    Instantiate(chocolateIcon, _gameplayIcons[go].transform, false);
+                    return;
                 case IngredientType.CaramelSyrup:
-                    CheckForIcon(go, iconPrefab);
+                    CheckForIcon(go, defaultBaseIcon);
                     UpdateIconPosition(ingredient.gameObject);
-                    break;
+                    Instantiate(caramelIcon, _gameplayIcons[go].transform, false);
+                    return;
                 case IngredientType.Water:
                     // Can't hold water directly
-                    break;
+                    return;
             }
-
-            return;
         }
 
         if (go.TryGetComponent(out Workstation workstation)) {
@@ -110,8 +124,8 @@ public class GameplayIconManager : MonoBehaviour
                     CheckForIcon(go, coffeeMachineUI);
                     UpdateIconPosition(workstation.gameObject);
                     // Disgusting Code
-                    workstation.GetComponent<CoffeeMachine>().InitUI(_gameplayIcons[workstation.gameObject].GetComponent<CoffeeMachineMG>());
-                    break;
+                    workstation.GetComponent<CoffeeMachine>().Icons = _gameplayIcons[go].GetComponent<CoffeeMachineMG>();
+                    return;
                 default:
                     break;
             }

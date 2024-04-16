@@ -1,20 +1,30 @@
 using Mono.CSharp;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class CoffeeMachine : Workstation, IMinigame
 {
     [SerializeField] private GameObjectEventChannelSO workstationStateUpdateChannel;
     [SerializeField] private GameObject coffeeGroundsPrefab;
-    private CoffeeMachineMG _icons;
-    private PressureGaugeMG _gauge;
+
+    public CoffeeMachineMG Icons {
+        get => Icons;
+        set {
+            icons = value;
+            gauge = icons.Gauge;
+        }
+    }
+
+    private CoffeeMachineMG icons;
+    private PressureGaugeMG gauge;
 
     //TThe Target pressure player should be reaching
     public float pressureTarget;
     //The error value (how much lower/higher the delta can be and still give a correct output)
     public float pressureVariance;
 
-    private bool _canComplete;
+    private bool canComplete;
     private float savedInput;
     private float delta;
     private float progressDelta;
@@ -26,8 +36,8 @@ public class CoffeeMachine : Workstation, IMinigame
     }
 
     public void InitUI(CoffeeMachineMG cm) {
-        _icons = cm;
-        _gauge = cm.Gauge;
+        Icons = cm;
+        gauge = cm.Gauge;
     }
 
     public override void InitWorkstation() {
@@ -54,7 +64,7 @@ public class CoffeeMachine : Workstation, IMinigame
     
     public override void MinigameButton()
     {
-        if (currentlyStoredItem.TryGetComponent(out Mug mug) && _canComplete) {
+        if (currentlyStoredItem.TryGetComponent(out Mug mug) && canComplete) {
             mug.AddIngredient(IngredientType.CoffeeGrounds);
         }
         else
@@ -64,6 +74,8 @@ public class CoffeeMachine : Workstation, IMinigame
     }
     
     private void FixedUpdate() {
+        
+        if (!gauge) return;
         
         switch (savedInput) {
             case 0:
@@ -82,22 +94,22 @@ public class CoffeeMachine : Workstation, IMinigame
         delta = Mathf.Clamp(delta, 0, 1);
         
         // Update pressure bar
-        _gauge.needleTransform.localEulerAngles = new Vector3(0, 0, delta * -240 + 120);
+        gauge.needleTransform.localEulerAngles = new Vector3(0, 0, delta * -240 + 120);
 
         if (delta >= pressureTarget - pressureVariance && delta <= pressureTarget + pressureVariance)
         {
-            _gauge.pressureBar.color = _gauge.goodColor;
+            gauge.pressureBar.color = gauge.goodColor;
             progressDelta += 0.01f;
         }
         else
         {
-            _gauge.pressureBar.color = _gauge.badColor;
+            gauge.pressureBar.color = gauge.badColor;
             progressDelta -= 0.01f;
         }
         
         progressDelta = Mathf.Clamp(progressDelta, 0, 0.25f);
         
-        _gauge.progressBar.fillAmount = progressDelta;
+        gauge.progressBar.fillAmount = progressDelta;
     }
 
     public override void MinigameTrigger(float input) {

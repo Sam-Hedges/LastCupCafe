@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6531609794019588071}
   - component: {fileID: 6491671279581166395}
   - component: {fileID: 1681995549999836104}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Mug
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -148,6 +148,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   highlightMaterial: {fileID: 2100000, guid: 0e1abc942e44ad54ab19f0f0bf6f5d64, type: 2}
-  iconSprite: {fileID: 0}
   hasBeenThrown: 0
   ingredients: 

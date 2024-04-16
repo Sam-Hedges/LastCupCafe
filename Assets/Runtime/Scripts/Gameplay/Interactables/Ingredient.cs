@@ -9,9 +9,17 @@ public enum IngredientType {
     CaramelSyrup,
     Water
 }
-public class Ingredient : Item {
+public abstract class Ingredient : Item {
     
+    public GameObjectEventChannelSO iconInitChannel;
     public IngredientType IngredientType { get; private set; }
-    public Sprite Icon;
+    internal new abstract void Awake();
+    public void Start() {
+        iconInitChannel.RaiseEvent(gameObject);
+    }
 
+    internal void SetIngredientType(IngredientType type) {
+        IngredientType = type;
+    }
+    
 }

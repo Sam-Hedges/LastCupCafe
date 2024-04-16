@@ -6,14 +6,13 @@ using UnityEngine;
 public class Item : MonoBehaviour, IInteractable
 {
     [SerializeField] private Material highlightMaterial;
-    public Sprite iconSprite;
     private MeshRenderer _meshRenderer;
     private Material[] _defaultMaterials;
     private Material[] _highlightMaterials;
     private PlayerController _playerController;
     public bool hasBeenThrown;
 
-    private void Awake() {
+    public void Awake() {
         _meshRenderer = GetComponent<MeshRenderer>();
         _defaultMaterials = _meshRenderer.materials;
         InitHightlightMaterials();

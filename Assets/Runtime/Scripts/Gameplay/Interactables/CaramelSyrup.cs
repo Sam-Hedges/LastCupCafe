@@ -1,1 +1,6 @@
-public class CaramelSyrup : Item { }
+public class CaramelSyrup : Ingredient
+{
+    internal override void Awake() {
+        SetIngredientType(IngredientType.CaramelSyrup);
+    }
+}
