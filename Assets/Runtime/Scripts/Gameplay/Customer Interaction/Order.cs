@@ -24,7 +24,7 @@ public class Order : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown("e"))
+        if (Input.GetKeyDown("f")) //temp input for creaing orders
         {
             CheckAvailableSlots();
         }

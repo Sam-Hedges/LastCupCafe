@@ -8,6 +8,8 @@ public class Mug : Item {
 
     public List<IngredientType> DrinkType1 = new List<IngredientType>();
 
+    public int id = 0;
+
     public void AddIngredient(IngredientType ingredient) {
         if (!ingredients.Contains(ingredient)) {
             ingredients.Add(ingredient);
@@ -24,7 +26,7 @@ public class Mug : Item {
     {
         if (ingredients.SequenceEqual(DrinkType1))
         {
-            UnityEngine.Debug.Log("HELLO");
+            id = 1;
         }
     }
 }
