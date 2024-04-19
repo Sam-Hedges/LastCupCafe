@@ -80,7 +80,7 @@ public class Workstation : MonoBehaviour, IInteractable
     }
 
     public virtual void OnInteract() {
-        if (currentlyStoredItem == null) return; // TODO: Implement not going to work without newItem sound
+        if (currentlyStoredItem == null) return; // TODO: Implement not going to work without newItem sound.
         
         
         

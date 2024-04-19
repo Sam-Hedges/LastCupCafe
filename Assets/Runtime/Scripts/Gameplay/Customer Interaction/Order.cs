@@ -22,16 +22,8 @@ public class Order : MonoBehaviour
         drinkID = new int[5];
     }
 
-    void Update()
-    {
-        if (Input.GetKeyDown("e"))
-        {
-            CheckAvailableSlots();
-        }
-    }
-
     //Checks for available slots for new orders
-    void CheckAvailableSlots()
+    public void CheckAvailableSlots()
     {
         for (int i = 0; i < customerID.Length; i++)
         {
