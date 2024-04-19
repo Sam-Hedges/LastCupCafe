@@ -1127,6 +1127,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302d48c30d0e8f54680bec4372966049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minigameCanvas: {fileID: 0}
   workstationType: 0
   currentlyStoredItem: {fileID: 0}
   highlightMaterial: {fileID: -876546973899608171, guid: 0529211e118674a4487bbc89a910257a,
@@ -1258,6 +1259,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302d48c30d0e8f54680bec4372966049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minigameCanvas: {fileID: 0}
   workstationType: 0
   currentlyStoredItem: {fileID: 0}
   highlightMaterial: {fileID: -876546973899608171, guid: 0529211e118674a4487bbc89a910257a,
@@ -1319,6 +1321,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302d48c30d0e8f54680bec4372966049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minigameCanvas: {fileID: 0}
   workstationType: 0
   currentlyStoredItem: {fileID: 0}
   highlightMaterial: {fileID: -876546973899608171, guid: 0529211e118674a4487bbc89a910257a,
@@ -1748,6 +1751,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302d48c30d0e8f54680bec4372966049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minigameCanvas: {fileID: 0}
   workstationType: 0
   currentlyStoredItem: {fileID: 0}
   highlightMaterial: {fileID: -876546973899608171, guid: 0529211e118674a4487bbc89a910257a,
@@ -2421,6 +2425,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302d48c30d0e8f54680bec4372966049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minigameCanvas: {fileID: 0}
   workstationType: 0
   currentlyStoredItem: {fileID: 0}
   highlightMaterial: {fileID: -876546973899608171, guid: 0529211e118674a4487bbc89a910257a,
@@ -2573,6 +2578,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302d48c30d0e8f54680bec4372966049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minigameCanvas: {fileID: 0}
   workstationType: 0
   currentlyStoredItem: {fileID: 0}
   highlightMaterial: {fileID: -876546973899608171, guid: 0529211e118674a4487bbc89a910257a,
@@ -2655,6 +2661,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302d48c30d0e8f54680bec4372966049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minigameCanvas: {fileID: 0}
   workstationType: 0
   currentlyStoredItem: {fileID: 0}
   highlightMaterial: {fileID: -876546973899608171, guid: 0529211e118674a4487bbc89a910257a,
@@ -2786,6 +2793,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302d48c30d0e8f54680bec4372966049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minigameCanvas: {fileID: 0}
   workstationType: 0
   currentlyStoredItem: {fileID: 0}
   highlightMaterial: {fileID: -876546973899608171, guid: 0529211e118674a4487bbc89a910257a,
@@ -3440,14 +3448,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09ef311d159b6a047a60451af3eac195, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minigameCanvas: {fileID: 0}
   workstationType: 0
   currentlyStoredItem: {fileID: 0}
   highlightMaterial: {fileID: -876546973899608171, guid: 0529211e118674a4487bbc89a910257a,
     type: 3}
+  workstationStateUpdateChannel: {fileID: 0}
   coffeeGroundsPrefab: {fileID: 1135082}
-  pressureBar: {fileID: 0}
-  badColor: {r: 0, g: 0, b: 0, a: 0}
-  goodColor: {r: 0, g: 0, b: 0, a: 0}
   pressureTarget: 0
   pressureVariance: 0
 --- !u!4 &311783740 stripped
@@ -3704,6 +3711,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302d48c30d0e8f54680bec4372966049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minigameCanvas: {fileID: 0}
   workstationType: 0
   currentlyStoredItem: {fileID: 0}
   highlightMaterial: {fileID: -876546973899608171, guid: 0529211e118674a4487bbc89a910257a,
@@ -3753,6 +3761,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302d48c30d0e8f54680bec4372966049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minigameCanvas: {fileID: 0}
   workstationType: 0
   currentlyStoredItem: {fileID: 0}
   highlightMaterial: {fileID: -876546973899608171, guid: 0529211e118674a4487bbc89a910257a,
@@ -3959,6 +3968,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302d48c30d0e8f54680bec4372966049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minigameCanvas: {fileID: 0}
   workstationType: 0
   currentlyStoredItem: {fileID: 0}
   highlightMaterial: {fileID: -876546973899608171, guid: 0529211e118674a4487bbc89a910257a,
@@ -4008,6 +4018,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302d48c30d0e8f54680bec4372966049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minigameCanvas: {fileID: 0}
   workstationType: 0
   currentlyStoredItem: {fileID: 0}
   highlightMaterial: {fileID: -876546973899608171, guid: 0529211e118674a4487bbc89a910257a,
@@ -4859,6 +4870,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302d48c30d0e8f54680bec4372966049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minigameCanvas: {fileID: 0}
   workstationType: 0
   currentlyStoredItem: {fileID: 0}
   highlightMaterial: {fileID: -876546973899608171, guid: 0529211e118674a4487bbc89a910257a,
@@ -5167,6 +5179,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302d48c30d0e8f54680bec4372966049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minigameCanvas: {fileID: 0}
   workstationType: 0
   currentlyStoredItem: {fileID: 0}
   highlightMaterial: {fileID: -876546973899608171, guid: 0529211e118674a4487bbc89a910257a,
@@ -5216,6 +5229,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302d48c30d0e8f54680bec4372966049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minigameCanvas: {fileID: 0}
   workstationType: 0
   currentlyStoredItem: {fileID: 0}
   highlightMaterial: {fileID: -876546973899608171, guid: 0529211e118674a4487bbc89a910257a,
@@ -5370,6 +5384,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302d48c30d0e8f54680bec4372966049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minigameCanvas: {fileID: 0}
   workstationType: 0
   currentlyStoredItem: {fileID: 0}
   highlightMaterial: {fileID: -876546973899608171, guid: 0529211e118674a4487bbc89a910257a,
@@ -5419,6 +5434,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae1a79dc95b34c86b5e32302c5c16a3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minigameCanvas: {fileID: 0}
   workstationType: 0
   currentlyStoredItem: {fileID: 0}
   highlightMaterial: {fileID: -876546973899608171, guid: 0529211e118674a4487bbc89a910257a,
@@ -5551,6 +5567,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302d48c30d0e8f54680bec4372966049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minigameCanvas: {fileID: 0}
   workstationType: 0
   currentlyStoredItem: {fileID: 0}
   highlightMaterial: {fileID: -876546973899608171, guid: 0529211e118674a4487bbc89a910257a,
@@ -5908,6 +5925,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302d48c30d0e8f54680bec4372966049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minigameCanvas: {fileID: 0}
   workstationType: 0
   currentlyStoredItem: {fileID: 0}
   highlightMaterial: {fileID: -876546973899608171, guid: 0529211e118674a4487bbc89a910257a,
@@ -6043,6 +6061,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302d48c30d0e8f54680bec4372966049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minigameCanvas: {fileID: 0}
   workstationType: 0
   currentlyStoredItem: {fileID: 0}
   highlightMaterial: {fileID: -876546973899608171, guid: 0529211e118674a4487bbc89a910257a,
@@ -6098,6 +6117,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302d48c30d0e8f54680bec4372966049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minigameCanvas: {fileID: 0}
   workstationType: 0
   currentlyStoredItem: {fileID: 0}
   highlightMaterial: {fileID: -876546973899608171, guid: 0529211e118674a4487bbc89a910257a,
@@ -6614,6 +6634,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302d48c30d0e8f54680bec4372966049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minigameCanvas: {fileID: 0}
   workstationType: 0
   currentlyStoredItem: {fileID: 0}
   highlightMaterial: {fileID: -876546973899608171, guid: 0529211e118674a4487bbc89a910257a,
@@ -6663,6 +6684,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302d48c30d0e8f54680bec4372966049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minigameCanvas: {fileID: 0}
   workstationType: 0
   currentlyStoredItem: {fileID: 0}
   highlightMaterial: {fileID: -876546973899608171, guid: 0529211e118674a4487bbc89a910257a,
@@ -6712,6 +6734,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302d48c30d0e8f54680bec4372966049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minigameCanvas: {fileID: 0}
   workstationType: 0
   currentlyStoredItem: {fileID: 0}
   highlightMaterial: {fileID: -876546973899608171, guid: 0529211e118674a4487bbc89a910257a,
@@ -6838,6 +6861,12 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: a675ca122d540df4d9bfcbaddaaef686,
         type: 2}
+    - target: {fileID: 7233986299214802163, guid: 6fbbb480148449c4291bf1778fbfac5a,
+        type: 3}
+      propertyPath: _gameObjectStateUpdateChannel
+      value: 
+      objectReference: {fileID: 11400000, guid: b27808ab1cc48974298a97bc0047a1ce,
+        type: 2}
     - target: {fileID: 8240499276114829178, guid: 6fbbb480148449c4291bf1778fbfac5a,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -6911,6 +6940,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302d48c30d0e8f54680bec4372966049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minigameCanvas: {fileID: 0}
   workstationType: 0
   currentlyStoredItem: {fileID: 0}
   highlightMaterial: {fileID: -876546973899608171, guid: 0529211e118674a4487bbc89a910257a,
@@ -8395,6 +8425,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302d48c30d0e8f54680bec4372966049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minigameCanvas: {fileID: 0}
   workstationType: 0
   currentlyStoredItem: {fileID: 0}
   highlightMaterial: {fileID: -876546973899608171, guid: 0529211e118674a4487bbc89a910257a,
@@ -8602,6 +8633,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302d48c30d0e8f54680bec4372966049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minigameCanvas: {fileID: 0}
   workstationType: 0
   currentlyStoredItem: {fileID: 0}
   highlightMaterial: {fileID: -876546973899608171, guid: 0529211e118674a4487bbc89a910257a,
@@ -8651,6 +8683,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302d48c30d0e8f54680bec4372966049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minigameCanvas: {fileID: 0}
   workstationType: 0
   currentlyStoredItem: {fileID: 0}
   highlightMaterial: {fileID: -876546973899608171, guid: 0529211e118674a4487bbc89a910257a,
@@ -8850,6 +8883,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302d48c30d0e8f54680bec4372966049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minigameCanvas: {fileID: 0}
   workstationType: 0
   currentlyStoredItem: {fileID: 0}
   highlightMaterial: {fileID: -876546973899608171, guid: 0529211e118674a4487bbc89a910257a,
@@ -9004,6 +9038,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302d48c30d0e8f54680bec4372966049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minigameCanvas: {fileID: 0}
   workstationType: 0
   currentlyStoredItem: {fileID: 0}
   highlightMaterial: {fileID: -876546973899608171, guid: 0529211e118674a4487bbc89a910257a,
@@ -9821,6 +9856,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302d48c30d0e8f54680bec4372966049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minigameCanvas: {fileID: 0}
   workstationType: 0
   currentlyStoredItem: {fileID: 0}
   highlightMaterial: {fileID: -876546973899608171, guid: 0529211e118674a4487bbc89a910257a,
@@ -9870,6 +9906,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302d48c30d0e8f54680bec4372966049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minigameCanvas: {fileID: 0}
   workstationType: 0
   currentlyStoredItem: {fileID: 0}
   highlightMaterial: {fileID: -876546973899608171, guid: 0529211e118674a4487bbc89a910257a,
@@ -10079,6 +10116,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302d48c30d0e8f54680bec4372966049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minigameCanvas: {fileID: 0}
   workstationType: 0
   currentlyStoredItem: {fileID: 0}
   highlightMaterial: {fileID: -876546973899608171, guid: 0529211e118674a4487bbc89a910257a,
@@ -10469,6 +10507,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302d48c30d0e8f54680bec4372966049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minigameCanvas: {fileID: 0}
   workstationType: 0
   currentlyStoredItem: {fileID: 0}
   highlightMaterial: {fileID: -876546973899608171, guid: 0529211e118674a4487bbc89a910257a,
@@ -10966,6 +11005,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302d48c30d0e8f54680bec4372966049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minigameCanvas: {fileID: 0}
   workstationType: 0
   currentlyStoredItem: {fileID: 0}
   highlightMaterial: {fileID: -876546973899608171, guid: 0529211e118674a4487bbc89a910257a,
@@ -11565,6 +11605,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302d48c30d0e8f54680bec4372966049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minigameCanvas: {fileID: 0}
   workstationType: 0
   currentlyStoredItem: {fileID: 0}
   highlightMaterial: {fileID: -876546973899608171, guid: 0529211e118674a4487bbc89a910257a,
@@ -11614,6 +11655,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302d48c30d0e8f54680bec4372966049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minigameCanvas: {fileID: 0}
   workstationType: 0
   currentlyStoredItem: {fileID: 0}
   highlightMaterial: {fileID: -876546973899608171, guid: 0529211e118674a4487bbc89a910257a,
@@ -12035,6 +12077,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302d48c30d0e8f54680bec4372966049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minigameCanvas: {fileID: 0}
   workstationType: 0
   currentlyStoredItem: {fileID: 0}
   highlightMaterial: {fileID: -876546973899608171, guid: 0529211e118674a4487bbc89a910257a,
@@ -12280,6 +12323,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7245ebf659ba4d5cb5cc7f86e957e813, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minigameCanvas: {fileID: 0}
   workstationType: 0
   currentlyStoredItem: {fileID: 0}
   highlightMaterial: {fileID: -876546973899608171, guid: 0529211e118674a4487bbc89a910257a,
@@ -12317,6 +12361,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302d48c30d0e8f54680bec4372966049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minigameCanvas: {fileID: 0}
   workstationType: 0
   currentlyStoredItem: {fileID: 0}
   highlightMaterial: {fileID: -876546973899608171, guid: 0529211e118674a4487bbc89a910257a,
@@ -12442,6 +12487,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302d48c30d0e8f54680bec4372966049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minigameCanvas: {fileID: 0}
   workstationType: 0
   currentlyStoredItem: {fileID: 0}
   highlightMaterial: {fileID: -876546973899608171, guid: 0529211e118674a4487bbc89a910257a,
@@ -12873,6 +12919,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302d48c30d0e8f54680bec4372966049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minigameCanvas: {fileID: 0}
   workstationType: 0
   currentlyStoredItem: {fileID: 0}
   highlightMaterial: {fileID: -876546973899608171, guid: 0529211e118674a4487bbc89a910257a,
@@ -12922,6 +12969,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302d48c30d0e8f54680bec4372966049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minigameCanvas: {fileID: 0}
   workstationType: 0
   currentlyStoredItem: {fileID: 0}
   highlightMaterial: {fileID: -876546973899608171, guid: 0529211e118674a4487bbc89a910257a,
@@ -12998,6 +13046,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302d48c30d0e8f54680bec4372966049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minigameCanvas: {fileID: 0}
   workstationType: 0
   currentlyStoredItem: {fileID: 0}
   highlightMaterial: {fileID: -876546973899608171, guid: 0529211e118674a4487bbc89a910257a,
@@ -13658,6 +13707,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302d48c30d0e8f54680bec4372966049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minigameCanvas: {fileID: 0}
   workstationType: 0
   currentlyStoredItem: {fileID: 0}
   highlightMaterial: {fileID: -876546973899608171, guid: 0529211e118674a4487bbc89a910257a,
@@ -13856,6 +13906,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7245ebf659ba4d5cb5cc7f86e957e813, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minigameCanvas: {fileID: 0}
   workstationType: 0
   currentlyStoredItem: {fileID: 0}
   highlightMaterial: {fileID: -876546973899608171, guid: 0529211e118674a4487bbc89a910257a,
@@ -14511,6 +14562,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302d48c30d0e8f54680bec4372966049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minigameCanvas: {fileID: 0}
   workstationType: 0
   currentlyStoredItem: {fileID: 0}
   highlightMaterial: {fileID: -876546973899608171, guid: 0529211e118674a4487bbc89a910257a,
@@ -14664,6 +14716,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302d48c30d0e8f54680bec4372966049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minigameCanvas: {fileID: 0}
   workstationType: 0
   currentlyStoredItem: {fileID: 0}
   highlightMaterial: {fileID: -876546973899608171, guid: 0529211e118674a4487bbc89a910257a,
@@ -14753,6 +14806,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7245ebf659ba4d5cb5cc7f86e957e813, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minigameCanvas: {fileID: 0}
   workstationType: 0
   currentlyStoredItem: {fileID: 0}
   highlightMaterial: {fileID: -876546973899608171, guid: 0529211e118674a4487bbc89a910257a,
@@ -15526,6 +15580,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302d48c30d0e8f54680bec4372966049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minigameCanvas: {fileID: 0}
   workstationType: 0
   currentlyStoredItem: {fileID: 0}
   highlightMaterial: {fileID: -876546973899608171, guid: 0529211e118674a4487bbc89a910257a,
@@ -15614,6 +15669,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302d48c30d0e8f54680bec4372966049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minigameCanvas: {fileID: 0}
   workstationType: 0
   currentlyStoredItem: {fileID: 0}
   highlightMaterial: {fileID: -876546973899608171, guid: 0529211e118674a4487bbc89a910257a,
@@ -15663,6 +15719,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302d48c30d0e8f54680bec4372966049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minigameCanvas: {fileID: 0}
   workstationType: 0
   currentlyStoredItem: {fileID: 0}
   highlightMaterial: {fileID: -876546973899608171, guid: 0529211e118674a4487bbc89a910257a,
@@ -16019,6 +16076,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7245ebf659ba4d5cb5cc7f86e957e813, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minigameCanvas: {fileID: 0}
   workstationType: 0
   currentlyStoredItem: {fileID: 0}
   highlightMaterial: {fileID: -876546973899608171, guid: 0529211e118674a4487bbc89a910257a,
@@ -16514,6 +16572,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302d48c30d0e8f54680bec4372966049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minigameCanvas: {fileID: 0}
   workstationType: 0
   currentlyStoredItem: {fileID: 0}
   highlightMaterial: {fileID: -876546973899608171, guid: 0529211e118674a4487bbc89a910257a,
@@ -17531,6 +17590,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7245ebf659ba4d5cb5cc7f86e957e813, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minigameCanvas: {fileID: 0}
   workstationType: 0
   currentlyStoredItem: {fileID: 0}
   highlightMaterial: {fileID: -876546973899608171, guid: 0529211e118674a4487bbc89a910257a,
@@ -17839,6 +17899,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302d48c30d0e8f54680bec4372966049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minigameCanvas: {fileID: 0}
   workstationType: 0
   currentlyStoredItem: {fileID: 0}
   highlightMaterial: {fileID: -876546973899608171, guid: 0529211e118674a4487bbc89a910257a,
@@ -18514,6 +18575,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7245ebf659ba4d5cb5cc7f86e957e813, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minigameCanvas: {fileID: 0}
   workstationType: 0
   currentlyStoredItem: {fileID: 0}
   highlightMaterial: {fileID: -876546973899608171, guid: 0529211e118674a4487bbc89a910257a,
@@ -18722,6 +18784,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302d48c30d0e8f54680bec4372966049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minigameCanvas: {fileID: 0}
   workstationType: 0
   currentlyStoredItem: {fileID: 0}
   highlightMaterial: {fileID: -876546973899608171, guid: 0529211e118674a4487bbc89a910257a,
@@ -18771,6 +18834,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302d48c30d0e8f54680bec4372966049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minigameCanvas: {fileID: 0}
   workstationType: 0
   currentlyStoredItem: {fileID: 0}
   highlightMaterial: {fileID: -876546973899608171, guid: 0529211e118674a4487bbc89a910257a,
@@ -18820,6 +18884,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302d48c30d0e8f54680bec4372966049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minigameCanvas: {fileID: 0}
   workstationType: 0
   currentlyStoredItem: {fileID: 0}
   highlightMaterial: {fileID: -876546973899608171, guid: 0529211e118674a4487bbc89a910257a,

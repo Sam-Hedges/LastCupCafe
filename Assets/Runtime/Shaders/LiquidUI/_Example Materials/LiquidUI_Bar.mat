@@ -34,12 +34,12 @@ Material:
     - _ColorMask: 15
     - _DissolveAmount: 0
     - _DissolveTransition: 0
-    - _MovingAmount: 0
+    - _MovingAmount: 0.065521896
     - _NoiseIntensity: 0.219
     - _NoiseRoundFactor: 42
     - _NoiseScale: 15.68
     - _PixelSize: 1000
-    - _Progress: 0
+    - _Progress: 0.31137154
     - _Ratio: 4.4
     - _Rotation: 90
     - _Spherize: 1
@@ -52,5 +52,5 @@ Material:
     - _BackgroundColour: {r: 0, g: 0, b: 0, a: 0.5058824}
     - _BorderColour: {r: 0, g: 0, b: 0, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _Colour: {r: 0.8584906, g: 0.30196092, b: 0.29696208, a: 1}
+    - _Colour: {r: 0.8584906, g: 0.30196086, b: 0.29696202, a: 1}
   m_BuildTextureStacks: []
