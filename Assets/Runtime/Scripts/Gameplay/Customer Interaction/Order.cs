@@ -15,47 +15,43 @@ public class Order : MonoBehaviour
 
     public static int[] drinkID;
 
-    void Start()
+    private void Start()
     {
         slots = new List<GameObject>(slotsStart);
         customerID = new int[5];
         drinkID = new int[5];
     }
 
-    //Checks for available slots for new orders
-    public void CheckAvailableSlots()
+
+    //generates an order by rolling a random number
+    public void TakeOrder()
     {
         for (int i = 0; i < customerID.Length; i++)
         {
-            int check = customerID[i];
-            if (check == 0)
-            {
-                TakeOrder(i);
-                break;
-            }
-        }
-    }
+            if (customerID[i] != 0) return;
+            int slot = i;
 
-    //generates an order by rolling a random number
-    void TakeOrder(int slot)
-    {
-        int order = Random.Range(0, 90);
-        if (order <= 30)
-        {
-            Instantiate(order1, slots[slot].transform, worldPositionStays: false);
-            drinkID[slot] = 1;
+            int order = Random.Range(0, 90);
+            if (order <= 30)
+            {
+                Instantiate(order1, slots[slot].transform, worldPositionStays: false);
+                drinkID[slot] = 1;
+            }
+            else if (order <= 60)
+            {
+                Instantiate(order2, slots[slot].transform, worldPositionStays: false);
+                drinkID[slot] = 2;
+            }
+            else
+            {
+                Instantiate(order3, slots[slot].transform, worldPositionStays: false);
+                drinkID[slot] = 3;
+            }
+
+            customerID[slot] = id;
+            id += 1;
+
+            return;
         }
-        else if(order <= 60)
-        {
-            Instantiate(order2, slots[slot].transform, worldPositionStays: false);
-            drinkID[slot] = 2;
-        }
-        else
-        {
-            Instantiate(order3, slots[slot].transform, worldPositionStays: false);
-            drinkID[slot] = 3;
-        }
-        customerID[slot] = id;
-        id += 1;
     }
 }

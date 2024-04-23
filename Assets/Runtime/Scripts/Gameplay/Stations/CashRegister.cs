@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class CashRegister : Workstation, IMinigame
 {
-    Order orderSystem;
+    private Order orderSystem;
 
     public void Awake()
     {
         orderSystem = GetComponent<Order>();
     }
     public override void MinigameButton()
-        {
-        orderSystem.CheckAvailableSlots();
+    {
+        orderSystem.TakeOrder();
         Debug.Log("Order Taken");
     }
 }
