@@ -41,34 +41,31 @@ public class CoffeeGrinder : Workstation, IProcessItem, IMinigame, IProduceItem
 
     public static float FindDegree(float x, float y)
     {
-        float value = (float)((Mathf.Atan2(x, y) / math.PI) * 180f);
+        float value = Mathf.Atan2(x, y) / math.PI * 180f;
         if (value < 0) value += 360f;
 
         return value;
     }
 
-        Vector2 storedValue;
+    private Vector2 storedValue;
     public override void MinigameStick(Vector2 input)
     {
         UIAngle = -FindDegree(input.x, input.y);
-        handle.transform.rotation = Quaternion.Euler(0, 0, UIAngle);
+        handle.transform.localRotation = Quaternion.Euler(0, 0, UIAngle);
         if (!currentlyStoredItem) return;
         if (!currentlyStoredItem.GetComponent<CoffeeBeans>()) return;
-
-        else {
-            if (storedValue != input && (input.x + input.y >= 0.9f || input.x - input.y <= -0.9f))
-            {
-                storedValue = input;
-                grindProgress += 0.005f;
-                progressBar.fillAmount = (grindProgress / 4.0f);
-                Debug.Log(grindProgress);
-            }
-            if (grindProgress >= 1.0f && currentlyStoredItem != null)
-            {
-                grindProgress = 0.0f;
-                ProcessItem(currentlyStoredItem);
-                isFull = true;
-            }
+        if (storedValue != input && (input.x + input.y >= 0.9f || input.x - input.y <= -0.9f))
+        {
+            storedValue = input;
+            grindProgress += 0.005f;
+            progressBar.fillAmount = (grindProgress / 4.0f);
+            Debug.Log(grindProgress);
+        }
+        if (grindProgress >= 1.0f && currentlyStoredItem != null)
+        {
+            grindProgress = 0.0f;
+            ProcessItem(currentlyStoredItem);
+            isFull = true;
         }
         ColourUpdate();
     }
@@ -77,7 +74,7 @@ public class CoffeeGrinder : Workstation, IProcessItem, IMinigame, IProduceItem
     Item IProduceItem.ProduceItem()
     {
         charges--;
-        UIFillAmount = (float)charges/(float)maxCharges;
+        UIFillAmount = charges / maxCharges;
         Debug.Log(UIFillAmount);
         progressBar.fillAmount = UIFillAmount*0.25f;
         if(charges <= 0)
