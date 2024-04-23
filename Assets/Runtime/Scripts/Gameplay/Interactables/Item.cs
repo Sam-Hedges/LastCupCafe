@@ -36,10 +36,10 @@ public class Item : MonoBehaviour, IInteractable
     }
 
     private void ValidateIfHighlighted() {
-        if (_playerController == null) return;
+        if (!_playerController) return;
         
         // If the item has a parent that is a workstation, remove highlight if the player is not looking at the object
-        if (transform.parent != null && transform.parent.GetComponent<Workstation>() != null) {
+        if (transform.parent && transform.parent.GetComponent<Workstation>()) {
             // If the player is not looking at the parent workstation, remove highlight
             if (_playerController.recentlyCastInteractable != transform.parent.gameObject) {
                 RemoveHighlight(); 

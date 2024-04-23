@@ -1,6 +1,7 @@
 public class Chocolate : Ingredient
 {
-    internal override void Awake() {
+    private new void Awake() {
+        base.Awake();
         SetIngredientType(IngredientType.ChocolatePowder);
     }
 }

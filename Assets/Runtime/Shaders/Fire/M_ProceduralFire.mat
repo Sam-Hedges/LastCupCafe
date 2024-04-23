@@ -37,6 +37,10 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -52,17 +56,22 @@ Material:
     m_Ints: []
     m_Floats:
     - Distortion_Strength: 0.62
-    - Inner_Flame_Intensity: 1
+    - Inner_Flame_Intensity: 2.5
     - Noise_Ceiling: 1.54
     - Noise_Floor: 0.56
     - Noise_Scale: 1.23
     - Outer_Flame_Intensity: 1
     - Posterization_Steps: 3
-    - Y_Scale: 0.94
+    - Y_Scale: 1
+    - _FlameStrength: 0
     - _QueueControl: 0
     - _QueueOffset: 0
+    - _Y_Scale_Large_Flame: 1.4
+    - _Y_Scale_Small_Flame: 1
     m_Colors:
     - Inner_Flame_Scale: {r: 0.25, g: 0.35, b: 0, a: 0}
     - Outer_Flame_Scale: {r: 0.5, g: 0.5, b: 0, a: 0}
     - _Color: {r: 1, g: 0.6082149, b: 0.36320743, a: 1}
+    - _ColorDefault: {r: 1, g: 0.6082149, b: 0.36320746, a: 1}
+    - _ColorHot: {r: 0.36470586, g: 0.84797585, b: 1, a: 1}
   m_BuildTextureStacks: []

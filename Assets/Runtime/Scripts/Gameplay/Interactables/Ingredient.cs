@@ -13,7 +13,11 @@ public abstract class Ingredient : Item {
     
     public GameObjectEventChannelSO iconInitChannel;
     public IngredientType IngredientType { get; private set; }
-    internal new abstract void Awake();
+
+    private new void Awake()
+    {
+        base.Awake();
+    }
     public void Start() {
         iconInitChannel.RaiseEvent(gameObject);
     }

@@ -21,15 +21,15 @@ public class Workstation : MonoBehaviour, IInteractable
     public WorkstationType workstationType;
     public Item currentlyStoredItem;
     [SerializeField] private Material highlightMaterial;
-    private MeshRenderer _meshRenderer;
+    // private MeshRenderer _meshRenderer;
     private Material[] _defaultMaterials;
     private Material[] _highlightMaterials;
     private PlayerController _playerController;
 
     private void Awake() {
-        _meshRenderer = GetComponent<MeshRenderer>();
-        _defaultMaterials = _meshRenderer.materials;
-        InitHightlightMaterials();
+        // _meshRenderer = GetComponent<MeshRenderer>();
+        // _defaultMaterials = _meshRenderer.materials;
+        // InitHightlightMaterials();
     }
 
     private void FixedUpdate() {
@@ -38,29 +38,29 @@ public class Workstation : MonoBehaviour, IInteractable
         
     }
 
-    private void InitHightlightMaterials() {
-        _highlightMaterials = new Material[_defaultMaterials.Length + 1];
-        Array.Copy(_defaultMaterials, _highlightMaterials, _defaultMaterials.Length);
-        _highlightMaterials[_defaultMaterials.Length] = highlightMaterial;
-    }
+    // private void InitHightlightMaterials() {
+    //     _highlightMaterials = new Material[_defaultMaterials.Length + 1];
+    //     Array.Copy(_defaultMaterials, _highlightMaterials, _defaultMaterials.Length);
+    //     _highlightMaterials[_defaultMaterials.Length] = highlightMaterial;
+    // }
 
     public void AddHighlight(PlayerController playerController) {
         // Check if the object is already highlighted
-        if (_meshRenderer.materials == _highlightMaterials) return;
-        _meshRenderer.materials = _highlightMaterials;
-        _playerController = playerController;
+        // if (_meshRenderer.materials == _highlightMaterials) return;
+        // _meshRenderer.materials = _highlightMaterials;
 
-        if (currentlyStoredItem == null) return;
+        if (!currentlyStoredItem) return;
+        _playerController = playerController;
         currentlyStoredItem.GetComponent<Item>().AddHighlight(playerController);
     }
 
     private void RemoveHighlight() {
-        _meshRenderer.materials = _defaultMaterials;
+        // _meshRenderer.materials = _defaultMaterials;
         _playerController = null;
     }
 
     public virtual void OnPlaceItem(Item newItem) {
-        if (currentlyStoredItem != null) return; 
+        if (currentlyStoredItem) return; 
         
         currentlyStoredItem = newItem;
         
@@ -72,7 +72,7 @@ public class Workstation : MonoBehaviour, IInteractable
     }
     
     public Item OnRemoveItem() {
-        if (currentlyStoredItem == null) return null;
+        if (!currentlyStoredItem) return null;
         
         Item temp = currentlyStoredItem;
         currentlyStoredItem = null;
