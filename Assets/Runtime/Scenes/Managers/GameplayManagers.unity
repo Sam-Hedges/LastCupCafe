@@ -247,6 +247,8 @@ MonoBehaviour:
     type: 3}
   healthBaseIcon: {fileID: 2815615446394483877, guid: b4c473ceefff6c4429dc544797f1ce37,
     type: 3}
+  gridBaseIcons: {fileID: 2815615446394483877, guid: 5d81f796e3c841940a5bcb1eaec46875,
+    type: 3}
   coffeeMachineUI: {fileID: 4059802904751724412, guid: 82d193628d26c2f429b528ad44e78a26,
     type: 3}
   milkIcon: {fileID: 2748305381658218109, guid: 0443d1a9f65a70148ac7c6d70da049f2,

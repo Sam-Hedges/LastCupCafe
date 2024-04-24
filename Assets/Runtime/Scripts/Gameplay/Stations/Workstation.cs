@@ -57,18 +57,38 @@ public class Workstation : MonoBehaviour, IInteractable
     private void RemoveHighlight() {
         // _meshRenderer.materials = _defaultMaterials;
         _playerController = null;
-    }
+    } 
 
-    public virtual void OnPlaceItem(Item newItem) {
-        if (currentlyStoredItem) return; 
-        
-        currentlyStoredItem = newItem;
+    public virtual bool OnPlaceItem(GameObject newItem)
+    {
+        if (currentlyStoredItem)
+        {
+            if (currentlyStoredItem.TryGetComponent(out Mug mug) && newItem.TryGetComponent(out Ingredient ingredient))
+            {
+                switch (ingredient.IngredientType)
+                {
+                    case IngredientType.CoffeeBeans:
+                    case IngredientType.CoffeeGrounds:
+                        return false;
+                }
+
+                mug.AddIngredient(ingredient.IngredientType);
+                Destroy(newItem);
+                return true;
+            }
+
+            return false;
+        }
+
+        currentlyStoredItem = newItem.GetComponent<Item>();
         
         currentlyStoredItem.transform.position = transform.position;
         currentlyStoredItem.transform.rotation = transform.rotation;
         
         currentlyStoredItem.transform.SetParent(transform);
         currentlyStoredItem.transform.localPosition = Vector3.up;
+
+        return true;
     }
     
     public Item OnRemoveItem() {

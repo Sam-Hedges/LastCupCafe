@@ -44,22 +44,24 @@ public class CoffeeMachine : Workstation, IMinigame
         
     }
 
-    public override void OnPlaceItem(Item newItem) {
+    public override bool OnPlaceItem(GameObject newItem) {
         
-        if (newItem.GetType() == typeof(CoffeeGrounds)) {
+        if (newItem.GetComponent<CoffeeGrounds>()) {
             charged = true;
             Destroy(newItem.gameObject);
+            return true;
         }
         
-        if (currentlyStoredItem != null) return; 
+        if (currentlyStoredItem) return false; 
         
-        currentlyStoredItem = newItem;
+        currentlyStoredItem = newItem.GetComponent<Item>();
         
         currentlyStoredItem.transform.position = transform.position;
         currentlyStoredItem.transform.rotation = transform.rotation;
         
         currentlyStoredItem.transform.SetParent(transform);
         currentlyStoredItem.transform.localPosition = Vector3.up;
+        return true;
     }
     
     public override void MinigameButton()

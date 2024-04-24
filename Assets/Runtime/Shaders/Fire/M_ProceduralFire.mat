@@ -63,7 +63,7 @@ Material:
     - Outer_Flame_Intensity: 1
     - Posterization_Steps: 3
     - Y_Scale: 1
-    - _FlameStrength: 0
+    - _FlameStrength: 2
     - _QueueControl: 0
     - _QueueOffset: 0
     - _Y_Scale_Large_Flame: 1.4
@@ -72,6 +72,6 @@ Material:
     - Inner_Flame_Scale: {r: 0.25, g: 0.35, b: 0, a: 0}
     - Outer_Flame_Scale: {r: 0.5, g: 0.5, b: 0, a: 0}
     - _Color: {r: 1, g: 0.6082149, b: 0.36320743, a: 1}
-    - _ColorDefault: {r: 1, g: 0.6082149, b: 0.36320746, a: 1}
+    - _ColorDefault: {r: 1, g: 0.4561579, b: 0.36470592, a: 1}
     - _ColorHot: {r: 0.36470586, g: 0.84797585, b: 1, a: 1}
   m_BuildTextureStacks: []

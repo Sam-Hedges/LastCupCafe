@@ -7,7 +7,7 @@ public class TrashCan : Workstation
 {
     private void Update()
     {
-        if (currentlyStoredItem != null)
+        if (currentlyStoredItem)
         {
             Destroy(currentlyStoredItem.gameObject);
             currentlyStoredItem = null;

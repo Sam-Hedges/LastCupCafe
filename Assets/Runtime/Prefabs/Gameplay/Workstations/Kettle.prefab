@@ -1027,7 +1027,7 @@ RectTransform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1236773136901246238}
   - {fileID: 7685447825016575671}
@@ -1365,14 +1365,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 475fa6333f714d2b9e06754ad697deca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minigameCanvas: {fileID: 0}
   workstationType: 7
   currentlyStoredItem: {fileID: 0}
   highlightMaterial: {fileID: 2100000, guid: 0e1abc942e44ad54ab19f0f0bf6f5d64, type: 2}
   temperatureGauge: {fileID: 6399958892659248599}
   progressMeter: {fileID: 5651620794440315807}
-  filledCol: {r: 0.5791587, g: 0.9150943, b: 0.40287167, a: 1}
-  warningCol: {r: 1, g: 0.8018611, b: 0.36477983, a: 1}
-  emptyCol: {r: 0.9056604, g: 0.26201493, b: 0.26201493, a: 1}
+  filledCol: {r: 0.18039216, g: 0.8, b: 0.44313726, a: 1}
+  warningCol: {r: 0.94509804, g: 0.76862746, b: 0.05882353, a: 1}
+  emptyCol: {r: 0.9056604, g: 0.29803923, b: 0.23529412, a: 1}
   startTime: 45
 --- !u!1 &7861406931826917442
 GameObject:

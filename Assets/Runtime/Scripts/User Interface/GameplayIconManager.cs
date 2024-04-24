@@ -15,6 +15,7 @@ public class GameplayIconManager : MonoBehaviour
     private GameObject defaultBaseIcon;
     [SerializeField] private GameObject countBaseIcon;
     [SerializeField] private GameObject healthBaseIcon;
+    [SerializeField] private GameObject gridBaseIcons;
 
     [Header("Workstation UI Prefabs")] [SerializeField]
     private GameObject coffeeMachineUI;
@@ -45,11 +46,15 @@ public class GameplayIconManager : MonoBehaviour
     private void Update() {
         var deleteQueue = new List<KeyValuePair<GameObject, GameObject>>();
         foreach (var keyValuePair in _gameplayIcons) {
-            UpdateIconPosition(keyValuePair.Key);
-            if (keyValuePair.Key == null) deleteQueue.Add(keyValuePair);
+            if (!keyValuePair.Key)
+            {
+                deleteQueue.Add(keyValuePair);
+                continue;
+            }
             if (keyValuePair.Key.activeSelf != keyValuePair.Value.activeSelf) {
                 keyValuePair.Value.SetActive(keyValuePair.Key.activeSelf);
             }
+            UpdateIconPosition(keyValuePair.Key);
         }
 
         foreach (var keyValuePair in deleteQueue) {
@@ -79,6 +84,9 @@ public class GameplayIconManager : MonoBehaviour
 
     public void AddIcon(GameObject go) {
         if (go.TryGetComponent(out Mug mug)) {
+            CheckForIcon(go, gridBaseIcons);
+            UpdateIconPosition(mug.gameObject);
+            mug.SetIconGridHandler(_gameplayIcons[go].GetComponent<IconGridHandler>());
             return;
         }
 

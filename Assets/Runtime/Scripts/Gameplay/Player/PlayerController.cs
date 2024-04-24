@@ -298,7 +298,7 @@ public class PlayerController : MonoBehaviour {
         // Put Down Logic
         if (_currentlyHeldItem != null) {
             // If the player is holding an currentlyStoredItem and the hit collider is a workstation, place the currentlyStoredItem
-            if (hit && hitCollider.TryGetComponent(out station) && station.currentlyStoredItem == null) {
+            if (hit && hitCollider.TryGetComponent(out station)) {
                 PlaceItem(station);
                 return;
             }
@@ -423,14 +423,13 @@ public class PlayerController : MonoBehaviour {
     }
 
     private void PlaceItem(Workstation station) {
-        if (station.currentlyStoredItem != null || _currentlyHeldItem == null) return;
+        if (!_currentlyHeldItem) return;
 
         ToggleItemCollisionAndPhysics(_currentlyHeldItem, false);
 
-        _currentlyHeldItem.transform.SetParent(null);
-        station.OnPlaceItem(_currentlyHeldItem);
+        if (!station.OnPlaceItem(_currentlyHeldItem.gameObject)) return;
+        
         _currentlyHeldItem = null;
-
         playerDropItemEventChannel.RaiseEvent();
     }
 

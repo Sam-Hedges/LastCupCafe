@@ -150,3 +150,4 @@ MonoBehaviour:
   highlightMaterial: {fileID: 2100000, guid: 0e1abc942e44ad54ab19f0f0bf6f5d64, type: 2}
   hasBeenThrown: 0
   ingredients: 
+  iconInitChannel: {fileID: 11400000, guid: b27808ab1cc48974298a97bc0047a1ce, type: 2}
