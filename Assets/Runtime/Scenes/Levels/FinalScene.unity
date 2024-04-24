@@ -397,8 +397,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   registerOrderChannel: {fileID: 11400000, guid: ecb25acdae8603b43acb58b224c50bce,
     type: 2}
-  queryOrderFulfillmentChannel: {fileID: 0}
-  orderFulfilledChannel: {fileID: 0}
+  queryOrderFulfillmentChannel: {fileID: 11400000, guid: e4a1e8dca8409be47ab1769fd3865b50,
+    type: 2}
+  orderFulfilledChannel: {fileID: 11400000, guid: 9b4e017ff47bb984ab2025420cd1df07,
+    type: 2}
   orderPrefab: {fileID: 5862581333757278936, guid: 80beb3cff3478ad4290db04bf4a4ee5f,
     type: 3}
 --- !u!224 &16595781 stripped
@@ -657,7 +659,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b57749297cc83a438c8281ef8d0b82c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  orderFulfilledChannel: {fileID: 0}
+  orderFulfilledChannel: {fileID: 11400000, guid: 9b4e017ff47bb984ab2025420cd1df07,
+    type: 2}
   quotaText: {fileID: 18771919}
   fireShader: {fileID: 2100000, guid: 14a37673adca51f4493e58f5fd4994ba, type: 2}
   normalFlameThreshold: 0.3

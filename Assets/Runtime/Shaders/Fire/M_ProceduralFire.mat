@@ -63,7 +63,7 @@ Material:
     - Outer_Flame_Intensity: 1
     - Posterization_Steps: 3
     - Y_Scale: 1
-    - _FlameStrength: 2
+    - _FlameStrength: 0
     - _QueueControl: 0
     - _QueueOffset: 0
     - _Y_Scale_Large_Flame: 1.4
