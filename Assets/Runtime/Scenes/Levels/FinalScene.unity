@@ -397,8 +397,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   registerOrderChannel: {fileID: 11400000, guid: ecb25acdae8603b43acb58b224c50bce,
     type: 2}
-  queryFufillmentOrderChannel: {fileID: 11400000, guid: e4a1e8dca8409be47ab1769fd3865b50,
-    type: 2}
+  queryOrderFulfillmentChannel: {fileID: 0}
+  orderFulfilledChannel: {fileID: 0}
   orderPrefab: {fileID: 5862581333757278936, guid: 80beb3cff3478ad4290db04bf4a4ee5f,
     type: 3}
 --- !u!224 &16595781 stripped
@@ -633,8 +633,47 @@ PrefabInstance:
     m_RemovedGameObjects:
     - {fileID: 7422001895406944588, guid: d7ddf9a67362a19409d3a2632f3d20ce, type: 3}
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3505232967044304725, guid: d7ddf9a67362a19409d3a2632f3d20ce,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 18771918}
   m_SourcePrefab: {fileID: 100100000, guid: d7ddf9a67362a19409d3a2632f3d20ce, type: 3}
+--- !u!1 &18771917 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3505232967044304725, guid: d7ddf9a67362a19409d3a2632f3d20ce,
+    type: 3}
+  m_PrefabInstance: {fileID: 18771916}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &18771918
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 18771917}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b57749297cc83a438c8281ef8d0b82c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  orderFulfilledChannel: {fileID: 0}
+  quotaText: {fileID: 18771919}
+  fireShader: {fileID: 2100000, guid: 14a37673adca51f4493e58f5fd4994ba, type: 2}
+  normalFlameThreshold: 0.3
+  extraHotFlameThreshold: 0.6
+--- !u!114 &18771919 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2738028332184147266, guid: d7ddf9a67362a19409d3a2632f3d20ce,
+    type: 3}
+  m_PrefabInstance: {fileID: 18771916}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!65 &20367470
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -6098,7 +6137,7 @@ PrefabInstance:
     - target: {fileID: 5511067772020287457, guid: fe79fb0fb7e5dde40a1e1c991abe0ae5,
         type: 3}
       propertyPath: timerDurationMinutes
-      value: 3
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 5511067772020287457, guid: fe79fb0fb7e5dde40a1e1c991abe0ae5,
         type: 3}
@@ -6141,6 +6180,11 @@ PrefabInstance:
         type: 3}
       propertyPath: OnTimerCompleteEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: GameSceneSO, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 7881837755028723754, guid: fe79fb0fb7e5dde40a1e1c991abe0ae5,
+        type: 3}
+      propertyPath: m_text
+      value: 5:00
       objectReference: {fileID: 0}
     - target: {fileID: 8075415125326691787, guid: fe79fb0fb7e5dde40a1e1c991abe0ae5,
         type: 3}

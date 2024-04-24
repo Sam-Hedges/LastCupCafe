@@ -2,11 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class OrderManager : MonoBehaviour
 {
     [SerializeField] private VoidEventChannelSO registerOrderChannel;
-    [SerializeField] private GameObjectEventChannelSO queryFufillmentOrderChannel;
+    [SerializeField] private GameObjectEventChannelSO queryOrderFulfillmentChannel;
+    [SerializeField] private IntEventChannelSO orderFulfilledChannel;
     [SerializeField] private GameObject orderPrefab;
 
     private List<Order> _orders;
@@ -14,7 +16,7 @@ public class OrderManager : MonoBehaviour
     private void Awake()
     {
         registerOrderChannel.OnEventRaised += RegisterOrder;
-        queryFufillmentOrderChannel.OnEventRaised += QueryFulfillment;
+        queryOrderFulfillmentChannel.OnEventRaised += QueryFulfillment;
         _orders = new List<Order>();
     }
 
@@ -40,6 +42,7 @@ public class OrderManager : MonoBehaviour
             if (AreIngredientsEqual(ingredients, order.ingredients))
             {
                 // Fulfill the order
+                orderFulfilledChannel.RaiseEvent(ingredients.Count);
                 Debug.Log("Order fulfilled!");
                 RemoveOrderFromList(order);
                 break; // Exit the loop after fulfilling the order
