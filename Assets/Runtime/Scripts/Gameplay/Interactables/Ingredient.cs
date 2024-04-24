@@ -7,7 +7,8 @@ public enum IngredientType {
     CoffeeGrounds,
     ChocolatePowder,
     CaramelSyrup,
-    Water
+    Water,
+    Espresso
 }
 public abstract class Ingredient : Item {
     

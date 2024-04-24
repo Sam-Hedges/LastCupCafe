@@ -1,60 +1,74 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 using TMPro;
 
 public class Timer : MonoBehaviour
 {
-    [Tooltip("Time in minutes")]
-    public float timeRemaining;
-
-    bool timerRunning;
-
-    public bool fail = false;
-
-    public bool mainTimer = false;
-
     public TextMeshProUGUI timeText;
+    public Image timeBar;
+    public bool runAtStart = false;
+    public float timerDurationMinutes = 1; // Default timer duration in minutes
+    public UnityAction OnTimerCompleteAction;
+    public UnityEvent OnTimerCompleteEvent;
 
-    public GameObject ui;
+    private float _totalTimeInSeconds;
+    private bool _isTimerRunning;
 
-    public float timer;
-    void Start()
+    private void Start()
     {
-        timer = timeRemaining * 60; //converts time to seconds
+        InitTimer(timerDurationMinutes);
 
-        timerRunning = true;
+        if (runAtStart)
+        {
+            StartTimer();
+        }
     }
 
-    void Update()
+    private void InitTimer(float minutes)
     {
-        if (timerRunning)
+        timerDurationMinutes = minutes;
+        _totalTimeInSeconds = timerDurationMinutes * 60; // Converts time to seconds
+        UpdateTimeDisplay(_totalTimeInSeconds);
+    }
+
+    public void StartTimer()
+    {
+        if (!_isTimerRunning)
         {
-            if(timer > 0)
+            _isTimerRunning = true;
+        }
+    }
+
+    private void Update()
+    {
+        if (_isTimerRunning)
+        {
+            _totalTimeInSeconds -= Time.deltaTime;
+            UpdateTimeDisplay(_totalTimeInSeconds);
+
+            if (_totalTimeInSeconds <= 0)
             {
-                if (mainTimer)
-                {
-                    timer = ui.GetComponent<Serve>().newTime;
-                }
-                timer -= Time.deltaTime;
-                DisplayTime(timer);
-            }
-            else
-            {
-                timeRemaining = 0;
-                timerRunning = false;
-                fail = true;
+                FinishTimer();
             }
         }
     }
 
-    //dislays time remaining in a minutes:seconds format
-    void DisplayTime(float timeToDisplay)
+    private void FinishTimer()
     {
-        timeToDisplay += 1;
+        _isTimerRunning = false;
+        _totalTimeInSeconds = 0;
+        UpdateTimeDisplay(_totalTimeInSeconds);
+        OnTimerCompleteAction?.Invoke(); // Triggers the event
+        OnTimerCompleteEvent?.Invoke();
+    }
+
+    // Displays time remaining in a minutes:seconds format and updates the time bar
+    private void UpdateTimeDisplay(float timeToDisplay)
+    {
         float minutes = Mathf.FloorToInt(timeToDisplay / 60);
         float seconds = Mathf.FloorToInt(timeToDisplay % 60);
-        timeText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+        if (timeText) timeText.text = $"{minutes:0}:{seconds:00}";
+        if (timeBar) timeBar.fillAmount = timeToDisplay / (timerDurationMinutes * 60);
     }
 }

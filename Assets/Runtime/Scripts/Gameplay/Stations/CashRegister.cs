@@ -4,15 +4,24 @@ using UnityEngine;
 
 public class CashRegister : Workstation, IMinigame
 {
-    private Order orderSystem;
+    [SerializeField] private VoidEventChannelSO registerOrderChannel;
+    [SerializeField] private GameObjectEventChannelSO queryFufillmentOrderChannel;
 
-    public void Awake()
-    {
-        orderSystem = GetComponent<Order>();
-    }
     public override void MinigameButton()
     {
-        orderSystem.TakeOrder();
+        registerOrderChannel.RaiseEvent();
         Debug.Log("Order Taken");
+    }
+
+    public override bool OnPlaceItem(GameObject newItem)
+    {
+        if (newItem.GetComponent<Mug>())
+        {
+            queryFufillmentOrderChannel.RaiseEvent(newItem);
+            Destroy(newItem);
+            return true;
+        }
+
+        return false;
     }
 }

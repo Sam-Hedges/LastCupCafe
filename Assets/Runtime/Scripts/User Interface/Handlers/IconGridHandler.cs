@@ -25,6 +25,7 @@ public class IconGridHandler : MonoBehaviour
             case IngredientType.Milk:
                 Instantiate(milkIcon, baseIcon.transform, false);
                 return;
+            case IngredientType.Espresso:
             case IngredientType.CoffeeBeans:
                 Instantiate(coffeeBeansIcon, baseIcon.transform, false);
                 return;

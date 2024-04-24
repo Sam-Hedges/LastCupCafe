@@ -59,7 +59,7 @@ public class CoffeeGrinder : Workstation, IProcessItem, IMinigame, IProduceItem
             storedValue = input;
             grindProgress += 0.005f;
             progressBar.fillAmount = (grindProgress / 4.0f);
-            Debug.Log(grindProgress);
+            // Debug.Log(grindProgress);
         }
         if (grindProgress >= 1.0f && currentlyStoredItem != null)
         {

@@ -14,7 +14,7 @@ public class Serve : MonoBehaviour
 
     void Start()
     {
-        newTime = MainTimer.GetComponent<Timer>().timer;
+        // newTime = MainTimer.GetComponent<Timer>().totalTimeInSeconds;
     }
 
     void Update()
@@ -50,36 +50,36 @@ public class Serve : MonoBehaviour
         //    }
         //}
 
-        newTime = MainTimer.GetComponent<Timer>().timer;
-
-        for (int i = 0; i < Order.customerID.Length; i++)
-        {
-            if (Order.drinkID[i] == serveID)
-            {
-                Debug.Log("Customer served");
-                Order.drinkID[i] = 0;
-                Order.customerID[i] = 0;
-                Destroy(Order.slots[i].transform.GetChild(0).gameObject);
-                serveID = -1;
-                break;
-            }
-        }
-
-        for (int i = 0; i < Order.customerID.Length; i++)
-        {
-            if (Order.customerID[i] != 0)
-            {
-                if (Order.slots[i].GetComponentInChildren<Timer>().fail == true)
-                {
-                    Debug.Log("Order failed");
-                    Order.drinkID[i] = 0;
-                    Order.customerID[i] = 0;
-                    Destroy(Order.slots[i].transform.GetChild(0).gameObject);
-                    serveID = -1;
-                    newTime = MainTimer.GetComponent<Timer>().timer - 20f;
-                }
-            }
-        }
+        // newTime = MainTimer.GetComponent<Timer>().timer;
+        //
+        // for (int i = 0; i < Order.customerID.Length; i++)
+        // {
+        //     if (Order.drinkID[i] == serveID)
+        //     {
+        //         Debug.Log("Customer served");
+        //         Order.drinkID[i] = 0;
+        //         Order.customerID[i] = 0;
+        //         Destroy(Order.slots[i].transform.GetChild(0).gameObject);
+        //         serveID = -1;
+        //         break;
+        //     }
+        // }
+        //
+        // for (int i = 0; i < Order.customerID.Length; i++)
+        // {
+        //     if (Order.customerID[i] != 0)
+        //     {
+        //         if (Order.slots[i].GetComponentInChildren<Timer>().fail == true)
+        //         {
+        //             Debug.Log("Order failed");
+        //             Order.drinkID[i] = 0;
+        //             Order.customerID[i] = 0;
+        //             Destroy(Order.slots[i].transform.GetChild(0).gameObject);
+        //             serveID = -1;
+        //             newTime = MainTimer.GetComponent<Timer>().timer - 20f;
+        //         }
+        //     }
+        // }
 
     }
 }
